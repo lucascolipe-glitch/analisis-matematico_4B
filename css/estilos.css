@@ -208,3 +208,51 @@ footer {
   nav { width: 100%; }
   .pdf-embed { height: 300px; }
 }
+.tarjetas-aula {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.tarjeta {
+  background: #ffffff;
+  border: 1px solid var(--gris);
+  border-radius: 16px;
+  padding: 1.2rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.tarjeta h3 {
+  color: var(--azul);
+  margin-top: 0;
+}
+
+.tarjeta button,
+.boton {
+  display: inline-block;
+  background: var(--azul);
+  color: white;
+  border: none;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  margin: 0.5rem 0;
+}
+
+.detalle-tarjeta {
+  display: none;
+  margin-top: 1rem;
+  background: #f3f4ff;
+  padding: 1rem;
+  border-radius: 12px;
+}
+
+.detalle-tarjeta iframe {
+  width: 100%;
+  height: 400px;
+  border: 1px solid var(--gris);
+  border-radius: 12px;
+  margin-top: 1rem;
+}
