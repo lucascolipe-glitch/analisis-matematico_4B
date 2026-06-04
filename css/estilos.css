@@ -22,7 +22,7 @@ body {
   color: var(--texto);
   line-height: 1.6;
 }
-/* ========================= 
+/* ========================= ========================= ========================= =========================
 BARRA SUPERIOR
 ========================= */
 .barra-superior {
@@ -72,7 +72,7 @@ nav a.activo {
   background: #eef0ff;
   color: var(--azul);
 }
-/* ========================= 
+/* ========================= ========================= ========================= =========================
 HEADER PRINCIPAL 
 ========================= */
 header {
@@ -93,7 +93,9 @@ header p {
   margin: 1rem auto 0;
   font-size: 1.15rem;
 }
-/* ========================= CONTENIDO PRINCIPAL ========================= */
+/* ========================= 
+CONTENIDO PRINCIPAL 
+========================= */
 main {
   width: min(1150px, 92%);
   margin: 2rem auto;
@@ -118,7 +120,9 @@ h3 {
   color: #374151;
   margin-top: 0;
 }
-
+/* ========================= ========================= =========================
+BLOQUE DE FÓRMULAS 
+========================= */
 .formula {
   text-align: center;
   font-size: 1.35rem;
@@ -128,7 +132,9 @@ h3 {
   border-left: 5px solid var(--azul);
   border-radius: 12px;
 }
-
+/* ========================= ========================= =========================
+GRID DE UNIDADES 
+========================= */
 .grid-unidades {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -156,12 +162,16 @@ h3 {
 
 .tarjeta-unidad a:hover,
 .boton:hover { background: #1b2ca8; }
-
+/* =========================
+BLOQUE DESTACADO 
+========================= */
 .temario {
   background: #fffbea;
   border-left: 5px solid #f59e0b;
 }
-
+/* ========================= 
+EJEMPLOS EN COLUMNAS 
+========================= */
 .hilera-ejemplos {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -180,7 +190,7 @@ h3 {
   margin: 0 0 .5rem;
   color: var(--azul);
 }
-
+/* ========================= VIDEOS Y PDFs ========================= */
 .video-embed,
 .pdf-embed {
   width: 100%;
@@ -196,26 +206,26 @@ h3 {
   font-size: 0.92rem;
   color: #4b5563;
 }
-
+/* ========================= FOOTER ========================= */
 footer {
   text-align: center;
   color: #6b7280;
   padding: 2rem;
   font-size: 0.9rem;
 }
-
+/* ========================= RESPONSIVE TABLET ========================= */
 @media (max-width: 900px) {
   .hilera-ejemplos { grid-template-columns: 1fr; }
   .video-embed { height: 260px; }
 }
-
+/* ========================= RESPONSIVE CELULAR ========================= */ 
 @media (max-width: 600px) {
   section { padding: 1.3rem; }
   .nav-contenedor { align-items: flex-start; flex-direction: column; }
   nav { width: 100%; }
   .pdf-embed { height: 300px; }
 }
-
+/* ========================= TARJETAS INTERACTIVAS ========================= */
 .tarjetas-aula {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -264,7 +274,7 @@ footer {
   border-radius: 12px;
   margin-top: 1rem;
 }
- /* =========================
+ /* ========================= ========================= =========================
    BLOQUE TEORÍA + EJEMPLOS
 ========================= */
 
