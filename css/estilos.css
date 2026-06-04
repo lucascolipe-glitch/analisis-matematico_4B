@@ -1,3 +1,6 @@
+/* ========================= 
+VARIABLES GLOBALES 
+========================= */
 :root {
   --azul: #2336c7;
   --azul-claro: #6574ff;
@@ -19,7 +22,9 @@ body {
   color: var(--texto);
   line-height: 1.6;
 }
-
+/* ========================= 
+BARRA SUPERIOR
+========================= */
 .barra-superior {
   position: sticky;
   top: 0;
@@ -67,7 +72,9 @@ nav a.activo {
   background: #eef0ff;
   color: var(--azul);
 }
-
+/* ========================= 
+HEADER PRINCIPAL 
+========================= */
 header {
   background: linear-gradient(135deg, #2637d1, #6574ff);
   color: white;
@@ -86,7 +93,7 @@ header p {
   margin: 1rem auto 0;
   font-size: 1.15rem;
 }
-
+/* ========================= CONTENIDO PRINCIPAL ========================= */
 main {
   width: min(1150px, 92%);
   margin: 2rem auto;
@@ -257,4 +264,43 @@ footer {
   border-radius: 12px;
   margin-top: 1rem;
 }
- 
+ /* =========================
+   BLOQUE TEORÍA + EJEMPLOS
+========================= */
+
+.dos-columnas {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 2rem;
+  align-items: start;
+  margin-top: 1.5rem;
+}
+
+.columna-teoria,
+.columna-ejemplos {
+  background: #fafafa;
+  border: 1px solid var(--gris);
+  border-radius: 16px;
+  padding: 1.5rem;
+}
+
+.columna-teoria h3,
+.columna-ejemplos h3 {
+  margin-top: 0;
+  color: var(--azul);
+}
+
+.bloque-ejemplo {
+  background: white;
+  border-left: 5px solid var(--azul);
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .dos-columnas {
+    grid-template-columns: 1fr;
+  }
+}
