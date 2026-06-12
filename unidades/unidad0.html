@@ -684,5 +684,17 @@ $$\text{Acá podés escribir una fórmula o idea central del tema.}$$
 <footer><a href="../index.html">Volver a la página principal</a></footer> 
    <!-- JAVASCRIPT -->
   <script src="js/script.js"></script>
+  function mostrarDetalle(id){
+
+  const detalle = document.getElementById(id);
+
+  if(detalle.style.display === "block"){
+    detalle.style.display = "none";
+  }
+  else{
+    detalle.style.display = "block";
+  }
+
+}
 </body>
 </html>
