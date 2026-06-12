@@ -322,3 +322,14 @@ TARJETAS INTERACTIVAS
   }
 }
 
+ /* ========================= ========================= =========================
+   BLOQUE geogebra
+========================= *
+
+.geogebra {
+    background: var(--blanco);
+    border-left: 5px solid var(--azul);
+    padding: 20px;
+    margin: 25px 0;
+    border-radius: 12px;
+}
