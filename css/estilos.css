@@ -218,14 +218,21 @@ footer {
   .hilera-ejemplos { grid-template-columns: 1fr; }
   .video-embed { height: 260px; }
 }
-/* ========================= RESPONSIVE CELULAR ========================= */ 
+/* ========================= 
+RESPONSIVE CELULAR 
+========================= */ 
+
 @media (max-width: 600px) {
   section { padding: 1.3rem; }
   .nav-contenedor { align-items: flex-start; flex-direction: column; }
   nav { width: 100%; }
   .pdf-embed { height: 300px; }
 }
-/* ========================= TARJETAS INTERACTIVAS ========================= */
+
+/* ========================= 
+TARJETAS INTERACTIVAS 
+========================= */
+
 .tarjetas-aula {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -314,3 +321,4 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+
