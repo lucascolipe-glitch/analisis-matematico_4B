@@ -785,7 +785,363 @@ En lo que sigue tenemos tres ejemplos de como hallar la raices de una función l
 
   <section id="5">  
 <h2>Función cuadrática</h2>
-<p class="nota">Espacio para desarrollar la teoría, escribir definiciones, fórmulas, observaciones y consignas breves.</p>
+
+    <section id="funcion-cuadratica">
+
+  <h2>Funciones cuadráticas</h2>
+
+  <p>
+    Una <strong>función cuadrática</strong> es una función cuya expresión
+    algebraica tiene la forma:
+  </p>
+
+  <p class="formula">
+    \[
+      f(x)=ax^2+bx+c,
+      \qquad a\neq 0
+    \]
+  </p>
+
+  <p>
+    Los números \(a\), \(b\) y \(c\) son números reales. La condición
+    \(a\neq 0\) es necesaria porque, si \(a=0\), la función dejaría de ser
+    cuadrática.
+  </p>
+
+  <h3>Gráfica de una función cuadrática</h3>
+
+  <p>
+    La gráfica de una función cuadrática es una curva denominada
+    <strong>parábola</strong>.
+  </p>
+
+  <p>
+    El ejemplo más sencillo es la función:
+  </p>
+
+  <p class="formula">
+    \[
+      f(x)=x^2
+    \]
+  </p>
+
+  <p>
+    Para construir su gráfica podemos elegir algunos valores de \(x\) y
+    calcular sus imágenes.
+  </p>
+
+  <div class="tabla-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th>\(x\)</th>
+          <th>\(f(x)=x^2\)</th>
+          <th>Punto</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>\(-2\)</td>
+          <td>\(4\)</td>
+          <td>\((-2,4)\)</td>
+        </tr>
+
+        <tr>
+          <td>\(-1\)</td>
+          <td>\(1\)</td>
+          <td>\((-1,1)\)</td>
+        </tr>
+
+        <tr>
+          <td>\(0\)</td>
+          <td>\(0\)</td>
+          <td>\((0,0)\)</td>
+        </tr>
+
+        <tr>
+          <td>\(1\)</td>
+          <td>\(1\)</td>
+          <td>\((1,1)\)</td>
+        </tr>
+
+        <tr>
+          <td>\(2\)</td>
+          <td>\(4\)</td>
+          <td>\((2,4)\)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>
+    Al representar estos puntos en el plano cartesiano y unirlos mediante
+    una curva suave obtenemos una parábola.
+  </p>
+
+  <h3>Elementos principales de la parábola</h3>
+
+  <h4>Vértice</h4>
+
+  <p>
+    El <strong>vértice</strong> es el punto en el que la parábola alcanza
+    un valor máximo o un valor mínimo.
+  </p>
+
+  <p>
+    En la función \(f(x)=x^2\), el vértice es el punto:
+  </p>
+
+  <p class="formula">
+    \[
+      V=(0,0)
+    \]
+  </p>
+
+  <p>
+    Para una función cuadrática general \(f(x)=ax^2+bx+c\), la coordenada
+    \(x\) del vértice se calcula mediante:
+  </p>
+
+  <p class="formula">
+    \[
+      x_v=-\frac{b}{2a}
+    \]
+  </p>
+
+  <p>
+    Luego se reemplaza ese valor en la función para obtener la coordenada
+    \(y\):
+  </p>
+
+  <p class="formula">
+    \[
+      y_v=f(x_v)
+    \]
+  </p>
+
+  <p>
+    Por lo tanto, el vértice es:
+  </p>
+
+  <p class="formula">
+    \[
+      V=(x_v,y_v)
+    \]
+  </p>
+
+  <h4>Eje de simetría</h4>
+
+  <p>
+    Toda parábola posee un <strong>eje de simetría</strong>. Es una recta
+    vertical que pasa por el vértice y divide la parábola en dos partes
+    iguales.
+  </p>
+
+  <p>
+    Su ecuación es:
+  </p>
+
+  <p class="formula">
+    \[
+      x=-\frac{b}{2a}
+    \]
+  </p>
+
+  <h3>Concavidad</h3>
+
+  <p>
+    El coeficiente \(a\) determina hacia dónde se abre la parábola.
+  </p>
+
+  <div class="destacado">
+    <p>
+      Si \(a&gt;0\), la parábola se abre hacia arriba y el vértice representa
+      un <strong>mínimo</strong>.
+    </p>
+
+    <p>
+      Si \(a&lt;0\), la parábola se abre hacia abajo y el vértice representa
+      un <strong>máximo</strong>.
+    </p>
+  </div>
+
+  <h3>Ordenada al origen</h3>
+
+  <p>
+    La ordenada al origen es el punto en el que la gráfica corta al eje
+    \(y\). Para encontrarla se reemplaza \(x=0\):
+  </p>
+
+  <p class="formula">
+    \[
+      f(0)=a\cdot 0^2+b\cdot 0+c=c
+    \]
+  </p>
+
+  <p>
+    Por lo tanto, la gráfica corta al eje \(y\) en el punto:
+  </p>
+
+  <p class="formula">
+    \[
+      (0,c)
+    \]
+  </p>
+
+  <h3>Raíces o ceros</h3>
+
+  <p>
+    Las <strong>raíces</strong> de una función cuadrática son los valores
+    de \(x\) para los cuales \(f(x)=0\). Gráficamente, son los puntos en los
+    que la parábola corta al eje \(x\).
+  </p>
+
+  <p>
+    Para encontrarlas debemos resolver la ecuación:
+  </p>
+
+  <p class="formula">
+    \[
+      ax^2+bx+c=0
+    \]
+  </p>
+
+  <p>
+    Podemos utilizar la fórmula resolvente:
+  </p>
+
+  <p class="formula">
+    \[
+      x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}
+    \]
+  </p>
+
+  <p>
+    La expresión que se encuentra dentro de la raíz se denomina
+    <strong>discriminante</strong>:
+  </p>
+
+  <p class="formula">
+    \[
+      \Delta=b^2-4ac
+    \]
+  </p>
+
+  <ul>
+    <li>
+      Si \(\Delta&gt;0\), la función tiene dos raíces reales diferentes.
+    </li>
+
+    <li>
+      Si \(\Delta=0\), la función tiene una única raíz real.
+    </li>
+
+    <li>
+      Si \(\Delta&lt;0\), la función no tiene raíces reales.
+    </li>
+  </ul>
+
+  <h3>Dominio e imagen</h3>
+
+  <p>
+    El dominio de cualquier función cuadrática es el conjunto de los
+    números reales:
+  </p>
+
+  <p class="formula">
+    \[
+      \operatorname{Dom}(f)=\mathbb{R}
+    \]
+  </p>
+
+  <p>
+    La imagen depende del vértice y de la concavidad de la parábola.
+  </p>
+
+  <ul>
+    <li>
+      Si \(a&gt;0\), la imagen está formada por los valores mayores o iguales
+      que \(y_v\):
+      \[
+        \operatorname{Im}(f)=[y_v,+\infty)
+      \]
+    </li>
+
+    <li>
+      Si \(a&lt;0\), la imagen está formada por los valores menores o iguales
+      que \(y_v\):
+      \[
+        \operatorname{Im}(f)=(-\infty,y_v]
+      \]
+    </li>
+  </ul>
+
+  <h3>Crecimiento y decrecimiento</h3>
+
+  <p>
+    El comportamiento de una función cuadrática cambia al pasar por el
+    vértice.
+  </p>
+
+  <ul>
+    <li>
+      Si \(a&gt;0\), la función es decreciente antes del vértice y creciente
+      después del vértice.
+    </li>
+
+    <li>
+      Si \(a&lt;0\), la función es creciente antes del vértice y decreciente
+      después del vértice.
+    </li>
+  </ul>
+
+  <h3>Conjunto de positividad y negatividad</h3>
+
+  <p>
+    El <strong>conjunto de positividad</strong> está formado por los valores
+    de \(x\) para los cuales la gráfica se encuentra por encima del eje
+    \(x\):
+  </p>
+
+  <p class="formula">
+    \[
+      C^{+}=\{x\in\mathbb{R}:f(x)&gt;0\}
+    \]
+  </p>
+
+  <p>
+    El <strong>conjunto de negatividad</strong> está formado por los valores
+    de \(x\) para los cuales la gráfica se encuentra por debajo del eje
+    \(x\):
+  </p>
+
+  <p class="formula">
+    \[
+      C^{-}=\{x\in\mathbb{R}:f(x)&lt;0\}
+    \]
+  </p>
+
+  <div class="resumen">
+    <h3>Resumen</h3>
+
+    <p>
+      Para analizar una función cuadrática conviene identificar:
+    </p>
+
+    <ol>
+      <li>La concavidad.</li>
+      <li>El vértice.</li>
+      <li>El eje de simetría.</li>
+      <li>La ordenada al origen.</li>
+      <li>Las raíces.</li>
+      <li>El dominio y la imagen.</li>
+      <li>Los intervalos de crecimiento y decrecimiento.</li>
+      <li>Los conjuntos de positividad y negatividad.</li>
+    </ol>
+  </div>
+
+</section>
     
 <div class="formula">
 $$\text{Acá podés escribir una fórmula o idea central del tema.}$$
