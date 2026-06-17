@@ -376,6 +376,30 @@ TARJETAS INTERACTIVAS
   background: var(--amarillo);
 }
 
+.resumen {
+  background-color: solid var(--fondo);
+  border-left: 6px solid solid var(--azul);
+  border-radius: 10px;
+  padding: 20px 25px;
+  margin: 30px 0;
+  box-shadow: 0 2px 8px var(--amarillo);
+}
+
 .resumen h3 {
+  color: #2336c7;
   margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.resumen p {
+  margin-bottom: 10px;
+}
+
+.resumen ol {
+  margin: 10px 0 0 22px;
+  padding: 0;
+}
+
+.resumen li {
+  margin-bottom: 7px;
 }
