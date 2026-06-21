@@ -324,33 +324,32 @@ TARJETAS INTERACTIVAS
    BLOQUE geogebra
 ========================= */
 
-.geogebra {     
-    width: 100%; 
-    min-width: 0;
-  
-    background: var(--blanco);
-    border-left: 5px solid var(--azul);
-    padding: 20px;
-    border-radius: 12px;
-  
-    margin:  0;
-   /* Importante: sin altura fija height: auto;  min-height: 0; */
-   overflow: hidden;
-}
-.geogebra iframe {
-  position: absolute;
-  inset: 0;
+.geogebra {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 20px;
 
+  background: var(--blanco);
+  border-left: 5px solid var(--azul);
+  border-radius: 12px;
+
+  overflow: hidden;
+}
+
+.geogebra iframe {
   display: block;
-  width: 100% !important;
+  width: 100%;
   height: auto;
+
   /* Mantiene la proporción original 700 × 500 */
   aspect-ratio: 7 / 5;
 
   margin: 0;
   padding: 0;
-  border:  1px solid var(--gris);
+  border: 1px solid var(--gris);
 }
+
 /* ========================= ========================= =========================
    tabla
 ========================= */
