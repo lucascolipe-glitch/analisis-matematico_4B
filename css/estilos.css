@@ -334,6 +334,7 @@ TARJETAS INTERACTIVAS
     border-radius: 12px;
    /* Importante: sin altura fija */
   height: auto;
+   width:auto;
   min-height: 0;
 }
 
