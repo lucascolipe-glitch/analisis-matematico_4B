@@ -326,7 +326,9 @@ TARJETAS INTERACTIVAS
    BLOQUE geogebra
 ========================= */
 
-.geogebra { 
+.geogebra {     
+    width: 100%;
+    max-width: 950px;
     background: var(--blanco);
     border-left: 5px solid var(--azul);
     padding: 20px;
