@@ -325,40 +325,31 @@ TARJETAS INTERACTIVAS
 ========================= */
 
 .geogebra {     
-    width: 100%;
-    max-width: 1000px;
-    min-width: 300px;
+    width: 100%; 
+    min-width: 0;
+  
     background: var(--blanco);
     border-left: 5px solid var(--azul);
     padding: 20px;
-    margin: 25px 0;
     border-radius: 12px;
-   /* Importante: sin altura fija */
-  height: auto; 
-  min-height: 0;
+  
+    margin:  0;
+   /* Importante: sin altura fija height: auto;  min-height: 0; */
+   overflow: hidden;
 }
-
-.geogebra-contenedor {
-  position: relative;
-  width: 100%;
-
-  /* Debe coincidir con width 700 y height 500 */
-  aspect-ratio: 7 / 5;
-
-  overflow: hidden;
-}
-
-.geogebra-contenedor iframe {
+.geogebra iframe {
   position: absolute;
   inset: 0;
 
   display: block;
   width: 100% !important;
-  height: 100% !important;
+  height: auto;
+  /* Mantiene la proporción original 700 × 500 */
+  aspect-ratio: 7 / 5;
 
   margin: 0;
   padding: 0;
-  border: none;
+  border:  1px solid var(--gris);
 }
 /* ========================= ========================= =========================
    tabla
