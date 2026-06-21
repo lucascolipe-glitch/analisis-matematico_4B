@@ -343,7 +343,7 @@ TARJETAS INTERACTIVAS
   width: 100%;
 
   /* Debe coincidir con width 700 y height 500 */
-  aspect-ratio: 7 / 9;
+  aspect-ratio: 7 / 5;
 
   overflow: hidden;
 }
