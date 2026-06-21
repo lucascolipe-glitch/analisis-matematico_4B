@@ -332,8 +332,33 @@ TARJETAS INTERACTIVAS
     padding: 20px;
     margin: 25px 0;
     border-radius: 12px;
+   /* Importante: sin altura fija */
+  height: auto;
+  min-height: 0;
 }
 
+.geogebra-contenedor {
+  position: relative;
+  width: 100%;
+
+  /* Debe coincidir con width 900 y height 500 */
+  aspect-ratio: 900 / 500;
+
+  overflow: hidden;
+}
+
+.geogebra-contenedor iframe {
+  position: absolute;
+  inset: 0;
+
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+
+  margin: 0;
+  padding: 0;
+  border: none;
+}
 /* ========================= ========================= =========================
    tabla
 ========================= */
