@@ -473,6 +473,661 @@ $$\text{Acá podés escribir una fórmula o idea central del tema.}$$
 </div>
 </section><section id="3">
 <h2>Polinomios y Ruffini</h2>
+
+
+
+
+
+<h1>Polinomios</h1>
+
+    <p>
+      Los polinomios son expresiones algebraicas que aparecen en numerosos
+      problemas matemáticos. En esta sección estudiaremos sus elementos
+      principales y las operaciones que podemos realizar con ellos.
+    </p>
+  </header>
+
+
+  <!-- DEFINICIÓN -->
+
+  <article class="tarjeta">
+    <h2>1. ¿Qué es un polinomio?</h2>
+
+    <p>
+      Un <strong>polinomio en la variable \(x\)</strong> es una expresión de la forma:
+    </p>
+
+    <div class="formula-destacada">
+      \[
+        P(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_2x^2+a_1x+a_0
+      \]
+    </div>
+
+    <p>donde:</p>
+
+    <ul>
+      <li>\(a_0,a_1,\ldots,a_n\) son números reales llamados coeficientes;</li>
+      <li>los exponentes de \(x\) son números enteros no negativos;</li>
+      <li>\(a_n\neq 0\).</li>
+    </ul>
+
+    <div class="ejemplo">
+      <h3>Ejemplos de polinomios</h3>
+
+      <p>
+        \[
+          P(x)=3x^4-2x^2+x-7
+        \]
+      </p>
+
+      <p>
+        \[
+          Q(x)=-5x^3+8x
+        \]
+      </p>
+
+      <p>
+        \[
+          R(x)=6
+        \]
+      </p>
+
+      <p>
+        Un número real también puede considerarse un polinomio constante.
+      </p>
+    </div>
+  </article>
+
+
+  <!-- QUÉ NO ES UN POLINOMIO -->
+
+  <article class="tarjeta">
+    <h2>2. ¿Qué expresiones no son polinomios?</h2>
+
+    <p>
+      En un polinomio, la variable no puede aparecer en un denominador,
+      dentro de una raíz ni elevada a un exponente negativo o fraccionario.
+    </p>
+
+    <div class="tabla-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>Expresión</th>
+            <th>¿Es polinomio?</th>
+            <th>Explicación</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>\(3x^2-5x+1\)</td>
+            <td>Sí</td>
+            <td>Los exponentes son enteros no negativos.</td>
+          </tr>
+
+          <tr>
+            <td>\(\dfrac{2}{x}+1\)</td>
+            <td>No</td>
+            <td>La variable aparece en el denominador.</td>
+          </tr>
+
+          <tr>
+            <td>\(\sqrt{x}+2\)</td>
+            <td>No</td>
+            <td>\(\sqrt{x}=x^{1/2}\) tiene exponente fraccionario.</td>
+          </tr>
+
+          <tr>
+            <td>\(x^{-3}+4x\)</td>
+            <td>No</td>
+            <td>Aparece un exponente negativo.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="resumen">
+      <strong>En síntesis:</strong> los exponentes de la variable deben ser
+      \(0,1,2,3,\ldots\).
+    </div>
+  </article>
+
+
+  <!-- ELEMENTOS -->
+
+  <article class="tarjeta">
+    <h2>3. Elementos de un polinomio</h2>
+
+    <h3>Grado</h3>
+
+    <p>
+      El <strong>grado de un polinomio</strong> es el mayor exponente de la
+      variable cuyo coeficiente es distinto de cero.
+    </p>
+
+    <h3>Coeficientes</h3>
+
+    <p>
+      Los <strong>coeficientes</strong> son los números que multiplican a las
+      distintas potencias de la variable.
+    </p>
+
+    <h3>Término principal</h3>
+
+    <p>
+      El <strong>término principal</strong> es el término que contiene la
+      mayor potencia de la variable.
+    </p>
+
+    <h3>Coeficiente principal</h3>
+
+    <p>
+      El <strong>coeficiente principal</strong> es el número que multiplica
+      al término de mayor grado.
+    </p>
+
+    <h3>Término independiente</h3>
+
+    <p>
+      El <strong>término independiente</strong> es el término que no contiene
+      la variable.
+    </p>
+
+    <div class="ejemplo">
+      <h3>Ejemplo</h3>
+
+      <p>Consideremos el polinomio:</p>
+
+      <p>
+        \[
+          P(x)=3x^4-2x^2+x+5
+        \]
+      </p>
+
+      <ul>
+        <li>Grado: \(4\).</li>
+        <li>Término principal: \(3x^4\).</li>
+        <li>Coeficiente principal: \(3\).</li>
+        <li>Término independiente: \(5\).</li>
+        <li>Coeficientes: \(3,0,-2,1,5\).</li>
+      </ul>
+
+      <p>
+        El coeficiente de \(x^3\) es \(0\), porque esa potencia no aparece
+        escrita en el polinomio.
+      </p>
+    </div>
+  </article>
+
+
+  <!-- ORDENAR Y COMPLETAR -->
+
+  <article class="tarjeta">
+    <h2>4. Ordenar y completar un polinomio</h2>
+
+    <p>
+      Un polinomio está <strong>ordenado en forma decreciente</strong> cuando
+      sus términos aparecen desde la mayor potencia hasta la menor.
+    </p>
+
+    <p>
+      Un polinomio está <strong>completo</strong> cuando aparecen todas las
+      potencias comprendidas entre su grado y el término independiente.
+    </p>
+
+    <div class="ejemplo">
+      <h3>Ejemplo</h3>
+
+      <p>Sea:</p>
+
+      <p>
+        \[
+          P(x)=4x^4+3x-2x^2+1
+        \]
+      </p>
+
+      <p>Ordenado:</p>
+
+      <p>
+        \[
+          P(x)=4x^4-2x^2+3x+1
+        \]
+      </p>
+
+      <p>Ordenado y completo:</p>
+
+      <p>
+        \[
+          P(x)=4x^4+0x^3-2x^2+3x+1
+        \]
+      </p>
+    </div>
+  </article>
+
+
+  <!-- MONOMIOS SEMEJANTES -->
+
+  <article class="tarjeta">
+    <h2>5. Monomios semejantes</h2>
+
+    <p>
+      Dos monomios son <strong>semejantes</strong> cuando tienen la misma
+      parte literal, es decir, la misma variable elevada al mismo exponente.
+    </p>
+
+    <div class="ejemplo">
+      <h3>Ejemplos</h3>
+
+      <p>
+        \(3x^2\), \(-5x^2\) y \(x^2\) son monomios semejantes.
+      </p>
+
+      <p>
+        En cambio, \(x^2\) y \(x^3\) no son semejantes porque tienen
+        exponentes diferentes.
+      </p>
+    </div>
+
+    <p>
+      Los monomios semejantes pueden sumarse o restarse operando sus
+      coeficientes y conservando la parte literal.
+    </p>
+
+    <div class="ejemplo">
+      <p>
+        \[
+          3x^2+5x^2=(3+5)x^2=8x^2
+        \]
+      </p>
+
+      <p>
+        \[
+          7x-2x=(7-2)x=5x
+        \]
+      </p>
+
+      <p>
+        \[
+          -4x^3+x^3=(-4+1)x^3=-3x^3
+        \]
+      </p>
+
+      <p>
+        \[
+          6x^5-6x^5=0
+        \]
+      </p>
+    </div>
+  </article>
+
+
+  <!-- SUMA Y RESTA -->
+
+  <article class="tarjeta">
+    <h2>6. Suma y resta de polinomios</h2>
+
+    <p>
+      Para sumar o restar polinomios se agrupan los términos semejantes y se
+      operan sus coeficientes.
+    </p>
+
+    <div class="nota">
+      Antes de realizar la operación conviene ordenar y completar los
+      polinomios.
+    </div>
+
+    <div class="ejemplo">
+      <h3>Ejemplo de suma</h3>
+
+      <p>Sean:</p>
+
+      <p>
+        \[
+          P(x)=2x^3-x^2+3x+1
+        \]
+      </p>
+
+      <p>
+        \[
+          Q(x)=-x^3+4x^2-2x+5
+        \]
+      </p>
+
+      <p>Entonces:</p>
+
+      <p>
+        \[
+        \begin{aligned}
+          P(x)+Q(x)
+          &=(2x^3-x^3)+(-x^2+4x^2)\\
+          &\quad +(3x-2x)+(1+5)\\
+          &=x^3+3x^2+x+6
+        \end{aligned}
+        \]
+      </p>
+    </div>
+
+    <div class="ejemplo">
+      <h3>Ejemplo de resta</h3>
+
+      <p>
+        \[
+        \begin{aligned}
+          P(x)-Q(x)
+          &=(2x^3-x^2+3x+1)\\
+          &\quad-(-x^3+4x^2-2x+5)\\
+          &=2x^3-x^2+3x+1\\
+          &\quad+x^3-4x^2+2x-5\\
+          &=3x^3-5x^2+5x-4
+        \end{aligned}
+        \]
+      </p>
+
+      <p>
+        Al restar un polinomio se debe cambiar el signo de todos sus términos.
+      </p>
+    </div>
+  </article>
+
+
+  <!-- MULTIPLICACIÓN -->
+
+  <article class="tarjeta">
+    <h2>7. Multiplicación de polinomios</h2>
+
+    <p>
+      Para multiplicar polinomios se utiliza la propiedad distributiva.
+      Además, al multiplicar potencias de la misma base, se suman los
+      exponentes:
+    </p>
+
+    <div class="formula-destacada">
+      \[
+        x^m\cdot x^n=x^{m+n}
+      \]
+    </div>
+
+    <h3>Multiplicación de monomios</h3>
+
+    <p>
+      Se multiplican los coeficientes y se suman los exponentes de la variable.
+    </p>
+
+    <div class="ejemplo">
+      <p>
+        \[
+          7x^2\cdot(-3x^5)
+          =(7\cdot -3)x^{2+5}
+          =-21x^7
+        \]
+      </p>
+
+      <p>
+        \[
+          -5x^4\cdot 2x^3
+          =-10x^7
+        \]
+      </p>
+    </div>
+
+    <h3>Multiplicación de dos polinomios</h3>
+
+    <div class="ejemplo">
+      <p>Calculemos:</p>
+
+      <p>
+        \[
+          (x^2-5)(x^3+2x-9)
+        \]
+      </p>
+
+      <p>Aplicamos la propiedad distributiva:</p>
+
+      <p>
+        \[
+        \begin{aligned}
+          (x^2-5)(x^3+2x-9)
+          &=x^2(x^3+2x-9)\\
+          &\quad-5(x^3+2x-9)\\
+          &=x^5+2x^3-9x^2\\
+          &\quad-5x^3-10x+45
+        \end{aligned}
+        \]
+      </p>
+
+      <p>Agrupamos los términos semejantes:</p>
+
+      <p>
+        \[
+          (x^2-5)(x^3+2x-9)
+          =x^5-3x^3-9x^2-10x+45
+        \]
+      </p>
+    </div>
+  </article>
+
+
+  <!-- DIVISIÓN -->
+
+  <article class="tarjeta">
+    <h2>8. División de polinomios</h2>
+
+    <p>
+      Dividir un polinomio \(D(x)\), llamado <strong>dividendo</strong>, por
+      otro polinomio \(Q(x)\), llamado <strong>divisor</strong>, consiste en
+      encontrar un cociente \(C(x)\) y un resto \(R(x)\) que satisfagan:
+    </p>
+
+    <div class="formula-destacada">
+      \[
+        D(x)=Q(x)\cdot C(x)+R(x)
+      \]
+    </div>
+
+    <p>Además, el grado del resto debe ser menor que el grado del divisor:</p>
+
+    <div class="formula-destacada">
+      \[
+        \operatorname{gr}(R)&lt;\operatorname{gr}(Q)
+      \]
+    </div>
+
+    <h3>Recomendaciones</h3>
+
+    <ul>
+      <li>Ordenar el dividendo y el divisor en forma decreciente.</li>
+      <li>Completar el dividendo cuando falte alguna potencia.</li>
+      <li>Comprobar el resultado usando la igualdad fundamental.</li>
+    </ul>
+
+    <div class="ejemplo">
+      <h3>Ejemplo sencillo</h3>
+
+      <p>Al dividir:</p>
+
+      <p>
+        \[
+          x^2+3x+2
+        \]
+      </p>
+
+      <p>por:</p>
+
+      <p>
+        \[
+          x+1
+        \]
+      </p>
+
+      <p>se obtiene:</p>
+
+      <p>
+        \[
+          C(x)=x+2
+          \qquad\text{y}\qquad
+          R(x)=0
+        \]
+      </p>
+
+      <p>Por lo tanto:</p>
+
+      <p>
+        \[
+          x^2+3x+2=(x+1)(x+2)
+        \]
+      </p>
+    </div>
+  </article>
+
+
+  <!-- RUFFINI -->
+
+  <article class="tarjeta">
+    <h2>9. Regla de Ruffini</h2>
+
+    <p>
+      La regla de Ruffini permite dividir un polinomio por un divisor de la
+      forma:
+    </p>
+
+    <div class="formula-destacada">
+      \[
+        x-a
+      \]
+    </div>
+
+    <p>
+      Para aplicarla se utilizan solamente los coeficientes del dividendo.
+      Si falta alguna potencia, debe colocarse un coeficiente igual a cero.
+    </p>
+
+    <div class="ejemplo">
+      <h3>Ejemplo</h3>
+
+      <p>Dividamos:</p>
+
+      <p>
+        \[
+          P(x)=2x^3+3x^2-4
+        \]
+      </p>
+
+      <p>por:</p>
+
+      <p>
+        \[
+          Q(x)=x+1=x-(-1)
+        \]
+      </p>
+
+      <p>
+        Como falta el término en \(x\), escribimos el dividendo completo:
+      </p>
+
+      <p>
+        \[
+          P(x)=2x^3+3x^2+0x-4
+        \]
+      </p>
+
+      <div class="tabla-responsive">
+        <table class="tabla-ruffini">
+          <tbody>
+            <tr>
+              <th rowspan="2">\(-1\)</th>
+              <td>2</td>
+              <td>3</td>
+              <td>0</td>
+              <td>\(-4\)</td>
+            </tr>
+
+            <tr>
+              <td></td>
+              <td>\(-2\)</td>
+              <td>\(-1\)</td>
+              <td>1</td>
+            </tr>
+
+            <tr>
+              <th></th>
+              <td><strong>2</strong></td>
+              <td><strong>1</strong></td>
+              <td><strong>\(-1\)</strong></td>
+              <td><strong>\(-3\)</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        Los tres primeros números de la última fila son los coeficientes del
+        cociente y el último número es el resto.
+      </p>
+
+      <p>
+        \[
+          C(x)=2x^2+x-1
+        \]
+      </p>
+
+      <p>
+        \[
+          R(x)=-3
+        \]
+      </p>
+
+      <p>La igualdad fundamental queda:</p>
+
+      <p>
+        \[
+          2x^3+3x^2-4
+          =(x+1)(2x^2+x-1)-3
+        \]
+      </p>
+    </div>
+  </article>
+
+
+  <!-- RESUMEN -->
+
+  <article class="tarjeta resumen-final">
+    <h2>10. Para recordar</h2>
+
+    <ul>
+      <li>
+        Un polinomio tiene exponentes enteros no negativos.
+      </li>
+
+      <li>
+        El grado es el mayor exponente con coeficiente distinto de cero.
+      </li>
+
+      <li>
+        Para sumar o restar se operan solamente los términos semejantes.
+      </li>
+
+      <li>
+        Para multiplicar se aplica la propiedad distributiva.
+      </li>
+
+      <li>
+        En una división se cumple:
+        \[
+          D(x)=Q(x)\cdot C(x)+R(x).
+        \]
+      </li>
+
+      <li>
+        Ruffini se utiliza cuando el divisor tiene la forma \(x-a\).
+      </li>
+    </ul>
+  </article>
+
+
+
+
+  
 <p class="nota">Espacio para desarrollar la teoría, escribir definiciones, fórmulas, observaciones y consignas breves.</p>
 <div class="formula">
 $$\text{Acá podés escribir una fórmula o idea central del tema.}$$
