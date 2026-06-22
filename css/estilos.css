@@ -191,6 +191,8 @@ EJEMPLOS EN COLUMNAS
   color: var(--azul);
 }
 /* ========================= VIDEOS Y PDFs ========================= */
+
+
 .video-embed,
 .pdf-embed {
   width: 100%;
@@ -206,6 +208,13 @@ EJEMPLOS EN COLUMNAS
   font-size: 0.92rem;
   color: #4b5563;
 }
+.video-contenedor {
+  width: min(800px, 100%);
+  margin: 25px auto;
+  aspect-ratio: 16 / 9;
+}
+
+
 /* ========================= FOOTER ========================= */
 footer {
   text-align: center;
