@@ -380,6 +380,42 @@ TARJETAS INTERACTIVAS
 .tabla-responsive tbody tr:nth-child(even) {
   background: #f3f4f6;
 }
+/* ========================= ========================= =========================
+   tabla Ruffini
+========================= */
+.tabla-ruffini {
+  margin: 20px auto;
+  border-collapse: collapse;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.tabla-ruffini th,
+.tabla-ruffini td {
+  min-width: 55px;
+  padding: 10px 14px;
+}
+
+/* Número que corresponde al divisor x - a */
+.tabla-ruffini th:first-child {
+  border-right: 2px solid var(--texto);
+  font-weight: bold;
+}
+
+/* Línea que separa los cálculos del resultado */
+.tabla-ruffini tr:last-child {
+  border-top: 2px solid var(--texto);
+}
+
+/* Resultado final */
+.tabla-ruffini tr:last-child td {
+  font-weight: bold;
+  background-color: var(--amarillo);
+}
+
+
+
+
 
 /* ========================= ========================= =========================
    resumen
@@ -453,4 +489,3 @@ TARJETAS INTERACTIVAS
   font-size: 1.1rem;
   margin: 12px 0;
 }
-
