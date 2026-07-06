@@ -1527,7 +1527,782 @@
 
   
 </section><section id="8">
-<h2>Función racional: hipérbolica</h2>
+<h2>Función racional: hipérbolica</h2> 
+
+  <h2>Función racional</h2>
+
+  <p class="nota">
+    En esta unidad vamos a estudiar una forma particular de función racional. 
+    No trabajaremos todavía con todas las funciones racionales posibles, sino con funciones
+    de la forma:
+  </p>
+
+  <p class="formula">
+    \[
+      f(x)=\frac{a}{x-b}+c
+    \]
+  </p>
+
+  <p>
+    donde \(a\), \(b\) y \(c\) son números reales, con \(a\neq 0\).
+  </p>
+
+  <!-- DEFINICIÓN -->
+  <article class="tarjeta">
+    <h3>1. ¿Qué es una función racional?</h3>
+
+    <p>
+      Una <strong>función racional</strong> es una función donde la variable aparece en el
+      denominador de una fracción. En la forma que vamos a estudiar, la función tiene esta estructura:
+    </p>
+
+    <p class="formula">
+      \[
+        f(x)=\frac{a}{x-b}+c
+      \]
+    </p>
+
+    <p>
+      Por ejemplo:
+    </p>
+
+    <p class="formula">
+      \[
+        g(x)=\frac{-6}{x-4}-1
+      \]
+    </p>
+
+    <p>
+      En esta función, la variable \(x\) aparece en el denominador \(x-4\). 
+      Por eso, debemos prestar atención a los valores de \(x\) que hacen que el denominador sea cero.
+    </p>
+
+    <div class="nota">
+      <p>
+        <strong>Idea clave:</strong> en una función racional no se puede dividir por cero.
+        Por eso, algunos valores de \(x\) no pertenecen al dominio.
+      </p>
+    </div>
+  </article>
+
+  <!-- ELEMENTOS -->
+  <article class="tarjeta">
+    <h3>2. Elementos de la función racional</h3>
+
+    <p>
+      En la función
+    </p>
+
+    <p class="formula">
+      \[
+        f(x)=\frac{a}{x-b}+c
+      \]
+    </p>
+
+    <p>
+      cada número cumple un papel importante:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Elemento</th>
+          <th>Qué indica</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>\(a\)</td>
+          <td>Influye en la forma de la curva y en si la función crece o decrece en cada intervalo.</td>
+        </tr>
+        <tr>
+          <td>\(b\)</td>
+          <td>Indica el valor que no pertenece al dominio. También determina la asíntota vertical.</td>
+        </tr>
+        <tr>
+          <td>\(c\)</td>
+          <td>Indica el valor al que se aproxima la función horizontalmente. Determina la asíntota horizontal.</td>
+        </tr>
+      </tbody>
+    </table>
+  </article>
+
+  <!-- DOMINIO -->
+  <article class="tarjeta">
+    <h3>3. Dominio</h3>
+
+    <p>
+      El <strong>dominio</strong> es el conjunto de valores que puede tomar la variable \(x\).
+      En una función racional, debemos excluir los valores que hacen cero al denominador.
+    </p>
+
+    <p>
+      Para la función:
+    </p>
+
+    <p class="formula">
+      \[
+        f(x)=\frac{a}{x-b}+c
+      \]
+    </p>
+
+    <p>
+      el denominador es:
+    </p>
+
+    <p class="formula">
+      \[
+        x-b
+      \]
+    </p>
+
+    <p>
+      Entonces buscamos cuándo se anula:
+    </p>
+
+    <p class="formula">
+      \[
+        x-b=0
+      \]
+    </p>
+
+    <p class="formula">
+      \[
+        x=b
+      \]
+    </p>
+
+    <p>
+      Por lo tanto, \(x=b\) no pertenece al dominio.
+    </p>
+
+    <p class="formula">
+      \[
+        Dom(f)=\mathbb{R}-\{b\}
+      \]
+    </p>
+
+    <p>
+      También podemos escribirlo usando intervalos:
+    </p>
+
+    <p class="formula">
+      \[
+        Dom(f)=(-\infty,b)\cup(b,+\infty)
+      \]
+    </p>
+
+    <div class="ejemplo">
+      <h4>Ejemplo</h4>
+
+      <p>
+        Para:
+      </p>
+
+      <p class="formula">
+        \[
+          g(x)=\frac{-6}{x-4}-1
+        \]
+      </p>
+
+      <p>
+        el denominador es \(x-4\). Entonces:
+      </p>
+
+      <p class="formula">
+        \[
+          x-4=0
+        \]
+      </p>
+
+      <p class="formula">
+        \[
+          x=4
+        \]
+      </p>
+
+      <p>
+        Por lo tanto:
+      </p>
+
+      <p class="formula">
+        \[
+          Dom(g)=\mathbb{R}-\{4\}
+        \]
+      </p>
+
+      <p class="formula">
+        \[
+          Dom(g)=(-\infty,4)\cup(4,+\infty)
+        \]
+      </p>
+    </div>
+  </article>
+
+  <!-- ASÍNTOTAS -->
+  <article class="tarjeta">
+    <h3>4. Asíntotas</h3>
+
+    <p>
+      Las <strong>asíntotas</strong> son rectas a las que la gráfica se aproxima, pero que no siempre toca.
+      En esta forma de función racional aparecen dos asíntotas importantes.
+    </p>
+
+    <h4>Asíntota vertical</h4>
+
+    <p>
+      La <strong>asíntota vertical</strong> aparece en el valor que no pertenece al dominio.
+      Para la función:
+    </p>
+
+    <p class="formula">
+      \[
+        f(x)=\frac{a}{x-b}+c
+      \]
+    </p>
+
+    <p>
+      la asíntota vertical es:
+    </p>
+
+    <p class="formula">
+      \[
+        x=b
+      \]
+    </p>
+
+    <h4>Asíntota horizontal</h4>
+
+    <p>
+      La <strong>asíntota horizontal</strong> es la recta a la que se aproxima la función
+      cuando \(x\) toma valores muy grandes o muy pequeños.
+    </p>
+
+    <p>
+      Para la función:
+    </p>
+
+    <p class="formula">
+      \[
+        f(x)=\frac{a}{x-b}+c
+      \]
+    </p>
+
+    <p>
+      la asíntota horizontal es:
+    </p>
+
+    <p class="formula">
+      \[
+        y=c
+      \]
+    </p>
+
+    <div class="ejemplo">
+      <h4>Ejemplo</h4>
+
+      <p>
+        En la función:
+      </p>
+
+      <p class="formula">
+        \[
+          g(x)=\frac{-6}{x-4}-1
+        \]
+      </p>
+
+      <p>
+        tenemos:
+      </p>
+
+      <p class="formula">
+        \[
+          b=4
+          \qquad
+          c=-1
+        \]
+      </p>
+
+      <p>
+        Entonces:
+      </p>
+
+      <p class="formula">
+        \[
+          \text{Asíntota vertical: } x=4
+        \]
+      </p>
+
+      <p class="formula">
+        \[
+          \text{Asíntota horizontal: } y=-1
+        \]
+      </p>
+    </div>
+  </article>
+
+  <!-- IMAGEN -->
+  <article class="tarjeta">
+    <h3>5. Imagen</h3>
+
+    <p>
+      La <strong>imagen</strong> es el conjunto de valores que puede tomar la función.
+    </p>
+
+    <p>
+      En funciones de la forma:
+    </p>
+
+    <p class="formula">
+      \[
+        f(x)=\frac{a}{x-b}+c
+      \]
+    </p>
+
+    <p>
+      la función se acerca a la recta \(y=c\), pero no llega a tomar ese valor.
+      Por eso:
+    </p>
+
+    <p class="formula">
+      \[
+        Im(f)=\mathbb{R}-\{c\}
+      \]
+    </p>
+
+    <p>
+      También podemos escribirlo usando intervalos:
+    </p>
+
+    <p class="formula">
+      \[
+        Im(f)=(-\infty,c)\cup(c,+\infty)
+      \]
+    </p>
+
+    <div class="ejemplo">
+      <h4>Ejemplo</h4>
+
+      <p>
+        Para:
+      </p>
+
+      <p class="formula">
+        \[
+          g(x)=\frac{-6}{x-4}-1
+        \]
+      </p>
+
+      <p>
+        la asíntota horizontal es \(y=-1\). Entonces la función no toma el valor \(-1\).
+      </p>
+
+      <p class="formula">
+        \[
+          Im(g)=\mathbb{R}-\{-1\}
+        \]
+      </p>
+
+      <p class="formula">
+        \[
+          Im(g)=(-\infty,-1)\cup(-1,+\infty)
+        \]
+      </p>
+    </div>
+  </article>
+
+  <!-- RAÍZ -->
+  <article class="tarjeta">
+    <h3>6. Raíz de una función racional</h3>
+
+    <p>
+      La <strong>raíz</strong> de una función es el valor de \(x\) para el cual la función vale cero.
+      Es decir:
+    </p>
+
+    <p class="formula">
+      \[
+        f(x)=0
+      \]
+    </p>
+
+    <p>
+      Gráficamente, la raíz es el punto donde la curva corta al eje \(x\).
+    </p>
+
+    <div class="ejemplo">
+      <h4>Ejemplo</h4>
+
+      <p>
+        Hallemos la raíz de:
+      </p>
+
+      <p class="formula">
+        \[
+          g(x)=\frac{-6}{x-4}-1
+        \]
+      </p>
+
+      <p>
+        Igualamos a cero:
+      </p>
+
+      <p class="formula">
+        \[
+          \frac{-6}{x-4}-1=0
+        \]
+      </p>
+
+      <p class="formula">
+        \[
+          \frac{-6}{x-4}=1
+        \]
+      </p>
+
+      <p class="formula">
+        \[
+          -6=x-4
+        \]
+      </p>
+
+      <p class="formula">
+        \[
+          -2=x
+        \]
+      </p>
+
+      <p>
+        Entonces la raíz es:
+      </p>
+
+      <p class="formula">
+        \[
+          x=-2
+        \]
+      </p>
+
+      <p>
+        La gráfica corta al eje \(x\) en el punto:
+      </p>
+
+      <p class="formula">
+        \[
+          (-2,0)
+        \]
+      </p>
+    </div>
+  </article>
+
+  <!-- ORDENADA AL ORIGEN -->
+  <article class="tarjeta">
+    <h3>7. Ordenada al origen</h3>
+
+    <p>
+      La <strong>ordenada al origen</strong> es el valor de la función cuando \(x=0\).
+      Para encontrarla, calculamos \(f(0)\), siempre que \(0\) pertenezca al dominio.
+    </p>
+
+    <div class="ejemplo">
+      <h4>Ejemplo</h4>
+
+      <p>
+        Para:
+      </p>
+
+      <p class="formula">
+        \[
+          g(x)=\frac{-6}{x-4}-1
+        \]
+      </p>
+
+      <p>
+        calculamos:
+      </p>
+
+      <p class="formula">
+        \[
+          g(0)=\frac{-6}{0-4}-1
+        \]
+      </p>
+
+      <p class="formula">
+        \[
+          g(0)=\frac{-6}{-4}-1
+        \]
+      </p>
+
+      <p class="formula">
+        \[
+          g(0)=\frac{3}{2}-1
+        \]
+      </p>
+
+      <p class="formula">
+        \[
+          g(0)=\frac{1}{2}
+        \]
+      </p>
+
+      <p>
+        Entonces la intersección con el eje \(y\) es:
+      </p>
+
+      <p class="formula">
+        \[
+          \left(0,\frac{1}{2}\right)
+        \]
+      </p>
+    </div>
+  </article>
+
+  <!-- CRECIMIENTO -->
+  <article class="tarjeta">
+    <h3>8. Crecimiento y decrecimiento</h3>
+
+    <p>
+      Las funciones racionales de la forma:
+    </p>
+
+    <p class="formula">
+      \[
+        f(x)=\frac{a}{x-b}+c
+      \]
+    </p>
+
+    <p>
+      se analizan por separado en los intervalos que determina la asíntota vertical:
+    </p>
+
+    <p class="formula">
+      \[
+        (-\infty,b)
+        \qquad \text{y} \qquad
+        (b,+\infty)
+      \]
+    </p>
+
+    <p>
+      Esto ocurre porque en \(x=b\) la función no está definida.
+    </p>
+
+    <div class="nota">
+      <p>
+        <strong>Idea para leer la gráfica:</strong> miramos cada rama de izquierda a derecha.
+        La función puede crecer o decrecer en cada intervalo de su dominio.
+      </p>
+    </div>
+
+    <p>
+      En esta forma particular:
+    </p>
+
+    <ul>
+      <li>Si \(a\gt 0\), la función es decreciente en cada intervalo de su dominio.</li>
+      <li>Si \(a\lt 0\), la función es creciente en cada intervalo de su dominio.</li>
+    </ul>
+
+    <div class="ejemplo">
+      <h4>Ejemplo</h4>
+
+      <p>
+        Para:
+      </p>
+
+      <p class="formula">
+        \[
+          g(x)=\frac{-6}{x-4}-1
+        \]
+      </p>
+
+      <p>
+        tenemos \(a=-6\), que es negativo. Por eso, la función es creciente en cada parte
+        de su dominio:
+      </p>
+
+      <p class="formula">
+        \[
+          \text{Crece en } (-\infty,4)
+        \]
+      </p>
+
+      <p class="formula">
+        \[
+          \text{Crece en } (4,+\infty)
+        \]
+      </p>
+
+      <p>
+        No decimos que crece en todo \(\mathbb{R}\), porque en \(x=4\) la función no existe.
+      </p>
+    </div>
+  </article>
+
+  <!-- POSITIVIDAD Y NEGATIVIDAD -->
+  <article class="tarjeta">
+    <h3>9. Conjunto de positividad y negatividad</h3>
+
+    <p>
+      Para estudiar el signo de una función racional, tenemos que tener en cuenta:
+    </p>
+
+    <ul>
+      <li>los valores donde la función vale cero, es decir, sus raíces;</li>
+      <li>los valores donde la función no existe, es decir, los puntos que no pertenecen al dominio.</li>
+    </ul>
+
+    <p>
+      Esos valores dividen la recta real en intervalos. En cada intervalo analizamos si la función
+      queda por encima o por debajo del eje \(x\).
+    </p>
+
+    <div class="nota">
+      <p>
+        <strong>Recordatorio:</strong>
+      </p>
+
+      <ul>
+        <li>Si la gráfica está arriba del eje \(x\), entonces \(f(x)\gt 0\).</li>
+        <li>Si la gráfica está abajo del eje \(x\), entonces \(f(x)\lt 0\).</li>
+        <li>Si la gráfica corta el eje \(x\), entonces \(f(x)=0\).</li>
+      </ul>
+    </div>
+
+    <div class="ejemplo">
+      <h4>Ejemplo</h4>
+
+      <p>
+        Para:
+      </p>
+
+      <p class="formula">
+        \[
+          g(x)=\frac{-6}{x-4}-1
+        \]
+      </p>
+
+      <p>
+        sabemos que:
+      </p>
+
+      <ul>
+        <li>la raíz es \(x=-2\);</li>
+        <li>la función no existe en \(x=4\).</li>
+      </ul>
+
+      <p>
+        Entonces analizamos los intervalos:
+      </p>
+
+      <p class="formula">
+        \[
+          (-\infty,-2),
+          \qquad
+          (-2,4),
+          \qquad
+          (4,+\infty)
+        \]
+      </p>
+
+      <p>
+        Observando la gráfica, se obtiene:
+      </p>
+
+      <p class="formula">
+        \[
+          C^+=(-2,4)
+        \]
+      </p>
+
+      <p class="formula">
+        \[
+          C^-=(-\infty,-2)\cup(4,+\infty)
+        \]
+      </p>
+
+      <p>
+        La raíz \(x=-2\) no pertenece ni a \(C^+\) ni a \(C^-\), porque allí la función vale cero.
+        El valor \(x=4\) tampoco pertenece, porque la función no está definida.
+      </p>
+    </div>
+  </article>
+
+  <!-- RESUMEN -->
+  <article class="tarjeta">
+    <h3>10. Resumen</h3>
+
+    <p>
+      Para una función racional de la forma:
+    </p>
+
+    <p class="formula">
+      \[
+        f(x)=\frac{a}{x-b}+c
+      \]
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Elemento</th>
+          <th>Resultado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Dominio</td>
+          <td>\(\mathbb{R}-\{b\}\)</td>
+        </tr>
+        <tr>
+          <td>Asíntota vertical</td>
+          <td>\(x=b\)</td>
+        </tr>
+        <tr>
+          <td>Asíntota horizontal</td>
+          <td>\(y=c\)</td>
+        </tr>
+        <tr>
+          <td>Imagen</td>
+          <td>\(\mathbb{R}-\{c\}\)</td>
+        </tr>
+        <tr>
+          <td>Raíz</td>
+          <td>Se obtiene resolviendo \(f(x)=0\)</td>
+        </tr>
+        <tr>
+          <td>Ordenada al origen</td>
+          <td>Se obtiene calculando \(f(0)\), si \(0\) pertenece al dominio</td>
+        </tr>
+        <tr>
+          <td>Crecimiento o decrecimiento</td>
+          <td>Se analiza en \((-\infty,b)\) y \((b,+\infty)\)</td>
+        </tr>
+        <tr>
+          <td>Conjunto de positividad</td>
+          <td>Valores de \(x\) donde la gráfica está arriba del eje \(x\)</td>
+        </tr>
+        <tr>
+          <td>Conjunto de negatividad</td>
+          <td>Valores de \(x\) donde la gráfica está abajo del eje \(x\)</td>
+        </tr>
+      </tbody>
+    </table>
+  </article>
+
+  <!-- CIERRE -->
+  <article class="tarjeta">
+    <h3>11. Idea final</h3>
+
+    <p>
+      Para estudiar una función racional de esta forma, conviene seguir siempre el mismo orden:
+      dominio, asíntotas, raíz, ordenada al origen, crecimiento/decrecimiento y conjuntos de
+      positividad y negatividad.
+    </p>
+
+    <p class="nota">
+      La clave es recordar que la función no está definida donde el denominador vale cero.
+      Ese valor divide el gráfico en dos ramas y determina la asíntota vertical.
+    </p>
+  </article>
   
 <p>Análisis Completo de una función racional: </p> 
 
