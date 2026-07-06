@@ -448,10 +448,355 @@ $$\text{Acá podés escribir una fórmula o idea central del tema.}$$
 </div>
 </section><section id="3">
 <h2>Intervalos en la recta real</h2>
-<p class="nota">Espacio para desarrollar la teoría, escribir definiciones, fórmulas, observaciones y consignas breves.</p>
-<div class="formula">
-$$\text{Acá podés escribir una fórmula o idea central del tema.}$$
-</div>
+
+<!-- INTERVALOS -->
+  <article class="tarjeta">
+    <h3>4. Intervalos en la recta real</h3>
+
+    <p>
+      Un <strong>intervalo</strong> es un conjunto de números reales que se puede representar
+      sobre la recta real. Usamos intervalos para escribir de manera clara dominios, imágenes,
+      soluciones de desigualdades, conjuntos de positividad, negatividad y zonas de crecimiento
+      o decrecimiento.
+    </p>
+
+    <div class="nota">
+      <strong>Idea clave:</strong> los intervalos nos permiten expresar de forma precisa
+      qué valores de \(x\) estamos considerando.
+    </div>
+
+    <h4>Intervalos abiertos</h4>
+
+    <p>
+      El intervalo abierto \((a,b)\) representa todos los números mayores que \(a\)
+      y menores que \(b\), sin incluir los extremos.
+    </p>
+
+    <p class="formula">
+      \[
+        (a,b)=\{x\in \mathbb{R}: a<x<b\}
+      \]
+    </p>
+
+    <p>
+      Ejemplo:
+    </p>
+
+    <p class="formula">
+      \[
+        (2,5)=\{x\in \mathbb{R}: 2<x<5\}
+      \]
+    </p>
+
+    <h4>Intervalos cerrados</h4>
+
+    <p>
+      El intervalo cerrado \([a,b]\) representa todos los números mayores o iguales que \(a\)
+      y menores o iguales que \(b\). En este caso, los extremos sí pertenecen al intervalo.
+    </p>
+
+    <p class="formula">
+      \[
+        [a,b]=\{x\in \mathbb{R}: a\leq x\leq b\}
+      \]
+    </p>
+
+    <p>
+      Ejemplo:
+    </p>
+
+    <p class="formula">
+      \[
+        [2,5]=\{x\in \mathbb{R}: 2\leq x\leq 5\}
+      \]
+    </p>
+
+    <h4>Intervalos semiabiertos</h4>
+
+    <p>
+      Son intervalos que incluyen un extremo y no incluyen el otro.
+    </p>
+
+    <p class="formula">
+      \[
+        (a,b]=\{x\in \mathbb{R}: a<x\leq b\}
+      \]
+    </p>
+
+    <p class="formula">
+      \[
+        [a,b)=\{x\in \mathbb{R}: a\leq x<b\}
+      \]
+    </p>
+
+    <p>
+      Ejemplos:
+    </p>
+
+    <ul>
+      <li>\((2,5]\): números mayores que \(2\) y menores o iguales que \(5\).</li>
+      <li>\([2,5)\): números mayores o iguales que \(2\) y menores que \(5\).</li>
+    </ul>
+
+    <h4>Intervalos con infinito</h4>
+
+    <p>
+      Usamos el símbolo \(\infty\) cuando el intervalo no tiene límite hacia un lado.
+      Es importante recordar que \(\infty\) no es un número real, por eso siempre se escribe
+      con paréntesis.
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Intervalo</th>
+          <th>Significado</th>
+          <th>Desigualdad</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>\((a,+\infty)\)</td>
+          <td>Números mayores que \(a\)</td>
+          <td>\(x>a\)</td>
+        </tr>
+        <tr>
+          <td>\([a,+\infty)\)</td>
+          <td>Números mayores o iguales que \(a\)</td>
+          <td>\(x\geq a\)</td>
+        </tr>
+        <tr>
+          <td>\((-\infty,a)\)</td>
+          <td>Números menores que \(a\)</td>
+          <td>\(x<a\)</td>
+        </tr>
+        <tr>
+          <td>\((-\infty,a]\)</td>
+          <td>Números menores o iguales que \(a\)</td>
+          <td>\(x\leq a\)</td>
+        </tr>
+      </tbody>
+    </table>
+  </article>
+
+  <!-- RESUMEN -->
+  <article class="tarjeta">
+    <h3>5. Resumen de intervalos</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Intervalo</th>
+          <th>Lenguaje coloquial</th>
+          <th>Forma simbólica</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>\((a,b)\)</td>
+          <td>Mayores que \(a\) y menores que \(b\)</td>
+          <td>\(a<x<b\)</td>
+        </tr>
+        <tr>
+          <td>\([a,b]\)</td>
+          <td>Mayores o iguales que \(a\) y menores o iguales que \(b\)</td>
+          <td>\(a\leq x\leq b\)</td>
+        </tr>
+        <tr>
+          <td>\((a,b]\)</td>
+          <td>Mayores que \(a\) y menores o iguales que \(b\)</td>
+          <td>\(a<x\leq b\)</td>
+        </tr>
+        <tr>
+          <td>\([a,b)\)</td>
+          <td>Mayores o iguales que \(a\) y menores que \(b\)</td>
+          <td>\(a\leq x<b\)</td>
+        </tr>
+        <tr>
+          <td>\((a,+\infty)\)</td>
+          <td>Mayores que \(a\)</td>
+          <td>\(x>a\)</td>
+        </tr>
+        <tr>
+          <td>\([a,+\infty)\)</td>
+          <td>Mayores o iguales que \(a\)</td>
+          <td>\(x\geq a\)</td>
+        </tr>
+        <tr>
+          <td>\((-\infty,a)\)</td>
+          <td>Menores que \(a\)</td>
+          <td>\(x<a\)</td>
+        </tr>
+        <tr>
+          <td>\((-\infty,a]\)</td>
+          <td>Menores o iguales que \(a\)</td>
+          <td>\(x\leq a\)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="nota">
+      <p>
+        <strong>Para recordar:</strong>
+      </p>
+
+      <ul>
+        <li>Se usa paréntesis cuando el extremo no pertenece al intervalo.</li>
+        <li>Se usa corchete cuando el extremo sí pertenece al intervalo.</li>
+        <li>El símbolo \(\infty\) nunca se escribe con corchete porque no es un número real.</li>
+      </ul>
+    </div>
+  </article>
+
+  <!-- EJEMPLOS APLICADOS -->
+  <article class="tarjeta">
+    <h3>6. Ejemplos aplicados</h3>
+
+    <div class="ejemplo">
+      <h4>Temperatura de funcionamiento de un motor</h4>
+
+      <p>
+        La temperatura normal de funcionamiento de un motor puede estar entre \(85^\circ C\)
+        y \(105^\circ C\), incluyendo ambos valores.
+      </p>
+
+      <p>
+        Entonces se puede representar con el intervalo:
+      </p>
+
+      <p class="formula">
+        \[
+          [85,105]
+        \]
+      </p>
+
+      <p>
+        Esto significa que la temperatura \(T\) cumple:
+      </p>
+
+      <p class="formula">
+        \[
+          85\leq T\leq 105
+        \]
+      </p>
+    </div>
+
+    <div class="ejemplo">
+      <h4>Dominio de una función racional</h4>
+
+      <p>
+        Consideremos:
+      </p>
+
+      <p class="formula">
+        \[
+          f(x)=\frac{1}{x-3}
+        \]
+      </p>
+
+      <p>
+        Como no se puede dividir por cero, necesitamos que:
+      </p>
+
+      <p class="formula">
+        \[
+          x-3\neq 0
+        \]
+      </p>
+
+      <p>
+        Entonces:
+      </p>
+
+      <p class="formula">
+        \[
+          x\neq 3
+        \]
+      </p>
+
+      <p>
+        El dominio es:
+      </p>
+
+      <p class="formula">
+        \[
+          Dom(f)=\mathbb{R}-\{3\}
+        \]
+      </p>
+
+      <p>
+        O escrito con intervalos:
+      </p>
+
+      <p class="formula">
+        \[
+          Dom(f)=(-\infty,3)\cup(3,+\infty)
+        \]
+      </p>
+    </div>
+
+    <div class="ejemplo">
+      <h4>Dominio de una función logarítmica</h4>
+
+      <p>
+        Consideremos:
+      </p>
+
+      <p class="formula">
+        \[
+          g(x)=\log_2(x-1)
+        \]
+      </p>
+
+      <p>
+        El argumento del logaritmo debe ser positivo:
+      </p>
+
+      <p class="formula">
+        \[
+          x-1>0
+        \]
+      </p>
+
+      <p>
+        Entonces:
+      </p>
+
+      <p class="formula">
+        \[
+          x>1
+        \]
+      </p>
+
+      <p>
+        Por lo tanto:
+      </p>
+
+      <p class="formula">
+        \[
+          Dom(g)=(1,+\infty)
+        \]
+      </p>
+    </div>
+  </article>
+
+  <!-- CIERRE -->
+  <article class="tarjeta">
+    <h3>7. Idea final</h3>
+
+    <p>
+      El concepto de función permite estudiar cómo una cantidad depende de otra. El dominio
+      nos dice qué valores pueden ingresar a la función, la imagen nos dice qué valores pueden
+      salir, y los intervalos nos ayudan a escribir esos conjuntos de manera clara.
+    </p>
+
+    <p class="nota">
+      Entender una función es entender cómo cambia una magnitud en relación con otra.
+    </p>
+  </article>
+
+
+  
 <div class="hilera-ejemplos">
 <article class="ejemplo">
   <h4>Ejemplo 1</h4>
