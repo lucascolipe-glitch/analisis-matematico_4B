@@ -216,10 +216,20 @@ border-radius: 12px;
 /* ===.video-embed {  margin-top: 1rem; }======== */
 .pdf-embed { height: 300px; margin-top: 1rem; }
 
+/* === notas======== */
 .nota {
-  font-size: 0.92rem;
-  color: #4b5563;
+  margin: 25px 0;
+  padding: 16px 24px;
+  background-color: #fee2e2;
+  border: 2px solid #991b1b;
+  border-radius: 7px;
 }
+
+.nota p {
+  margin: 8px 0;
+}
+
+
 /* ========================= short-youtuve ========================= */
 .short-contenedor {
   width: min(360px, 100%);
