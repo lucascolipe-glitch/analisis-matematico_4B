@@ -26,7 +26,7 @@
 <li><a href="#2">Dominio e imagen</a></li>
 <li><a href="#3">Intervalos en la recta real</a></li>
 <li><a href="#4">Representaciones: fórmula, tabla y gráfica</a></li>
-<li><a href="#5">Positividad, negatividad, crecimiento y decrecimiento</a></li>
+<li><a href="#5"></a></li>
 <li><a href="#6">Función lineal</a></li>
 <li><a href="#7">Función cuadrática</a></li>
 <li><a href="#8">Función racional: hipérbolica</a></li>
@@ -820,19 +820,194 @@
 
   
 </section><section id="5">
-<h2>Positividad, negatividad, crecimiento y decrecimiento</h2>
-  <div class="short-contenedor">
-   <iframe
-    class="short-embed"
-    src="https://www.youtube-nocookie.com/embed/aKAAEyyiH90?start=0&amp;end=53"
-    title="Video corto de YouTube"
-    loading="lazy"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    referrerpolicy="strict-origin-when-cross-origin"
-    allowfullscreen>
-   </iframe>
-  </div>
+<h2>Positividad, negatividad, crecimiento y decrecimiento</h2> 
 
+
+  <p class="nota">
+    Cuando estudiamos una función, no alcanza con saber su fórmula. También nos interesa
+    comprender cómo se comporta: dónde sube, dónde baja, dónde es positiva, dónde es
+    negativa y en qué valores corta al eje \(x\).
+  </p>
+
+  <!-- CRECIMIENTO Y DECRECIMIENTO -->
+  <article class="tarjeta">
+    <h3>1. Crecimiento y decrecimiento de una función</h3>
+
+    <p>
+      Para estudiar si una función crece o decrece, miramos su gráfica
+      <strong>de izquierda a derecha</strong>, es decir, observamos qué ocurre con los valores
+      de \(f(x)\) cuando los valores de \(x\) aumentan.
+    </p>
+
+    <div class="nota">
+      <p><strong>Idea principal:</strong></p>
+      <ul>
+        <li>Si al avanzar hacia la derecha la gráfica sube, la función es <strong>creciente</strong>.</li>
+        <li>Si al avanzar hacia la derecha la gráfica baja, la función es <strong>decreciente</strong>.</li>
+        <li>Si al avanzar hacia la derecha la gráfica se mantiene a la misma altura, la función es <strong>constante</strong>.</li>
+      </ul>
+    </div>
+
+    <h4>Función creciente</h4>
+
+    <p>
+      Una función es <strong>creciente</strong> en un intervalo cuando, al aumentar \(x\),
+      también aumenta \(f(x)\).
+    </p>
+
+    <p class="formula">
+      \[
+        \text{Si } x_1 < x_2, \text{ entonces } f(x_1) < f(x_2).
+      \]
+    </p>
+
+    <p>
+      En palabras: si nos movemos hacia la derecha, la gráfica sube.
+    </p>
+
+    <div class="ejemplo">
+      <h4>Ejemplo</h4>
+      <p>
+        La función
+      </p>
+
+      <p class="formula">
+        \[
+          f(x)=2x+1
+        \]
+      </p>
+
+      <p>
+        es creciente en todo su dominio. Esto ocurre porque, a medida que \(x\) aumenta,
+        los valores de \(f(x)\) también aumentan.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>\(x\)</th>
+            <th>\(f(x)=2x+1\)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>\(0\)</td>
+            <td>\(1\)</td>
+          </tr>
+          <tr>
+            <td>\(1\)</td>
+            <td>\(3\)</td>
+          </tr>
+          <tr>
+            <td>\(2\)</td>
+            <td>\(5\)</td>
+          </tr>
+          <tr>
+            <td>\(3\)</td>
+            <td>\(7\)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Función decreciente</h4>
+
+    <p>
+      Una función es <strong>decreciente</strong> en un intervalo cuando, al aumentar \(x\),
+      disminuye \(f(x)\).
+    </p>
+
+    <p class="formula">
+      \[
+        \text{Si } x_1 < x_2, \text{ entonces } f(x_1) > f(x_2).
+      \]
+    </p>
+
+    <p>
+      En palabras: si nos movemos hacia la derecha, la gráfica baja.
+    </p>
+
+    <div class="ejemplo">
+      <h4>Ejemplo</h4>
+
+      <p>
+        La función
+      </p>
+
+      <p class="formula">
+        \[
+          g(x)=-3x+6
+        \]
+      </p>
+
+      <p>
+        es decreciente en todo su dominio. Esto ocurre porque, a medida que \(x\) aumenta,
+        los valores de \(g(x)\) disminuyen.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>\(x\)</th>
+            <th>\(g(x)=-3x+6\)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>\(0\)</td>
+            <td>\(6\)</td>
+          </tr>
+          <tr>
+            <td>\(1\)</td>
+            <td>\(3\)</td>
+          </tr>
+          <tr>
+            <td>\(2\)</td>
+            <td>\(0\)</td>
+          </tr>
+          <tr>
+            <td>\(3\)</td>
+            <td>\(-3\)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Función constante</h4>
+
+    <p>
+      Una función es <strong>constante</strong> en un intervalo cuando, aunque \(x\)
+      aumente, el valor de la función no cambia.
+    </p>
+
+    <p class="formula">
+      \[
+        f(x)=c
+      \]
+    </p>
+
+    <p>
+      donde \(c\) es un número real fijo.
+    </p>
+
+    <div class="ejemplo">
+      <h4>Ejemplo</h4>
+
+      <p>
+        La función
+      </p>
+
+      <p class="formula">
+        \[
+          h(x)=4
+        \]
+      </p>
+
+      <p>
+        es constante, porque para cualquier valor de \(x\), la salida siempre es \(4\).
+      </p>
+    </div>
+  </article>
 
 <div class="video-contenedor">
   <iframe
@@ -845,8 +1020,449 @@
     allowfullscreen>
   </iframe>
 </div>
-  
 
+<!-- CRECIMIENTO EN INTERVALOS -->
+  <article class="tarjeta">
+    <h3>2. Crecimiento y decrecimiento por intervalos</h3>
+
+    <p>
+      No todas las funciones son crecientes o decrecientes en todo su dominio. Algunas funciones
+      crecen en una parte y decrecen en otra. Por eso usamos intervalos para indicar con precisión
+      dónde ocurre cada comportamiento.
+    </p>
+
+    <div class="ejemplo">
+      <h4>Ejemplo: función cuadrática</h4>
+
+      <p>
+        Consideremos:
+      </p>
+
+      <p class="formula">
+        \[
+          f(x)=x^2
+        \]
+      </p>
+
+      <p>
+        Si observamos su gráfica, vemos que:
+      </p>
+
+      <ul>
+        <li>para \(x<0\), la función baja cuando avanzamos hacia la derecha;</li>
+        <li>para \(x>0\), la función sube cuando avanzamos hacia la derecha.</li>
+      </ul>
+
+      <p>
+        Entonces:
+      </p>
+
+      <p class="formula">
+        \[
+          f \text{ decrece en } (-\infty,0)
+        \]
+      </p>
+
+      <p class="formula">
+        \[
+          f \text{ crece en } (0,+\infty)
+        \]
+      </p>
+
+      <p>
+        El valor \(x=0\) es el punto donde cambia el comportamiento de la función.
+      </p>
+    </div>
+
+    <div class="nota">
+      <p>
+        <strong>Importante:</strong> cuando escribimos crecimiento y decrecimiento, no alcanza con decir
+        “crece” o “decrece”. Tenemos que indicar <strong>en qué intervalo</strong> ocurre.
+      </p>
+    </div>
+  </article>
+
+  <!-- RAICES -->
+  <article class="tarjeta">
+    <h3>3. Raíces de una función</h3>
+
+    <p>
+      Antes de estudiar positividad y negatividad, conviene identificar las raíces de la función.
+    </p>
+
+    <div class="definicion">
+      <h4>Definición</h4>
+
+      <p>
+        Una <strong>raíz</strong> de una función es un valor de \(x\) para el cual la función vale cero.
+      </p>
+
+      <p class="formula">
+        \[
+          f(x)=0
+        \]
+      </p>
+    </div>
+
+    <p>
+      Gráficamente, una raíz es un punto donde la gráfica <strong>corta</strong> o
+      <strong>toca</strong> el eje \(x\).
+    </p>
+
+    <div class="ejemplo">
+      <h4>Ejemplo</h4>
+
+      <p>
+        Consideremos:
+      </p>
+
+      <p class="formula">
+        \[
+          f(x)=x^2-4
+        \]
+      </p>
+
+      <p>
+        Para hallar sus raíces, resolvemos:
+      </p>
+
+      <p class="formula">
+        \[
+          x^2-4=0
+        \]
+      </p>
+
+      <p class="formula">
+        \[
+          x^2=4
+        \]
+      </p>
+
+      <p class="formula">
+        \[
+          x=-2 \quad \text{o} \quad x=2
+        \]
+      </p>
+
+      <p>
+        Entonces las raíces son:
+      </p>
+
+      <p class="formula">
+        \[
+          x=-2 \quad \text{y} \quad x=2
+        \]
+      </p>
+
+      <p>
+        La gráfica corta al eje \(x\) en los puntos \((-2,0)\) y \((2,0)\).
+      </p>
+    </div>
+  </article>
+
+  <!-- POSITIVIDAD Y NEGATIVIDAD -->
+  <article class="tarjeta">
+    <h3>4. Conjunto de positividad y conjunto de negatividad</h3>
+
+    <p>
+      Cuando observamos una gráfica, podemos distinguir en qué partes la función está
+      por encima del eje \(x\), por debajo del eje \(x\), o sobre el eje \(x\).
+    </p>
+
+    <div class="nota">
+      <p><strong>Cómo leerlo en la gráfica:</strong></p>
+      <ul>
+        <li>Si la gráfica está arriba del eje \(x\), entonces \(f(x)>0\).</li>
+        <li>Si la gráfica está abajo del eje \(x\), entonces \(f(x)<0\).</li>
+        <li>Si la gráfica toca o corta el eje \(x\), entonces \(f(x)=0\).</li>
+      </ul>
+    </div>
+
+    <h4>Conjunto de positividad</h4>
+
+    <p>
+      El <strong>conjunto de positividad</strong> está formado por todos los valores de \(x\)
+      del dominio para los cuales la función es positiva.
+    </p>
+
+    <p class="formula">
+      \[
+        C^+ = \{x \in Dom(f) : f(x)>0\}
+      \]
+    </p>
+
+    <p>
+      En la gráfica, corresponde a las partes donde la curva está
+      <strong>por encima del eje \(x\)</strong>.
+    </p>
+
+    <h4>Conjunto de negatividad</h4>
+
+    <p>
+      El <strong>conjunto de negatividad</strong> está formado por todos los valores de \(x\)
+      del dominio para los cuales la función es negativa.
+    </p>
+
+    <p class="formula">
+      \[
+        C^- = \{x \in Dom(f) : f(x)<0\}
+      \]
+    </p>
+
+    <p>
+      En la gráfica, corresponde a las partes donde la curva está
+      <strong>por debajo del eje \(x\)</strong>.
+    </p>
+
+    <div class="nota">
+      <p>
+        <strong>Atención:</strong> las raíces no pertenecen ni al conjunto de positividad
+        ni al conjunto de negatividad, porque en esos puntos la función vale cero.
+      </p>
+    </div>
+  </article>
+
+  <!-- EJEMPLO COMPLETO -->
+  <article class="tarjeta">
+    <h3>5. Ejemplo completo: positividad y negatividad</h3>
+
+    <p>
+      Consideremos la función:
+    </p>
+
+    <p class="formula">
+      \[
+        f(x)=x^2-4
+      \]
+    </p>
+
+    <p>
+      Ya vimos que sus raíces son:
+    </p>
+
+    <p class="formula">
+      \[
+        x=-2 \quad \text{y} \quad x=2
+      \]
+    </p>
+
+    <p>
+      Esas raíces dividen la recta real en tres intervalos:
+    </p>
+
+    <p class="formula">
+      \[
+        (-\infty,-2), \quad (-2,2), \quad (2,+\infty)
+      \]
+    </p>
+
+    <p>
+      Para saber el signo de la función en cada intervalo, podemos probar valores o mirar la gráfica.
+      Como la parábola abre hacia arriba, queda:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Intervalo</th>
+          <th>Comportamiento de la función</th>
+          <th>Signo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>\((-\infty,-2)\)</td>
+          <td>La gráfica está arriba del eje \(x\)</td>
+          <td>\(f(x)>0\)</td>
+        </tr>
+        <tr>
+          <td>\((-2,2)\)</td>
+          <td>La gráfica está abajo del eje \(x\)</td>
+          <td>\(f(x)<0\)</td>
+        </tr>
+        <tr>
+          <td>\((2,+\infty)\)</td>
+          <td>La gráfica está arriba del eje \(x\)</td>
+          <td>\(f(x)>0\)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>
+      Por lo tanto:
+    </p>
+
+    <p class="formula">
+      \[
+        C^+ = (-\infty,-2)\cup(2,+\infty)
+      \]
+    </p>
+
+    <p class="formula">
+      \[
+        C^- = (-2,2)
+      \]
+    </p>
+
+    <div class="nota">
+      <p>
+        Observá que \(-2\) y \(2\) no aparecen dentro de \(C^+\) ni de \(C^-\),
+        porque en esos valores la función vale cero.
+      </p>
+    </div>
+  </article>
+
+  <!-- EJEMPLO CON FUNCION RACIONAL -->
+  <article class="tarjeta">
+    <h3>6. Ejemplo con una función racional</h3>
+
+    <p>
+      Consideremos:
+    </p>
+
+    <p class="formula">
+      \[
+        g(x)=\frac{1}{x-2}
+      \]
+    </p>
+
+    <p>
+      Esta función no está definida para \(x=2\), porque no se puede dividir por cero.
+      Entonces:
+    </p>
+
+    <p class="formula">
+      \[
+        Dom(g)=\mathbb{R}-\{2\}
+      \]
+    </p>
+
+    <p>
+      O usando intervalos:
+    </p>
+
+    <p class="formula">
+      \[
+        Dom(g)=(-\infty,2)\cup(2,+\infty)
+      \]
+    </p>
+
+    <p>
+      Analicemos el signo:
+    </p>
+
+    <ul>
+      <li>Si \(x<2\), entonces \(x-2<0\), por lo tanto \(g(x)<0\).</li>
+      <li>Si \(x>2\), entonces \(x-2>0\), por lo tanto \(g(x)>0\).</li>
+    </ul>
+
+    <p>
+      Entonces:
+    </p>
+
+    <p class="formula">
+      \[
+        C^- = (-\infty,2)
+      \]
+    </p>
+
+    <p class="formula">
+      \[
+        C^+ = (2,+\infty)
+      \]
+    </p>
+
+    <div class="nota">
+      <p>
+        En este ejemplo, \(x=2\) no pertenece al dominio. Por eso no puede formar parte
+        de ningún intervalo de positividad o negatividad.
+      </p>
+    </div>
+  </article>
+
+  <!-- RESUMEN -->
+  <article class="tarjeta">
+    <h3>7. Resumen</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Concepto</th>
+          <th>Cómo lo leemos</th>
+          <th>Cómo se escribe</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Función creciente</td>
+          <td>Al mirar de izquierda a derecha, la gráfica sube.</td>
+          <td>\(x_1<x_2 \Rightarrow f(x_1)<f(x_2)\)</td>
+        </tr>
+        <tr>
+          <td>Función decreciente</td>
+          <td>Al mirar de izquierda a derecha, la gráfica baja.</td>
+          <td>\(x_1<x_2 \Rightarrow f(x_1)>f(x_2)\)</td>
+        </tr>
+        <tr>
+          <td>Función constante</td>
+          <td>Al mirar de izquierda a derecha, la gráfica no sube ni baja.</td>
+          <td>\(f(x)=c\)</td>
+        </tr>
+        <tr>
+          <td>Raíz</td>
+          <td>Valor de \(x\) donde la gráfica corta o toca el eje \(x\).</td>
+          <td>\(f(x)=0\)</td>
+        </tr>
+        <tr>
+          <td>Conjunto de positividad</td>
+          <td>Valores de \(x\) donde la gráfica está arriba del eje \(x\).</td>
+          <td>\(C^+=\{x\in Dom(f):f(x)>0\}\)</td>
+        </tr>
+        <tr>
+          <td>Conjunto de negatividad</td>
+          <td>Valores de \(x\) donde la gráfica está abajo del eje \(x\).</td>
+          <td>\(C^-=\{x\in Dom(f):f(x)<0\}\)</td>
+        </tr>
+      </tbody>
+    </table>
+  </article>
+
+  <!-- ACTIVIDAD BREVE -->
+  <article class="tarjeta">
+    <h3>8. Para pensar</h3>
+
+    <p>
+      Observá una gráfica cualquiera y respondé:
+    </p>
+
+    <ol>
+      <li>¿Dónde la función corta o toca el eje \(x\)? Esos valores son las raíces.</li>
+      <li>¿En qué intervalos la gráfica está arriba del eje \(x\)? Ese es el conjunto \(C^+\).</li>
+      <li>¿En qué intervalos la gráfica está abajo del eje \(x\)? Ese es el conjunto \(C^-\).</li>
+      <li>Mirando de izquierda a derecha, ¿en qué intervalos la gráfica sube?</li>
+      <li>Mirando de izquierda a derecha, ¿en qué intervalos la gráfica baja?</li>
+    </ol>
+
+    <p class="nota">
+      Entender una función es poder describir con palabras, símbolos e intervalos cómo cambia
+      su gráfica.
+    </p>
+  </article>
+
+
+
+  
+  <div class="short-contenedor">
+   <iframe
+    class="short-embed"
+    src="https://www.youtube-nocookie.com/embed/aKAAEyyiH90?start=0&amp;end=53"
+    title="Video corto de YouTube"
+    loading="lazy"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen>
+   </iframe>
+  </div>
   
   
 </section><section id="6">
