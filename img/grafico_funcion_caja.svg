@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="220" viewBox="0 0 520 220" role="img" aria-labelledby="titulo desc">
+  <title id="titulo">Diagrama de función: entrada x, caja f, salida y</title>
+  <desc id="desc">Un esquema en blanco y negro con una caja rotulada f, una entrada x arriba y una salida y a la derecha.</desc>
+
+  <style>
+    .linea {
+      fill: none;
+      stroke: #000;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .texto {
+      font-family: "Times New Roman", Times, serif;
+      fill: #000;
+      font-size: 29px;
+    }
+    .italica {
+      font-style: italic;
+    }
+  </style>
+
+  <!-- Texto superior -->
+  <text class="texto" x="76" y="32">Entrada <tspan class="italica">x</tspan></text>
+
+  <!-- Embudo de entrada -->
+  <path class="linea" d="M204 56 C221 60, 245 60, 263 56" />
+  <path class="linea" d="M204 56 L226 111" />
+  <path class="linea" d="M263 56 L240 111" />
+  <path class="linea" d="M226 111 C229 116, 238 116, 240 111" />
+  <ellipse class="linea" cx="233.5" cy="56" rx="30" ry="4.5" />
+
+  <!-- Caja principal -->
+  <path class="linea" d="M143 104 L262 104 L262 177 L143 177 Z" />
+  <path class="linea" d="M143 104 L166 93 L285 93 L262 104" />
+  <path class="linea" d="M262 104 L285 93 L285 164 L262 177" />
+
+  <!-- Letra f dentro de la caja -->
+  <text class="texto italica" x="180" y="157" font-size="34">f</text>
+
+  <!-- Conector hacia la salida -->
+  <path class="linea" d="M285 124 C296 121, 306 119, 315 117" />
+  <path class="linea" d="M285 153 C296 157, 306 160, 315 162" />
+
+  <!-- Bocina / salida -->
+  <path class="linea" d="M315 117 C333 101, 349 93, 358 92" />
+  <path class="linea" d="M315 162 C333 178, 349 186, 358 187" />
+  <path class="linea" d="M358 92 C366 116, 366 163, 358 187" />
+  <path class="linea" d="M316 118 C309 126, 309 153, 316 161" />
+
+  <!-- Texto de salida -->
+  <text class="texto" x="374" y="148">Salida <tspan class="italica">y</tspan></text>
+</svg>
