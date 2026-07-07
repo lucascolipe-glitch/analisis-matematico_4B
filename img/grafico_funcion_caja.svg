@@ -42,8 +42,8 @@
 
   <!-- Bocina / salida -->
   <ellipse class="linea" cx="333" cy="148" rx="5" ry="45" /> 
-  <path class="linea" d="M284 148 L333 102" />
-  <path class="linea" d="M284 148 L333 193" />
+  <path class="linea" d="M274 140 L333 102" />
+  <path class="linea" d="M274 156 L333 193" />
 
   <!-- Texto de salida -->
   <text class="texto" x="344" y="148">Salida <tspan class="italica">y</tspan></text>
