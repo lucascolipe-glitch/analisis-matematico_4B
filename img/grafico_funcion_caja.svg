@@ -38,9 +38,7 @@
   <!-- Letra f dentro de la caja -->
   <text class="texto italica" x="180" y="157" font-size="34">f</text>
 
-  <!-- Conector hacia la salida -->
-  <path class="linea" d="M285 124 C296 121, 306 119, 315 117" />
-  <path class="linea" d="M285 153 C296 157, 306 160, 315 162" />
+  
 
   <!-- Bocina / salida -->
   <ellipse class="linea" cx="333" cy="148" rx="5" ry="45" /> 
