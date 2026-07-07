@@ -43,12 +43,9 @@
   <path class="linea" d="M285 153 C296 157, 306 160, 315 162" />
 
   <!-- Bocina / salida -->
-  <path class="linea" d="M315 117 C333 101, 349 93, 358 92" />
-  <path class="linea" d="M315 162 C333 178, 349 186, 358 187" />
-  <path class="linea" d="M358 92 C366 116, 366 163, 358 187" />
-  <path class="linea" d="M316 118 C309 126, 309 153, 316 161" />
-  <ellipse class="linea" cx="333" cy="140" rx="5" ry="45" />
+  <ellipse class="linea" cx="333" cy="148" rx="5" ry="45" /> 
+  <path class="linea" d="M254 148 L333 102" />
 
   <!-- Texto de salida -->
-  <text class="texto" x="374" y="148">Salida <tspan class="italica">y</tspan></text>
+  <text class="texto" x="344" y="148">Salida <tspan class="italica">y</tspan></text>
 </svg>
