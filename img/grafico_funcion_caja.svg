@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="520" height="220" viewBox="0 0 520 220" role="img" aria-labelledby="titulo desc">
-  <title id="titulo">Diagrama de función: entrada x, caja f, salida y</title>
+  <title id="titulo">Diagrama de función: entrada x, caja f, salida y</title> 
   <desc id="desc">Un esquema en blanco y negro con una caja rotulada f, una entrada x arriba y una salida y a la derecha.</desc>
 
   <style>
