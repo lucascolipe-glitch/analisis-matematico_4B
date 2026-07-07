@@ -47,6 +47,7 @@
   <path class="linea" d="M315 162 C333 178, 349 186, 358 187" />
   <path class="linea" d="M358 92 C366 116, 366 163, 358 187" />
   <path class="linea" d="M316 118 C309 126, 309 153, 316 161" />
+  <ellipse class="linea" cx="333" cy="180" rx="5" ry="45" />
 
   <!-- Texto de salida -->
   <text class="texto" x="374" y="148">Salida <tspan class="italica">y</tspan></text>
