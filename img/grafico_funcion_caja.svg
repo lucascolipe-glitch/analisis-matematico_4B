@@ -25,8 +25,8 @@
 
   <!-- Embudo de entrada -->
   <path class="linea" d="M204 56 C221 60, 245 60, 263 56" />
-  <path class="linea" d="M204 56 L226 111" />
-  <path class="linea" d="M263 56 L240 111" />
+  <path class="linea" d="M204 56 L226 100" />
+  <path class="linea" d="M263 56 L240 100" />
   <ellipse class="linea" cx="233.5" cy="56" rx="30" ry="4.5" />
 
   <!-- Caja principal -->
