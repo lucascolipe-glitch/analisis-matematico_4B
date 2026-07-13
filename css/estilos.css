@@ -531,3 +531,24 @@ TARJETAS INTERACTIVAS
   font-size: 1.1rem;
   margin: 12px 0;
 }
+
+/* ========================= ========================= =========================
+   para figuras ilustrativas de conceptos, fotos
+========================= */
+
+.figura {
+  text-align: center;
+  margin: 2rem auto;
+}
+
+.figura img {
+  max-width: 100%;
+  width: 600px;
+  height: auto;
+}
+
+.figura figcaption {
+  font-size: 0.95rem;
+  color: #555;
+  margin-top: 0.5rem;
+}
