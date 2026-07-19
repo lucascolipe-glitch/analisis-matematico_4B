@@ -552,3 +552,27 @@ TARJETAS INTERACTIVAS
   color: #555;
   margin-top: 0.5rem;
 }
+
+/* ========================= ========================= =========================
+   para tablas largas tres columna
+========================= */
+tabla-larga-tres-columnas table {
+  width: min(900px, 100%);
+  min-width: 720px;
+  table-layout: fixed;
+}
+
+.tabla-larga-tres-columnas th:nth-child(1),
+.tabla-larga-tres-columnas td:nth-child(1) {
+  width: 25%;
+}
+
+.tabla-larga-tres-columnas th:nth-child(2),
+.tabla-larga-tres-columnas td:nth-child(2) {
+  width: 40%;
+}
+
+.tabla-larga-tres-columnas th:nth-child(3),
+.tabla-larga td:nth-child(3) {
+  width: 35%;
+}
