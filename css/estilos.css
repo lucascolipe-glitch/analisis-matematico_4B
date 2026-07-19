@@ -482,7 +482,7 @@ tabla-chica table {
    para tablas largas tres columna
 ========================= */
 tabla-larga-tres-columnas table {
-  width: 100%);
+  width: 100%;
   min-width: 720px;
   table-layout: fixed;
 }
