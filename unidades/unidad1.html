@@ -2302,43 +2302,865 @@ $$\text{Acá podés escribir una fórmula o idea central del tema.}$$
 </article>
 </div>
 </section><section id="10">
-<h2>Función logarítmica</h2>
-<p class="nota">Espacio para desarrollar la teoría, escribir definiciones, fórmulas, observaciones y consignas breves.</p>
-<div class="formula">
-$$\text{Acá podés escribir una fórmula o idea central del tema.}$$
-</div>
-<div class="hilera-ejemplos">
-<article class="ejemplo">
-  <h4>Ejemplo 1</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Función logarítmica</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 1 - Función logarítmica"></iframe>
-  <!-- Para un PDF local usá: ../pdf/función-logarítmica.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 1 - Función logarítmica"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 2</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Función logarítmica</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 2 - Función logarítmica"></iframe>
-  <!-- Para un PDF local usá: ../pdf/función-logarítmica.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 2 - Función logarítmica"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 3</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Función logarítmica</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 3 - Función logarítmica"></iframe>
-  <!-- Para un PDF local usá: ../pdf/función-logarítmica.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 3 - Función logarítmica"></iframe>
-</article>
-</div>
+<h2>Función logarítmica</h2> 
+
+  <h2>Logaritmos</h2>
+
+  <p class="nota">
+    Los logaritmos son una herramienta matemática que nos permite resolver preguntas
+    relacionadas con exponentes. En particular, sirven para responder:
+    <strong>¿a qué exponente hay que elevar una base para obtener un número?</strong>
+  </p>
+
+  <!-- IDEA INICIAL -->
+  <article class="tarjeta">
+    <h3>1. Idea inicial</h3>
+
+    <p>
+      Supongamos que sabemos que:
+    </p>
+
+    <p class="formula">
+      \[
+        2^3=8
+      \]
+    </p>
+
+    <p>
+      Entonces podemos preguntarnos:
+    </p>
+
+    <p class="nota">
+      ¿A qué exponente hay que elevar el número \(2\) para obtener \(8\)?
+    </p>
+
+    <p>
+      La respuesta es \(3\), porque:
+    </p>
+
+    <p class="formula">
+      \[
+        2^3=8
+      \]
+    </p>
+
+    <p>
+      Esta misma idea se escribe usando logaritmos:
+    </p>
+
+    <p class="formula">
+      \[
+        \log_2(8)=3
+      \]
+    </p>
+
+    <p>
+      Se lee: <strong>logaritmo en base 2 de 8 es igual a 3</strong>.
+    </p>
+  </article>
+
+  <!-- DEFINICIÓN -->
+  <article class="tarjeta">
+    <h3>2. Definición de logaritmo</h3>
+
+    <div class="definicion">
+      <h4>Definición</h4>
+
+      <p>
+        Dados \(a\), \(b\) y \(c\) números reales, con \(a&gt;0\), \(a\neq 1\) y \(c&gt;0\),
+        definimos:
+      </p>
+
+      <p class="formula">
+        \[
+          \log_a(c)=b
+        \]
+      </p>
+
+      <p>
+        si y solo si:
+      </p>
+
+      <p class="formula">
+        \[
+          a^b=c
+        \]
+      </p>
+    </div>
+
+    <p>
+      Es decir:
+    </p>
+
+    <p class="formula">
+      \[
+        \log_a(c)=b
+        \quad \Longleftrightarrow \quad
+        a^b=c
+      \]
+    </p>
+
+    <p>
+      El logaritmo transforma una pregunta sobre exponentes en una igualdad.
+    </p>
+
+    <div class="nota">
+      <p>
+        <strong>Idea clave:</strong> el logaritmo responde a la pregunta:
+      </p>
+
+      <p>
+        ¿A qué exponente hay que elevar la base \(a\) para obtener \(c\)?
+      </p>
+    </div>
+  </article>
+
+  <!-- PARTES DEL LOGARITMO -->
+  <article class="tarjeta">
+    <h3>3. Partes de un logaritmo</h3>
+
+    <p>
+      En la expresión:
+    </p>
+
+    <p class="formula">
+      \[
+        \log_a(c)=b
+      \]
+    </p>
+
+    <p>
+      cada elemento tiene un nombre:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Elemento</th>
+          <th>Nombre</th>
+          <th>Qué significa</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>\(a\)</td>
+          <td>Base</td>
+          <td>Es el número que se eleva a una potencia.</td>
+        </tr>
+        <tr>
+          <td>\(c\)</td>
+          <td>Argumento</td>
+          <td>Es el número que queremos obtener.</td>
+        </tr>
+        <tr>
+          <td>\(b\)</td>
+          <td>Resultado</td>
+          <td>Es el exponente al que hay que elevar la base.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="ejemplo">
+      <h4>Ejemplo</h4>
+
+      <p>
+        En:
+      </p>
+
+      <p class="formula">
+        \[
+          \log_2(8)=3
+        \]
+      </p>
+
+      <ul>
+        <li>la base es \(2\);</li>
+        <li>el argumento es \(8\);</li>
+        <li>el resultado es \(3\).</li>
+      </ul>
+
+      <p>
+        Esto significa:
+      </p>
+
+      <p class="formula">
+        \[
+          2^3=8
+        \]
+      </p>
+    </div>
+  </article>
+
+  <!-- CONDICIONES -->
+  <article class="tarjeta">
+    <h3>4. Condiciones para que exista un logaritmo</h3>
+
+    <p>
+      No cualquier expresión logarítmica está permitida. Para que:
+    </p>
+
+    <p class="formula">
+      \[
+        \log_a(c)
+      \]
+    </p>
+
+    <p>
+      esté definido, se deben cumplir estas condiciones:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Condición</th>
+          <th>Significado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>\(a&gt;0\)</td>
+          <td>La base debe ser positiva.</td>
+        </tr>
+        <tr>
+          <td>\(a\neq 1\)</td>
+          <td>La base no puede ser \(1\).</td>
+        </tr>
+        <tr>
+          <td>\(c&gt;0\)</td>
+          <td>El argumento debe ser positivo.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="nota">
+      <p>
+        <strong>Atención:</strong> no se puede calcular el logaritmo de un número negativo
+        ni de cero dentro de los números reales.
+      </p>
+    </div>
+
+    <p>
+      Por ejemplo:
+    </p>
+
+    <ul>
+      <li>\(\log_2(8)\) existe, porque la base es positiva y el argumento es positivo.</li>
+      <li>\(\log_3(1)\) existe, porque el argumento es positivo.</li>
+      <li>\(\log_2(0)\) no existe en los números reales.</li>
+      <li>\(\log_2(-5)\) no existe en los números reales.</li>
+    </ul>
+  </article>
+
+  <!-- PASAJE -->
+  <article class="tarjeta">
+    <h3>5. Pasaje entre forma logarítmica y forma exponencial</h3>
+
+    <p>
+      La forma logarítmica y la forma exponencial expresan la misma relación.
+    </p>
+
+    <p class="formula">
+      \[
+        \log_a(c)=b
+        \quad \Longleftrightarrow \quad
+        a^b=c
+      \]
+    </p>
+
+    <div class="nota">
+      <p>
+        Para pasar de logaritmo a exponencial:
+      </p>
+
+      <ul>
+        <li>la base se mantiene;</li>
+        <li>el resultado del logaritmo pasa a ser el exponente;</li>
+        <li>el argumento pasa a ser el resultado de la potencia.</li>
+      </ul>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Forma logarítmica</th>
+          <th>Forma exponencial</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>\(\log_2(8)=3\)</td>
+          <td>\(2^3=8\)</td>
+        </tr>
+        <tr>
+          <td>\(\log_3(9)=2\)</td>
+          <td>\(3^2=9\)</td>
+        </tr>
+        <tr>
+          <td>\(\log_5(1)=0\)</td>
+          <td>\(5^0=1\)</td>
+        </tr>
+        <tr>
+          <td>\(\log_{10}(100)=2\)</td>
+          <td>\(10^2=100\)</td>
+        </tr>
+      </tbody>
+    </table>
+  </article>
+
+  <!-- EJEMPLOS -->
+  <article class="tarjeta">
+    <h3>6. Ejemplos de cálculo de logaritmos</h3>
+
+    <div class="ejemplo">
+      <h4>Ejemplo 1</h4>
+
+      <p class="formula">
+        \[
+          \log_2(8)=3
+        \]
+      </p>
+
+      <p>
+        porque:
+      </p>
+
+      <p class="formula">
+        \[
+          2^3=8
+        \]
+      </p>
+    </div>
+
+    <div class="ejemplo">
+      <h4>Ejemplo 2</h4>
+
+      <p class="formula">
+        \[
+          \log_3(81)=4
+        \]
+      </p>
+
+      <p>
+        porque:
+      </p>
+
+      <p class="formula">
+        \[
+          3^4=81
+        \]
+      </p>
+    </div>
+
+    <div class="ejemplo">
+      <h4>Ejemplo 3</h4>
+
+      <p class="formula">
+        \[
+          \log_5(1)=0
+        \]
+      </p>
+
+      <p>
+        porque:
+      </p>
+
+      <p class="formula">
+        \[
+          5^0=1
+        \]
+      </p>
+
+      <p>
+        Recordemos que todo número distinto de cero elevado a \(0\) da \(1\).
+      </p>
+    </div>
+
+    <div class="ejemplo">
+      <h4>Ejemplo 4</h4>
+
+      <p class="formula">
+        \[
+          \log_2\left(\frac{1}{8}\right)=-3
+        \]
+      </p>
+
+      <p>
+        porque:
+      </p>
+
+      <p class="formula">
+        \[
+          2^{-3}=\frac{1}{2^3}=\frac{1}{8}
+        \]
+      </p>
+    </div>
+  </article>
+
+  <!-- LOG BASE 10 Y LN -->
+  <article class="tarjeta">
+    <h3>7. Logaritmo decimal y logaritmo natural</h3>
+
+    <p>
+      En la práctica aparecen con frecuencia dos tipos de logaritmos:
+    </p>
+
+    <h4>Logaritmo decimal</h4>
+
+    <p>
+      Cuando no se escribe la base, se asume que la base es \(10\).
+    </p>
+
+    <p class="formula">
+      \[
+        \log(x)=\log_{10}(x)
+      \]
+    </p>
+
+    <p>
+      Por ejemplo:
+    </p>
+
+    <p class="formula">
+      \[
+        \log(100)=2
+      \]
+    </p>
+
+    <p>
+      porque:
+    </p>
+
+    <p class="formula">
+      \[
+        10^2=100
+      \]
+    </p>
+
+    <h4>Logaritmo natural</h4>
+
+    <p>
+      El logaritmo natural es el logaritmo en base \(e\), donde:
+    </p>
+
+    <p class="formula">
+      \[
+        e\approx 2,718
+      \]
+    </p>
+
+    <p>
+      Se escribe:
+    </p>
+
+    <p class="formula">
+      \[
+        \ln(x)=\log_e(x)
+      \]
+    </p>
+
+    <p>
+      Por ejemplo:
+    </p>
+
+    <p class="formula">
+      \[
+        \ln(e)=1
+      \]
+    </p>
+
+    <p>
+      porque:
+    </p>
+
+    <p class="formula">
+      \[
+        e^1=e
+      \]
+    </p>
+  </article>
+
+  <!-- CAMBIO DE BASE -->
+  <article class="tarjeta">
+    <h3>8. Cambio de base</h3>
+
+    <p>
+      A veces necesitamos calcular un logaritmo en una base que la calculadora no tiene
+      directamente. Para eso usamos la fórmula de cambio de base:
+    </p>
+
+    <p class="formula">
+      \[
+        \log_a(b)=\frac{\log(b)}{\log(a)}
+      \]
+    </p>
+
+    <p>
+      También se puede usar el logaritmo natural:
+    </p>
+
+    <p class="formula">
+      \[
+        \log_a(b)=\frac{\ln(b)}{\ln(a)}
+      \]
+    </p>
+
+    <div class="ejemplo">
+      <h4>Ejemplo</h4>
+
+      <p>
+        Para calcular:
+      </p>
+
+      <p class="formula">
+        \[
+          \log_2(32)
+        \]
+      </p>
+
+      <p>
+        podemos usar:
+      </p>
+
+      <p class="formula">
+        \[
+          \log_2(32)=\frac{\log(32)}{\log(2)}
+        \]
+      </p>
+
+      <p>
+        El resultado es:
+      </p>
+
+      <p class="formula">
+        \[
+          \log_2(32)=5
+        \]
+      </p>
+
+      <p>
+        porque:
+      </p>
+
+      <p class="formula">
+        \[
+          2^5=32
+        \]
+      </p>
+    </div>
+
+    <div class="nota">
+      <p>
+        En muchas calculadoras, la tecla \(\log\) calcula logaritmos en base \(10\),
+        y la tecla \(\ln\) calcula logaritmos en base \(e\).
+      </p>
+    </div>
+  </article>
+
+  <!-- ECUACIONES LOGARÍTMICAS -->
+  <article class="tarjeta">
+    <h3>9. Ecuaciones logarítmicas</h3>
+
+    <p>
+      Una ecuación logarítmica es una ecuación donde aparece un logaritmo con una incógnita.
+      Para resolverla, muchas veces conviene pasar de forma logarítmica a forma exponencial.
+    </p>
+
+    <p class="formula">
+      \[
+        \log_a(x)=b
+        \quad \Longleftrightarrow \quad
+        a^b=x
+      \]
+    </p>
+
+    <div class="ejemplo">
+      <h4>Ejemplo 1</h4>
+
+      <p>
+        Resolver:
+      </p>
+
+      <p class="formula">
+        \[
+          \log_2(x)=5
+        \]
+      </p>
+
+      <p>
+        Pasamos a forma exponencial:
+      </p>
+
+      <p class="formula">
+        \[
+          2^5=x
+        \]
+      </p>
+
+      <p>
+        Entonces:
+      </p>
+
+      <p class="formula">
+        \[
+          x=32
+        \]
+      </p>
+
+      <p>
+        Verificación:
+      </p>
+
+      <p class="formula">
+        \[
+          \log_2(32)=5
+        \]
+      </p>
+    </div>
+
+    <div class="ejemplo">
+      <h4>Ejemplo 2</h4>
+
+      <p>
+        Resolver:
+      </p>
+
+      <p class="formula">
+        \[
+          \log(x-3)=2
+        \]
+      </p>
+
+      <p>
+        Como no aparece escrita la base, se entiende que la base es \(10\):
+      </p>
+
+      <p class="formula">
+        \[
+          \log_{10}(x-3)=2
+        \]
+      </p>
+
+      <p>
+        Pasamos a forma exponencial:
+      </p>
+
+      <p class="formula">
+        \[
+          10^2=x-3
+        \]
+      </p>
+
+      <p class="formula">
+        \[
+          100=x-3
+        \]
+      </p>
+
+      <p class="formula">
+        \[
+          x=103
+        \]
+      </p>
+
+      <p>
+        Verificación:
+      </p>
+
+      <p class="formula">
+        \[
+          \log(103-3)=\log(100)=2
+        \]
+      </p>
+    </div>
+
+    <div class="nota">
+      <p>
+        <strong>Importante:</strong> al resolver ecuaciones logarítmicas hay que verificar
+        que el argumento del logaritmo sea positivo.
+      </p>
+    </div>
+  </article>
+
+  <!-- ECUACIONES EXPONENCIALES -->
+  <article class="tarjeta">
+    <h3>10. Ecuaciones exponenciales y logaritmos</h3>
+
+    <p>
+      Los logaritmos también sirven para resolver ecuaciones donde la incógnita aparece
+      en el exponente.
+    </p>
+
+    <p>
+      Por ejemplo:
+    </p>
+
+    <p class="formula">
+      \[
+        2^x=7
+      \]
+    </p>
+
+    <p>
+      Para despejar \(x\), pasamos a forma logarítmica:
+    </p>
+
+    <p class="formula">
+      \[
+        x=\log_2(7)
+      \]
+    </p>
+
+    <p>
+      Si queremos calcularlo con calculadora:
+    </p>
+
+    <p class="formula">
+      \[
+        x=\frac{\log(7)}{\log(2)}
+      \]
+    </p>
+
+    <p>
+      Aproximadamente:
+    </p>
+
+    <p class="formula">
+      \[
+        x\approx 2,81
+      \]
+    </p>
+
+    <div class="nota">
+      <p>
+        El logaritmo permite “bajar” la incógnita del exponente para poder despejarla.
+      </p>
+    </div>
+  </article>
+
+  <!-- FUNCIÓN LOGARÍTMICA -->
+  <article class="tarjeta">
+    <h3>11. Relación con la función logarítmica</h3>
+
+    <p>
+      A partir del concepto de logaritmo, podemos definir la función logarítmica:
+    </p>
+
+    <p class="formula">
+      \[
+        f(x)=\log_a(x)
+      \]
+    </p>
+
+    <p>
+      donde:
+    </p>
+
+    <p class="formula">
+      \[
+        a&gt;0
+        \qquad \text{y} \qquad
+        a\neq 1
+      \]
+    </p>
+
+    <p>
+      Esta función tiene como dominio:
+    </p>
+
+    <p class="formula">
+      \[
+        Dom(f)=(0,+\infty)
+      \]
+    </p>
+
+    <p>
+      porque el argumento del logaritmo debe ser positivo.
+    </p>
+
+    <p>
+      Su imagen es:
+    </p>
+
+    <p class="formula">
+      \[
+        Im(f)=\mathbb{R}
+      \]
+    </p>
+
+    <div class="nota">
+      <p>
+        La función logarítmica y la función exponencial son funciones inversas:
+      </p>
+
+      <p class="formula">
+        \[
+          y=a^x
+          \quad \Longleftrightarrow \quad
+          x=\log_a(y)
+        \]
+      </p>
+    </div>
+  </article>
+
+  <!-- RESUMEN -->
+  <article class="tarjeta">
+    <h3>12. Resumen</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Concepto</th>
+          <th>Idea principal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Logaritmo</td>
+          <td>Responde a qué exponente hay que elevar una base para obtener un número.</td>
+        </tr>
+        <tr>
+          <td>Definición</td>
+          <td>\(\log_a(c)=b \Longleftrightarrow a^b=c\)</td>
+        </tr>
+        <tr>
+          <td>Base</td>
+          <td>Es el número que se eleva.</td>
+        </tr>
+        <tr>
+          <td>Argumento</td>
+          <td>Es el número que queremos obtener.</td>
+        </tr>
+        <tr>
+          <td>Resultado</td>
+          <td>Es el exponente.</td>
+        </tr>
+        <tr>
+          <td>Condiciones</td>
+          <td>\(a&gt;0\), \(a\neq 1\) y \(c&gt;0\)</td>
+        </tr>
+        <tr>
+          <td>Logaritmo decimal</td>
+          <td>\(\log(x)=\log_{10}(x)\)</td>
+        </tr>
+        <tr>
+          <td>Logaritmo natural</td>
+          <td>\(\ln(x)=\log_e(x)\)</td>
+        </tr>
+        <tr>
+          <td>Cambio de base</td>
+          <td>\(\log_a(b)=\dfrac{\log(b)}{\log(a)}\)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="nota">
+      Los logaritmos son importantes porque permiten resolver ecuaciones exponenciales
+      y estudiar funciones que aparecen en fenómenos de crecimiento, decaimiento,
+      sonido, escalas de medición y problemas técnicos.
+    </p>
+  </article>
+
+  
 </section><section id="11">
 <h2>Funciones polinómicas</h2>
 <p class="nota">Espacio para desarrollar la teoría, escribir definiciones, fórmulas, observaciones y consignas breves.</p>
