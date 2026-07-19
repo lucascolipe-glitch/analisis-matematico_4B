@@ -401,7 +401,6 @@ TARJETAS INTERACTIVAS
 }
 
 .tabla-responsive table {
-  width: min(500px, 100%);
   margin: 0 auto;
   border-collapse: collapse;
   background: var(--blanco);
@@ -422,6 +421,31 @@ TARJETAS INTERACTIVAS
 .tabla-responsive tbody tr:nth-child(even) {
   background: #f3f4f6;
 }
+
+/* ========================= ========================= =========================
+  distintos tamaño tabla 
+========================= */
+tabla-chica table {
+  width: min(500px, 100%);
+}
+
+.tabla-mediana table {
+  width: min(700px, 100%);
+}
+
+.tabla-ancha table {
+  width: min(950px, 100%);
+}
+
+.tabla-completa table {
+  width: 100%;
+}
+
+
+
+
+
+
 /* ========================= ========================= =========================
    tabla Ruffini
 ========================= */
@@ -453,6 +477,29 @@ TARJETAS INTERACTIVAS
 .tabla-ruffini tr:last-child td {
   font-weight: bold;
   background-color: var(--amarillo);
+}
+/* ========================= ========================= =========================
+   para tablas largas tres columna
+========================= */
+tabla-larga-tres-columnas table {
+  width: 100%);
+  min-width: 720px;
+  table-layout: fixed;
+}
+
+.tabla-larga-tres-columnas th:nth-child(1),
+.tabla-larga-tres-columnas td:nth-child(1) {
+  width: 25%;
+}
+
+.tabla-larga-tres-columnas th:nth-child(2),
+.tabla-larga-tres-columnas td:nth-child(2) {
+  width: 40%;
+}
+
+.tabla-larga-tres-columnas th:nth-child(3),
+.tabla-larga td:nth-child(3) {
+  width: 35%;
 }
 
 
@@ -553,26 +600,3 @@ TARJETAS INTERACTIVAS
   margin-top: 0.5rem;
 }
 
-/* ========================= ========================= =========================
-   para tablas largas tres columna
-========================= */
-tabla-larga-tres-columnas table {
-  width: min(900px, 100%);
-  min-width: 720px;
-  table-layout: fixed;
-}
-
-.tabla-larga-tres-columnas th:nth-child(1),
-.tabla-larga-tres-columnas td:nth-child(1) {
-  width: 25%;
-}
-
-.tabla-larga-tres-columnas th:nth-child(2),
-.tabla-larga-tres-columnas td:nth-child(2) {
-  width: 40%;
-}
-
-.tabla-larga-tres-columnas th:nth-child(3),
-.tabla-larga td:nth-child(3) {
-  width: 35%;
-}
