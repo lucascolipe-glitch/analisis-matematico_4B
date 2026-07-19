@@ -2265,42 +2265,830 @@
   
 </section><section id="9">
 <h2>Función exponencial</h2>
-<p class="nota">Espacio para desarrollar la teoría, escribir definiciones, fórmulas, observaciones y consignas breves.</p>
-<div class="formula">
-$$\text{Acá podés escribir una fórmula o idea central del tema.}$$
-</div>
-<div class="hilera-ejemplos">
-<article class="ejemplo">
-  <h4>Ejemplo 1</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Función exponencial</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 1 - Función exponencial"></iframe>
-  <!-- Para un PDF local usá: ../pdf/función-exponencial.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 1 - Función exponencial"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 2</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Función exponencial</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 2 - Función exponencial"></iframe>
-  <!-- Para un PDF local usá: ../pdf/función-exponencial.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 2 - Función exponencial"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 3</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Función exponencial</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 3 - Función exponencial"></iframe>
-  <!-- Para un PDF local usá: ../pdf/función-exponencial.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 3 - Función exponencial"></iframe>
-</article>
-</div>
+
+
+  <h2>Función exponencial</h2>
+
+  <p class="nota">
+    En esta sección vamos a estudiar las funciones exponenciales. Estas funciones aparecen
+    en muchas situaciones donde una cantidad crece o disminuye de manera rápida, como
+    crecimiento de poblaciones, carga y descarga de baterías, propagación de calor, interés
+    compuesto y algunos fenómenos eléctricos.
+  </p>
+
+  <!-- DEFINICIÓN -->
+  <article class="tarjeta">
+    <h3>1. ¿Qué es una función exponencial?</h3>
+
+    <div class="definicion">
+      <h4>Definición</h4>
+
+      <p>
+        Una <strong>función exponencial</strong> es una función donde la variable aparece
+        en el exponente. Una forma básica es:
+      </p>
+
+      <p class="formula">
+        \[
+          f(x)=a\cdot b^x
+        \]
+      </p>
+
+      <p>
+        donde \(a\) y \(b\) son números reales, con:
+      </p>
+
+      <p class="formula">
+        \[
+          b>0 \qquad \text{y} \qquad b\neq 1
+        \]
+      </p>
+    </div>
+
+    <p>
+      En este tipo de funciones, la variable \(x\) no aparece sumando, restando o multiplicando,
+      sino como exponente. Por eso su crecimiento o decrecimiento no es lineal.
+    </p>
+
+    <div class="nota">
+      <p>
+        <strong>Idea clave:</strong> en una función exponencial, pequeños cambios en \(x\)
+        pueden producir cambios grandes en \(f(x)\).
+      </p>
+    </div>
+  </article>
+
+  <!-- FUNCIÓN BASE -->
+  <article class="tarjeta">
+    <h3>2. La función exponencial básica</h3>
+
+    <p>
+      Una de las funciones exponenciales más sencillas es:
+    </p>
+
+    <p class="formula">
+      \[
+        f(x)=2^x
+      \]
+    </p>
+
+    <p>
+      Para empezar a comprender su comportamiento, podemos construir una tabla de valores.
+    </p>
+
+    <div class="tabla-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>\(x\)</th>
+            <th>\(f(x)=2^x\)</th>
+            <th>Punto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>\(-2\)</td>
+            <td>\(\dfrac{1}{4}\)</td>
+            <td>\(\left(-2,\dfrac{1}{4}\right)\)</td>
+          </tr>
+          <tr>
+            <td>\(-1\)</td>
+            <td>\(\dfrac{1}{2}\)</td>
+            <td>\(\left(-1,\dfrac{1}{2}\right)\)</td>
+          </tr>
+          <tr>
+            <td>\(0\)</td>
+            <td>\(1\)</td>
+            <td>\((0,1)\)</td>
+          </tr>
+          <tr>
+            <td>\(1\)</td>
+            <td>\(2\)</td>
+            <td>\((1,2)\)</td>
+          </tr>
+          <tr>
+            <td>\(2\)</td>
+            <td>\(4\)</td>
+            <td>\((2,4)\)</td>
+          </tr>
+          <tr>
+            <td>\(3\)</td>
+            <td>\(8\)</td>
+            <td>\((3,8)\)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      A medida que \(x\) aumenta, los valores de \(2^x\) también aumentan. Por eso,
+      la función \(f(x)=2^x\) es creciente.
+    </p>
+  </article>
+
+  <!-- CARACTERÍSTICAS -->
+  <article class="tarjeta">
+    <h3>3. Características de \(f(x)=2^x\)</h3>
+
+    <p>
+      La función:
+    </p>
+
+    <p class="formula">
+      \[
+        f(x)=2^x
+      \]
+    </p>
+
+    <p>
+      tiene las siguientes características:
+    </p>
+
+    <div class="tabla-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>Elemento</th>
+            <th>Resultado</th>
+            <th>Interpretación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Dominio</td>
+            <td>\(\mathbb{R}\)</td>
+            <td>Se puede calcular \(2^x\) para cualquier número real \(x\).</td>
+          </tr>
+          <tr>
+            <td>Imagen</td>
+            <td>\((0,+\infty)\)</td>
+            <td>La función siempre toma valores positivos.</td>
+          </tr>
+          <tr>
+            <td>Ordenada al origen</td>
+            <td>\((0,1)\)</td>
+            <td>Porque \(2^0=1\).</td>
+          </tr>
+          <tr>
+            <td>Raíces</td>
+            <td>No tiene</td>
+            <td>La función nunca vale \(0\).</td>
+          </tr>
+          <tr>
+            <td>Asíntota horizontal</td>
+            <td>\(y=0\)</td>
+            <td>La gráfica se acerca al eje \(x\), pero no lo toca.</td>
+          </tr>
+          <tr>
+            <td>Crecimiento</td>
+            <td>Creciente en \(\mathbb{R}\)</td>
+            <td>Al avanzar hacia la derecha, la gráfica sube.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="nota">
+      <p>
+        La función \(f(x)=2^x\) se acerca cada vez más a \(0\) cuando \(x\) toma valores
+        muy negativos, pero nunca llega a valer \(0\).
+      </p>
+    </div>
+  </article>
+
+  <!-- CRECIMIENTO Y DECRECIMIENTO -->
+  <article class="tarjeta">
+    <h3>4. Crecimiento y decrecimiento</h3>
+
+    <p>
+      El comportamiento de una función exponencial depende de la base \(b\).
+    </p>
+
+    <p>
+      Para la función:
+    </p>
+
+    <p class="formula">
+      \[
+        f(x)=b^x
+      \]
+    </p>
+
+    <p>
+      tenemos dos casos principales.
+    </p>
+
+    <div class="tabla-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>Condición sobre la base</th>
+            <th>Comportamiento</th>
+            <th>Ejemplo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>\(b>1\)</td>
+            <td>La función es creciente.</td>
+            <td>\(f(x)=2^x\)</td>
+          </tr>
+          <tr>
+            <td>\(0&lt;b&lt;1\)</td>
+            <td>La función es decreciente.</td>
+            <td>\(g(x)=\left(\dfrac{1}{2}\right)^x\)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="ejemplo">
+      <h4>Ejemplo de función creciente</h4>
+
+      <p>
+        La función:
+      </p>
+
+      <p class="formula">
+        \[
+          f(x)=2^x
+        \]
+      </p>
+
+      <p>
+        es creciente porque la base es mayor que \(1\).
+      </p>
+    </div>
+
+    <div class="ejemplo">
+      <h4>Ejemplo de función decreciente</h4>
+
+      <p>
+        La función:
+      </p>
+
+      <p class="formula">
+        \[
+          g(x)=\left(\frac{1}{2}\right)^x
+        \]
+      </p>
+
+      <p>
+        es decreciente porque la base está entre \(0\) y \(1\).
+      </p>
+    </div>
+  </article>
+
+  <!-- FUNCIÓN CON DESPLAZAMIENTO VERTICAL -->
+  <article class="tarjeta">
+    <h3>5. Función exponencial con desplazamiento vertical</h3>
+
+    <p>
+      En el apunte también se trabaja una forma de función exponencial con desplazamiento vertical:
+    </p>
+
+    <p class="formula">
+      \[
+        f(x)=a\cdot b^x+c
+      \]
+    </p>
+
+    <p>
+      En esta expresión, el número \(c\) desplaza la gráfica hacia arriba o hacia abajo.
+      Además, determina la asíntota horizontal.
+    </p>
+
+    <p class="formula">
+      \[
+        \text{Asíntota horizontal: } y=c
+      \]
+    </p>
+
+    <div class="tabla-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>Función</th>
+            <th>Asíntota horizontal</th>
+            <th>Interpretación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>\(f(x)=2^x\)</td>
+            <td>\(y=0\)</td>
+            <td>No hay desplazamiento vertical.</td>
+          </tr>
+          <tr>
+            <td>\(g(x)=2^x-1\)</td>
+            <td>\(y=-1\)</td>
+            <td>La gráfica se desplaza una unidad hacia abajo.</td>
+          </tr>
+          <tr>
+            <td>\(h(x)=2^x+2\)</td>
+            <td>\(y=2\)</td>
+            <td>La gráfica se desplaza dos unidades hacia arriba.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </article>
+
+  <!-- DOMINIO E IMAGEN -->
+  <article class="tarjeta">
+    <h3>6. Dominio e imagen</h3>
+
+    <p>
+      Para funciones de la forma:
+    </p>
+
+    <p class="formula">
+      \[
+        f(x)=a\cdot b^x+c
+      \]
+    </p>
+
+    <p>
+      el dominio siempre es:
+    </p>
+
+    <p class="formula">
+      \[
+        Dom(f)=\mathbb{R}
+      \]
+    </p>
+
+    <p>
+      La imagen depende del signo de \(a\).
+    </p>
+
+    <div class="tabla-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>Condición</th>
+            <th>Imagen</th>
+            <th>Interpretación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>\(a>0\)</td>
+            <td>\((c,+\infty)\)</td>
+            <td>La gráfica queda por encima de la asíntota \(y=c\).</td>
+          </tr>
+          <tr>
+            <td>\(a&lt;0\)</td>
+            <td>\((-\infty,c)\)</td>
+            <td>La gráfica queda por debajo de la asíntota \(y=c\).</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="ejemplo">
+      <h4>Ejemplo</h4>
+
+      <p>
+        Para:
+      </p>
+
+      <p class="formula">
+        \[
+          f(x)=2^x-1
+        \]
+      </p>
+
+      <p>
+        la asíntota horizontal es \(y=-1\). Como \(a=1>0\), la imagen es:
+      </p>
+
+      <p class="formula">
+        \[
+          Im(f)=(-1,+\infty)
+        \]
+      </p>
+    </div>
+  </article>
+
+  <!-- ASÍNTOTA HORIZONTAL -->
+  <article class="tarjeta">
+    <h3>7. Asíntota horizontal</h3>
+
+    <p>
+      Una <strong>asíntota horizontal</strong> es una recta a la que la gráfica se aproxima
+      cuando \(x\) toma valores muy grandes o muy pequeños.
+    </p>
+
+    <p>
+      En una función exponencial de la forma:
+    </p>
+
+    <p class="formula">
+      \[
+        f(x)=a\cdot b^x+c
+      \]
+    </p>
+
+    <p>
+      la asíntota horizontal es:
+    </p>
+
+    <p class="formula">
+      \[
+        y=c
+      \]
+    </p>
+
+    <div class="nota">
+      <p>
+        La gráfica se acerca a la asíntota horizontal, pero no la toca.
+      </p>
+    </div>
+  </article>
+
+  <!-- RAÍZ -->
+  <article class="tarjeta">
+    <h3>8. Raíz de una función exponencial</h3>
+
+    <p>
+      La raíz de una función es el valor de \(x\) para el cual la función vale cero.
+      Para hallarla, resolvemos:
+    </p>
+
+    <p class="formula">
+      \[
+        f(x)=0
+      \]
+    </p>
+
+    <div class="ejemplo">
+      <h4>Ejemplo</h4>
+
+      <p>
+        Consideremos:
+      </p>
+
+      <p class="formula">
+        \[
+          f(x)=\left(\frac{1}{2}\right)^x-2
+        \]
+      </p>
+
+      <p>
+        Buscamos la raíz:
+      </p>
+
+      <p class="formula">
+        \[
+          \left(\frac{1}{2}\right)^x-2=0
+        \]
+      </p>
+
+      <p class="formula">
+        \[
+          \left(\frac{1}{2}\right)^x=2
+        \]
+      </p>
+
+      <p>
+        Como:
+      </p>
+
+      <p class="formula">
+        \[
+          \left(\frac{1}{2}\right)^{-1}=2
+        \]
+      </p>
+
+      <p>
+        entonces:
+      </p>
+
+      <p class="formula">
+        \[
+          x=-1
+        \]
+      </p>
+
+      <p>
+        Por lo tanto, la raíz es:
+      </p>
+
+      <p class="formula">
+        \[
+          x=-1
+        \]
+      </p>
+
+      <p>
+        La gráfica corta al eje \(x\) en el punto:
+      </p>
+
+      <p class="formula">
+        \[
+          (-1,0)
+        \]
+      </p>
+    </div>
+  </article>
+
+  <!-- ORDENADA AL ORIGEN -->
+  <article class="tarjeta">
+    <h3>9. Ordenada al origen</h3>
+
+    <p>
+      La ordenada al origen es el valor de la función cuando \(x=0\).
+      Para hallarla, calculamos \(f(0)\).
+    </p>
+
+    <div class="ejemplo">
+      <h4>Ejemplo</h4>
+
+      <p>
+        Para:
+      </p>
+
+      <p class="formula">
+        \[
+          f(x)=\left(\frac{1}{2}\right)^x-2
+        \]
+      </p>
+
+      <p>
+        calculamos:
+      </p>
+
+      <p class="formula">
+        \[
+          f(0)=\left(\frac{1}{2}\right)^0-2
+        \]
+      </p>
+
+      <p class="formula">
+        \[
+          f(0)=1-2
+        \]
+      </p>
+
+      <p class="formula">
+        \[
+          f(0)=-1
+        \]
+      </p>
+
+      <p>
+        Entonces la intersección con el eje \(y\) es:
+      </p>
+
+      <p class="formula">
+        \[
+          (0,-1)
+        \]
+      </p>
+    </div>
+  </article>
+
+  <!-- EJEMPLO COMPLETO -->
+  <article class="tarjeta">
+    <h3>10. Ejemplo completo</h3>
+
+    <p>
+      Consideremos la función:
+    </p>
+
+    <p class="formula">
+      \[
+        f(x)=\left(\frac{1}{2}\right)^x-2
+      \]
+    </p>
+
+    <p>
+      Analizamos sus características principales.
+    </p>
+
+    <div class="tabla-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>Elemento</th>
+            <th>Resultado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Tipo de función</td>
+            <td>Exponencial</td>
+          </tr>
+          <tr>
+            <td>Dominio</td>
+            <td>\(\mathbb{R}\)</td>
+          </tr>
+          <tr>
+            <td>Asíntota horizontal</td>
+            <td>\(y=-2\)</td>
+          </tr>
+          <tr>
+            <td>Ordenada al origen</td>
+            <td>\((0,-1)\)</td>
+          </tr>
+          <tr>
+            <td>Raíz</td>
+            <td>\(x=-1\)</td>
+          </tr>
+          <tr>
+            <td>Imagen</td>
+            <td>\((-2,+\infty)\)</td>
+          </tr>
+          <tr>
+            <td>Crecimiento/decrecimiento</td>
+            <td>Decrece en \(\mathbb{R}\)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      Como la base es:
+    </p>
+
+    <p class="formula">
+      \[
+        \frac{1}{2}
+      \]
+    </p>
+
+    <p>
+      y se cumple que:
+    </p>
+
+    <p class="formula">
+      \[
+        0&lt;\frac{1}{2}&lt;1
+      \]
+    </p>
+
+    <p>
+      la función es decreciente en todo su dominio.
+    </p>
+  </article>
+
+  <!-- POSITIVIDAD Y NEGATIVIDAD -->
+  <article class="tarjeta">
+    <h3>11. Conjunto de positividad y negatividad</h3>
+
+    <p>
+      Para estudiar dónde la función es positiva o negativa, miramos si la gráfica está
+      por encima o por debajo del eje \(x\).
+    </p>
+
+    <p>
+      En el ejemplo:
+    </p>
+
+    <p class="formula">
+      \[
+        f(x)=\left(\frac{1}{2}\right)^x-2
+      \]
+    </p>
+
+    <p>
+      la raíz es \(x=-1\). Entonces:
+    </p>
+
+    <div class="tabla-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>Intervalo</th>
+            <th>Signo de la función</th>
+            <th>Interpretación gráfica</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>\((-\infty,-1)\)</td>
+            <td>\(f(x)>0\)</td>
+            <td>La gráfica está por encima del eje \(x\).</td>
+          </tr>
+          <tr>
+            <td>\((-1,+\infty)\)</td>
+            <td>\(f(x)&lt;0\)</td>
+            <td>La gráfica está por debajo del eje \(x\).</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      Por lo tanto:
+    </p>
+
+    <p class="formula">
+      \[
+        C^+=(-\infty,-1)
+      \]
+    </p>
+
+    <p class="formula">
+      \[
+        C^-=(-1,+\infty)
+      \]
+    </p>
+
+    <div class="nota">
+      <p>
+        El valor \(x=-1\) no pertenece ni a \(C^+\) ni a \(C^-\), porque allí la función vale cero.
+      </p>
+    </div>
+  </article>
+
+  <!-- CÓMO GRAFICAR -->
+  <article class="tarjeta">
+    <h3>12. ¿Cómo graficar una función exponencial?</h3>
+
+    <p>
+      Para graficar una función exponencial conviene seguir estos pasos:
+    </p>
+
+    <ol>
+      <li>Identificar la base \(b\).</li>
+      <li>Determinar si la función es creciente o decreciente.</li>
+      <li>Identificar la asíntota horizontal.</li>
+      <li>Calcular la ordenada al origen.</li>
+      <li>Buscar la raíz, si existe.</li>
+      <li>Construir una tabla de valores si hace falta.</li>
+      <li>Realizar el gráfico respetando el comportamiento exponencial.</li>
+    </ol>
+
+    <div class="nota">
+      <p>
+        Si identificamos la asíntota horizontal y sabemos si la función crece o decrece,
+        ya tenemos mucha información para hacer un buen bosquejo.
+      </p>
+    </div>
+  </article>
+
+  <!-- RESUMEN -->
+  <article class="tarjeta">
+    <h3>13. Resumen</h3>
+
+    <div class="tabla-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>Concepto</th>
+            <th>Función exponencial</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Forma básica</td>
+            <td>\(f(x)=a\cdot b^x\)</td>
+          </tr>
+          <tr>
+            <td>Base</td>
+            <td>\(b>0\) y \(b\neq 1\)</td>
+          </tr>
+          <tr>
+            <td>Dominio</td>
+            <td>\(\mathbb{R}\)</td>
+          </tr>
+          <tr>
+            <td>Asíntota horizontal de \(a\cdot b^x+c\)</td>
+            <td>\(y=c\)</td>
+          </tr>
+          <tr>
+            <td>Si \(b>1\)</td>
+            <td>La función es creciente.</td>
+          </tr>
+          <tr>
+            <td>Si \(0&lt;b&lt;1\)</td>
+            <td>La función es decreciente.</td>
+          </tr>
+          <tr>
+            <td>Ordenada al origen</td>
+            <td>Se calcula haciendo \(x=0\).</td>
+          </tr>
+          <tr>
+            <td>Raíz</td>
+            <td>Se obtiene resolviendo \(f(x)=0\), si existe.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="nota">
+      Las funciones exponenciales permiten describir situaciones donde una cantidad cambia
+      multiplicándose por un mismo factor. Por eso son útiles para estudiar crecimientos,
+      decaimientos, cargas, descargas y fenómenos técnicos.
+    </p>
+  </article>
+
+ 
+
+
+  
 </section><section id="10">
 <h2>Función logarítmica</h2> 
   <p>Antes de estudiar las funciones logarítmicas, vamos a recordar qué son los logaritmos y cómo se relacionan con las potencias.</p>
