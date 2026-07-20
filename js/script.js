@@ -70,7 +70,6 @@ function cerrarAyudaTabla() {
   }
 }
 
-/* Permite cerrar con la tecla Escape */
 document.addEventListener("keydown", function(evento) {
   if (evento.key === "Escape") {
     cerrarAyudaTabla();
