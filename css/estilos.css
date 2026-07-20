@@ -600,44 +600,79 @@ tabla-larga-tres-columnas table {
   margin-top: 0.5rem;
 }
 
+
+
 /* =========================
-   BOTONES DE AYUDA EN TABLAS
+   BOTONES DE AYUDA UBICADOS EN TABLAS
 ========================= */
 
-.ayudas-tabla {
-  display: flex;
-  justify-content: center;
-  gap: 0.75rem;
-  margin: 1rem 0;
-  flex-wrap: wrap;
+.tabla-ayudada {
+  padding-top: 48px;
+  padding-left: 48px;
+  overflow-x: auto;
+  overflow-y: visible;
 }
 
+.tabla-ayudada table {
+  margin: 0 auto;
+}
+
+.tabla-ayudada th,
+.tabla-ayudada td {
+  position: relative;
+  overflow: visible;
+}
+
+/* Botón general */
 .boton-ayuda-tabla {
-  width: 44px;
-  height: 44px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   border: none;
   background: var(--azul);
   color: white;
-  font-size: 1.35rem;
+  font-size: 1.1rem;
   font-weight: bold;
   cursor: pointer;
   display: inline-grid;
   place-items: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.22);
+  z-index: 5;
 }
 
 .boton-ayuda-tabla:hover {
   background: #1b2ca8;
-  transform: scale(1.05);
+  transform: scale(1.06);
 }
 
-.boton-ayuda-tabla span {
-  line-height: 1;
+/* Botón arriba de una columna */
+.ayuda-columna {
+  position: absolute;
+  top: -42px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Botón a la izquierda de una fila */
+.ayuda-fila {
+  position: absolute;
+  left: -42px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Botón dentro de una celda */
+.ayuda-celda {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 28px;
+  height: 28px;
+  font-size: 0.95rem;
 }
 
 /* =========================
-   VENTANA MODAL DE AYUDA
+   MODAL DE AYUDA
 ========================= */
 
 .modal-ayuda {
