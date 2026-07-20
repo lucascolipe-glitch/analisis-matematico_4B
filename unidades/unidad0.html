@@ -1405,49 +1405,176 @@ En lo que sigue tenemos un ejemplo de como hallar la raices de una función line
     Para construir su gráfica podemos elegir algunos valores de \(x\) y calcular sus imágenes.
   </p>
 
-  <div class="tabla-responsive">
-    <table>
-      <thead>
-        <tr>
-          <th>\(x\)</th>
-          <th>\(f(x)=x^2\)</th>
-          <th>Punto</th>
-        </tr>
-      </thead>
+  
+    <div class="tabla-responsive tabla-ayudada">
+  <table>
+    <thead>
+      <tr>
+        <th>\(x\)</th>
 
-      <tbody>
-        <tr>
-          <td>\(-2\)</td>
-          <td>\(4\)</td>
-          <td>\((-2,4)\)</td>
-        </tr>
+        <th>
+          \(f(x)=x^2\)
+          <button 
+            class="boton-ayuda-tabla ayuda-columna" 
+            type="button"
+            onclick="abrirAyudaTabla('ayuda-columna-fx2')"
+            aria-label="Ayuda para completar la columna">
+            ↓
+          </button>
+        </th>
 
-        <tr>
-          <td>\(-1\)</td>
-          <td>\(1\)</td>
-          <td>\((-1,1)\)</td>
-        </tr>
+        <th>Punto</th>
+      </tr>
+    </thead>
 
-        <tr>
-          <td>\(0\)</td>
-          <td>\(0\)</td>
-          <td>\((0,0)\)</td>
-        </tr>
+    <tbody>
+      <tr>
+        <td>
+          \(-2\)
+          <button 
+            class="boton-ayuda-tabla ayuda-fila" 
+            type="button"
+            onclick="abrirAyudaTabla('ayuda-fila-fx2')"
+            aria-label="Ayuda para completar la fila">
+            →
+          </button>
+        </td>
 
-        <tr>
-          <td>\(1\)</td>
-          <td>\(1\)</td>
-          <td>\((1,1)\)</td>
-        </tr>
+        <td>
+          \(4\)
+          <button 
+            class="boton-ayuda-tabla ayuda-celda" 
+            type="button"
+            onclick="abrirAyudaTabla('ayuda-celda-fx2')"
+            aria-label="Ayuda para completar esta celda">
+            ?
+          </button>
+        </td>
 
-        <tr>
-          <td>\(2\)</td>
-          <td>\(4\)</td>
-          <td>\((2,4)\)</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+        <td>\((-2,4)\)</td>
+      </tr>
+
+      <tr>
+        <td>\(-1\)</td>
+        <td>\(1\)</td>
+        <td>\((-1,1)\)</td>
+      </tr>
+
+      <tr>
+        <td>\(0\)</td>
+        <td>\(0\)</td>
+        <td>\((0,0)\)</td>
+      </tr>
+
+      <tr>
+        <td>\(1\)</td>
+        <td>\(1\)</td>
+        <td>\((1,1)\)</td>
+      </tr>
+
+      <tr>
+        <td>\(2\)</td>
+        <td>\(4\)</td>
+        <td>\((2,4)\)</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<template id="ayuda-columna-fx2">
+  <h3>¿Cómo se completa esta columna?</h3>
+
+  <p>
+    Esta columna se completa reemplazando cada valor de \(x\) en la fórmula:
+  </p>
+
+  <p class="formula">
+    \[
+      f(x)=x^2
+    \]
+  </p>
+
+  <p>
+    Por ejemplo:
+  </p>
+
+  <p class="formula">
+    \[
+      f(-2)=(-2)^2=4
+    \]
+  </p>
+
+  <p>
+    Entonces, cuando \(x=-2\), en la columna \(f(x)\) escribimos \(4\).
+  </p>
+</template>
+
+<template id="ayuda-fila-fx2">
+  <h3>¿Cómo se completa esta fila?</h3>
+
+  <p>
+    En una fila trabajamos siempre con el mismo valor de \(x\).
+  </p>
+
+  <p>
+    En esta fila el valor es:
+  </p>
+
+  <p class="formula">
+    \[
+      x=-2
+    \]
+  </p>
+
+  <p>
+    Luego calculamos:
+  </p>
+
+  <p class="formula">
+    \[
+      f(-2)=(-2)^2=4
+    \]
+  </p>
+
+  <p>
+    Por eso el punto correspondiente es:
+  </p>
+
+  <p class="formula">
+    \[
+      (-2,4)
+    \]
+  </p>
+</template>
+
+<template id="ayuda-celda-fx2">
+  <h3>¿Cómo se completa esta celda?</h3>
+
+  <p>
+    Esta celda corresponde al valor de la función cuando \(x=-2\).
+  </p>
+
+  <p>
+    Reemplazamos en la fórmula:
+  </p>
+
+  <p class="formula">
+    \[
+      f(x)=x^2
+    \]
+  </p>
+
+  <p class="formula">
+    \[
+      f(-2)=(-2)^2=4
+    \]
+  </p>
+
+  <p>
+    Por eso en esta celda escribimos \(4\).
+  </p>
+</template>  
+    
 
   <p>
     Al representar estos puntos en el plano cartesiano y unirlos mediante una curva suave obtenemos una parábola.
