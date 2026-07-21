@@ -71,9 +71,7 @@ function mostrarContenidoAyudaTabla(contenido) {
   modal.setAttribute("aria-hidden", "false");
   modal.querySelector(".modal-contenido").focus();
 
-  if (window.MathJax && MathJax.typesetPromise) {
-    MathJax.typesetPromise([contenedor]);
-  }
+  procesarMathJax(contenedor);
 }
 
 function abrirAyudaTabla(idTemplate) {
@@ -211,6 +209,12 @@ function inicializarNavegacionTemario() {
    AYUDAS AUTOMÁTICAS EN TABLAS DE VALORES DE FUNCIONES
    Detecta tablas cuya primera columna es x y cuya segunda
    columna contiene f(x), g(x), sen(x), cos(x), etc.
+
+   IMPORTANTE:
+   Las expresiones matemáticas se guardan en TeX antes de que
+   MathJax transforme el contenido de las celdas. Después se
+   vuelven a insertar entre \( ... \), para que los exponentes,
+   fracciones y demás comandos se representen correctamente.
 ====================================================== */
 
 function textoLimpio(elemento) {
@@ -219,6 +223,87 @@ function textoLimpio(elemento) {
     .replace(/\$/g, "")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+function extraerTexDeHtml(html) {
+  if (!html) return "";
+
+  const patrones = [
+    /\\\(([\s\S]*?)\\\)/,       // \( ... \)
+    /\\\[([\s\S]*?)\\\]/,       // \[ ... \]
+    /\$([^$]+?)\$/                 // $ ... $
+  ];
+
+  for (const patron of patrones) {
+    const coincidencia = html.match(patron);
+    if (coincidencia) {
+      return coincidencia[1]
+        .replace(/&nbsp;/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+  }
+
+  return "";
+}
+
+function guardarTexOriginal(elemento) {
+  if (!elemento || elemento.dataset.texOriginal) return;
+
+  const tex = extraerTexDeHtml(elemento.innerHTML);
+
+  if (tex) {
+    elemento.dataset.texOriginal = tex;
+  }
+}
+
+function capturarTexOriginalDeLasTablas() {
+  document.querySelectorAll("table th, table td").forEach(guardarTexOriginal);
+}
+
+function obtenerTex(elemento) {
+  if (!elemento) return "";
+
+  return elemento.dataset.texOriginal ||
+    extraerTexDeHtml(elemento.innerHTML) ||
+    textoLimpio(elemento);
+}
+
+function crearFormulaInline(tex) {
+  const formula = document.createElement("span");
+  formula.className = "formula-inline-ayuda";
+  formula.textContent = `\\(${tex}\\)`;
+  return formula;
+}
+
+function crearFormulaConX(valorX) {
+  return crearFormulaInline(`x=${valorX}`);
+}
+
+function agregarPartes(elemento, partes) {
+  partes.forEach(function (parte) {
+    elemento.append(parte);
+  });
+
+  return elemento;
+}
+
+function procesarMathJax(elemento) {
+  if (!window.MathJax || !elemento) return;
+
+  const procesar = function () {
+    if (MathJax.typesetPromise) {
+      MathJax.typesetPromise([elemento]).catch(function (error) {
+        console.error("MathJax no pudo procesar la ayuda:", error);
+      });
+    }
+  };
+
+  if (MathJax.startup && MathJax.startup.promise) {
+    MathJax.startup.promise.then(procesar);
+  } else {
+    procesar();
+  }
 }
 
 function esTablaDeValoresDeFuncion(tabla) {
@@ -231,8 +316,16 @@ function esTablaDeValoresDeFuncion(tabla) {
   const celdas = primeraFila.querySelectorAll("th, td");
   if (celdas.length < 2) return false;
 
-  const primera = textoLimpio(celdas[0]).replace(/\s/g, "").toLowerCase();
-  const segunda = textoLimpio(celdas[1]).replace(/\s/g, "").toLowerCase();
+  const primera = obtenerTex(celdas[0])
+    .replace(/\\/g, "")
+    .replace(/\s/g, "")
+    .toLowerCase();
+
+  const segunda = obtenerTex(celdas[1])
+    .replace(/\\operatorname\{([^}]+)\}/g, "$1")
+    .replace(/\\/g, "")
+    .replace(/\s/g, "")
+    .toLowerCase();
 
   const primeraEsX = primera === "x";
   const segundaEsFuncion =
@@ -258,35 +351,89 @@ function crearExplicacionTabla(tipo, datos) {
   const texto = document.createElement("p");
   const lista = document.createElement("ol");
 
-  const agregarPaso = function (contenido) {
+  const agregarPaso = function (...partes) {
     const item = document.createElement("li");
-    item.textContent = contenido;
+    agregarPartes(item, partes);
     lista.appendChild(item);
   };
 
   if (tipo === "columna") {
     titulo.textContent = "¿Cómo se completa la columna de la función?";
-    texto.textContent = `La columna ${datos.formula} contiene las imágenes de los valores de x.`;
-    agregarPaso("Tomá un valor de x de la primera columna.");
-    agregarPaso(`Reemplazá x en la expresión ${datos.formula}.`);
+
+    agregarPartes(texto, [
+      "La columna ",
+      crearFormulaInline(datos.formulaTex),
+      " contiene las imágenes de los valores de ",
+      crearFormulaInline("x"),
+      "."
+    ]);
+
+    agregarPaso("Tomá un valor de ", crearFormulaInline("x"), " de la primera columna.");
+    agregarPaso("Reemplazá ", crearFormulaInline("x"), " en la expresión ", crearFormulaInline(datos.formulaTex), ".");
     agregarPaso("Resolvé las operaciones respetando su orden.");
     agregarPaso("Escribí el resultado en la misma fila.");
   }
 
   if (tipo === "fila") {
     titulo.textContent = "¿Cómo se completa esta fila?";
-    texto.textContent = `En esta fila se trabaja con ${datos.valorX}.`;
-    agregarPaso(`Sustituí x por ${datos.valorX} en ${datos.formula}.`);
+
+    agregarPartes(texto, [
+      "En esta fila se trabaja con ",
+      crearFormulaConX(datos.valorXTex),
+      "."
+    ]);
+
+    agregarPaso(
+      "Sustituí ",
+      crearFormulaInline("x"),
+      " por ",
+      crearFormulaInline(datos.valorXTex),
+      " en ",
+      crearFormulaInline(datos.formulaTex),
+      "."
+    );
+
     agregarPaso("Calculá el valor de la función.");
-    agregarPaso(`La imagen obtenida se escribe en la segunda columna${datos.resultado ? `: ${datos.resultado}` : "."}`);
+
+    const partesResultado = [
+      "La imagen obtenida se escribe en la segunda columna"
+    ];
+
+    if (datos.resultadoTex) {
+      partesResultado.push(": ", crearFormulaInline(datos.resultadoTex), ".");
+    } else {
+      partesResultado.push(".");
+    }
+
+    agregarPaso(...partesResultado);
   }
 
   if (tipo === "celda") {
     titulo.textContent = "¿Qué representa esta celda?";
-    texto.textContent = `Esta celda es la intersección entre la fila ${datos.valorX} y la columna ${datos.formula}.`;
-    agregarPaso(`Se evalúa ${datos.formula} usando ${datos.valorX}.`);
-    agregarPaso(`El resultado de esa evaluación es ${datos.resultado}.`);
-    agregarPaso("Ese número es la imagen del valor de x elegido.");
+
+    agregarPartes(texto, [
+      "Esta celda es la intersección entre la fila ",
+      crearFormulaConX(datos.valorXTex),
+      " y la columna ",
+      crearFormulaInline(datos.formulaTex),
+      "."
+    ]);
+
+    agregarPaso(
+      "Se evalúa ",
+      crearFormulaInline(datos.formulaTex),
+      " usando ",
+      crearFormulaConX(datos.valorXTex),
+      "."
+    );
+
+    agregarPaso(
+      "El resultado de esa evaluación es ",
+      crearFormulaInline(datos.resultadoTex),
+      "."
+    );
+
+    agregarPaso("Ese número es la imagen del valor de ", crearFormulaInline("x"), " elegido.");
   }
 
   bloque.append(titulo, texto, lista);
@@ -309,9 +456,9 @@ function agregarAyudasATablaDeFuncion(tabla) {
   const encabezadoFuncion = encabezados[1];
 
   const datos = {
-    formula: textoLimpio(encabezadoFuncion),
-    valorX: textoLimpio(celdaX),
-    resultado: textoLimpio(celdaResultado)
+    formulaTex: obtenerTex(encabezadoFuncion),
+    valorXTex: obtenerTex(celdaX),
+    resultadoTex: obtenerTex(celdaResultado)
   };
 
   encabezadoFuncion.appendChild(
@@ -341,6 +488,10 @@ function inicializarAyudasTablasFunciones() {
   });
 }
 
+// El archivo script.js está al final del <body>, de modo que las tablas
+// ya existen. Guardamos ahora el TeX original, antes de que MathJax pueda
+// reemplazarlo por su representación visual.
+capturarTexOriginalDeLasTablas();
 
 document.addEventListener("DOMContentLoaded", function () {
   inicializarNavegacionTemario();
