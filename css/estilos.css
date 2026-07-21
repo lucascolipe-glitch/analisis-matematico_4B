@@ -425,7 +425,7 @@ TARJETAS INTERACTIVAS
 /* ========================= ========================= =========================
   distintos tamaño tabla 
 ========================= */
-tabla-chica table {
+.tabla-chica table {
   width: min(500px, 100%);
 }
 
@@ -481,7 +481,7 @@ tabla-chica table {
 /* ========================= ========================= =========================
    para tablas largas tres columna
 ========================= */
-tabla-larga-tres-columnas table {
+.tabla-larga-tres-columnas table {
   width: 100%;
   min-width: 720px;
   table-layout: fixed;
@@ -498,7 +498,7 @@ tabla-larga-tres-columnas table {
 }
 
 .tabla-larga-tres-columnas th:nth-child(3),
-.tabla-larga td:nth-child(3) {
+.tabla-larga-tres-columnas td:nth-child(3) {
   width: 35%;
 }
 
@@ -518,8 +518,8 @@ tabla-larga-tres-columnas table {
 }
 
 .resumen {
-  background-color: solid var(--fondo);
-  border-left: 6px solid solid var(--azul);
+  background-color: var(--amarillo);
+  border-left: 6px solid var(--azul);
   border-radius: 10px;
   padding: 20px 25px;
   margin: 30px 0;
@@ -722,4 +722,100 @@ tabla-larga-tres-columnas table {
 
 .cerrar-modal:hover {
   background: #d1d5db;
+}
+
+/* ======================================================
+   NAVEGACIÓN INTERACTIVA DEL TEMARIO
+====================================================== */
+
+.temario-interactivo ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.7rem;
+  padding: 0;
+  margin: 1rem 0 0;
+  list-style: none;
+}
+
+.temario-interactivo a {
+  display: block;
+  height: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #f3cf77;
+  border-radius: 12px;
+  background: var(--blanco);
+  color: var(--texto);
+  text-decoration: none;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.temario-interactivo a:hover,
+.temario-interactivo a:focus-visible {
+  border-color: var(--azul-claro);
+  background: #f3f4ff;
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.temario-interactivo a.tema-activo {
+  border-color: var(--azul);
+  background: var(--azul);
+  color: var(--blanco);
+  font-weight: bold;
+}
+
+.aviso-seleccion-tema {
+  display: grid;
+  gap: 0.25rem;
+  place-items: center;
+  min-height: 150px;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border: 2px dashed #b9c1d4;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.65);
+  color: #4b5563;
+  text-align: center;
+}
+
+.aviso-seleccion-tema strong {
+  color: var(--azul);
+  font-size: 1.15rem;
+}
+
+.seccion-tema {
+  scroll-margin-top: 95px;
+  animation: aparecer-seccion 0.28s ease-out;
+}
+
+@keyframes aparecer-seccion {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Estado abierto de mostrarDetalle(). */
+.detalle-tarjeta.visible {
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .temario-interactivo ul {
+    grid-template-columns: 1fr;
+  }
+
+  .tabla-ayudada {
+    padding-top: 44px;
+    padding-left: 42px;
+  }
+
+  .boton-ayuda-tabla {
+    width: 31px;
+    height: 31px;
+  }
 }
