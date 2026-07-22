@@ -1,383 +1,2123 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Unidad 2 - Análisis Matemático</title>
-<script>window.MathJax = { tex: { inlineMath: [['$', '$'], ['\(', '\)']] } };</script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<link rel="stylesheet" href="../css/estilos.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Unidad 2 de Análisis Matemático: límites y continuidad, con ejemplos y aplicaciones en la Tecnicatura en Automotores."
+  />
+
+  <title>Unidad 2 - Límites y continuidad</title>
+
+  <!-- MathJax: permite escribir fórmulas con sintaxis LaTeX -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        macros: {
+          sen: "\\operatorname{sen}",
+          Dom: "\\operatorname{Dom}",
+          Im: "\\operatorname{Im}"
+        }
+      }
+    };
+  </script>
+
+  <script
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+
+  <!-- La página está pensada para guardarse dentro de la carpeta unidades -->
+  <link rel="stylesheet" href="../css/estilos.css" />
 </head>
+
 <body>
-<div class="barra-superior">
-  <div class="nav-contenedor">
-    <a class="logo" href="../index.html">Análisis Matemático</a>
-    <nav><a href="unidad0.html" class="">Unidad 0</a><a href="unidad1.html" class="">Unidad 1</a><a href="unidad2.html" class="activo">Unidad 2</a><a href="unidad3.html" class="">Unidad 3</a><a href="unidad4.html" class="">Unidad 4</a><a href="unidad5.html" class="">Unidad 5</a></nav>
+
+  <!-- =========================================================
+       NAVEGACIÓN PRINCIPAL
+       ========================================================= -->
+  <div class="barra-superior">
+    <div class="nav-contenedor">
+      <a class="logo" href="../index.html">Análisis Matemático</a>
+
+      <nav aria-label="Unidades de la materia">
+        <a href="unidad0.html">Unidad 0</a>
+        <a href="unidad1.html">Unidad 1</a>
+        <a href="unidad2.html" class="activo" aria-current="page">Unidad 2</a>
+        <a href="unidad3.html">Unidad 3</a>
+        <a href="unidad4.html">Unidad 4</a>
+        <a href="unidad5.html">Unidad 5</a>
+      </nav>
+    </div>
   </div>
-</div>
-<header>
-<h1>Unidad 2: Límites y continuidad</h1>
-<p>Teoría, ejemplos, videos y apuntes para trabajar esta unidad.</p>
-</header>
-<main>
-<section class="temario">
-<h2>Temas de la unidad</h2>
-<ul><li><a href="#1">Noción intuitiva de límite</a></li>
-<li><a href="#2">Existencia del límite</a></li>
-<li><a href="#3">Propiedades de los límites</a></li>
-<li><a href="#4">Límites finitos e infinitos</a></li>
-<li><a href="#5">Límites laterales</a></li>
-<li><a href="#6">Indeterminaciones básicas</a></li>
-<li><a href="#7">Continuidad</a></li>
-<li><a href="#8">Tipos de discontinuidades</a></li>
-<li><a href="#9">Comportamiento de funciones</a></li></ul>
-</section>
-<section id="1">
-<h2>Noción intuitiva de límite</h2>
-<p class="nota">Espacio para desarrollar la teoría, escribir definiciones, fórmulas, observaciones y consignas breves.</p>
-<div class="formula">
-$$\text{Acá podés escribir una fórmula o idea central del tema.}$$
-</div>
-<div class="hilera-ejemplos">
-<article class="ejemplo">
-  <h4>Ejemplo 1</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Noción intuitiva de límite</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 1 - Noción intuitiva de límite"></iframe>
-  <!-- Para un PDF local usá: ../pdf/noción-intuitiva-de-límite.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 1 - Noción intuitiva de límite"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 2</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Noción intuitiva de límite</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 2 - Noción intuitiva de límite"></iframe>
-  <!-- Para un PDF local usá: ../pdf/noción-intuitiva-de-límite.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 2 - Noción intuitiva de límite"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 3</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Noción intuitiva de límite</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 3 - Noción intuitiva de límite"></iframe>
-  <!-- Para un PDF local usá: ../pdf/noción-intuitiva-de-límite.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 3 - Noción intuitiva de límite"></iframe>
-</article>
-</div>
-</section><section id="2">
-<h2>Existencia del límite</h2>
-<p class="nota">Espacio para desarrollar la teoría, escribir definiciones, fórmulas, observaciones y consignas breves.</p>
-<div class="formula">
-$$\text{Acá podés escribir una fórmula o idea central del tema.}$$
-</div>
-<div class="hilera-ejemplos">
-<article class="ejemplo">
-  <h4>Ejemplo 1</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Existencia del límite</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 1 - Existencia del límite"></iframe>
-  <!-- Para un PDF local usá: ../pdf/existencia-del-límite.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 1 - Existencia del límite"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 2</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Existencia del límite</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 2 - Existencia del límite"></iframe>
-  <!-- Para un PDF local usá: ../pdf/existencia-del-límite.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 2 - Existencia del límite"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 3</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Existencia del límite</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 3 - Existencia del límite"></iframe>
-  <!-- Para un PDF local usá: ../pdf/existencia-del-límite.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 3 - Existencia del límite"></iframe>
-</article>
-</div>
-</section><section id="3">
-<h2>Propiedades de los límites</h2>
-<p class="nota">Espacio para desarrollar la teoría, escribir definiciones, fórmulas, observaciones y consignas breves.</p>
-<div class="formula">
-$$\text{Acá podés escribir una fórmula o idea central del tema.}$$
-</div>
-<div class="hilera-ejemplos">
-<article class="ejemplo">
-  <h4>Ejemplo 1</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Propiedades de los límites</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 1 - Propiedades de los límites"></iframe>
-  <!-- Para un PDF local usá: ../pdf/propiedades-de-los-límites.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 1 - Propiedades de los límites"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 2</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Propiedades de los límites</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 2 - Propiedades de los límites"></iframe>
-  <!-- Para un PDF local usá: ../pdf/propiedades-de-los-límites.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 2 - Propiedades de los límites"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 3</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Propiedades de los límites</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 3 - Propiedades de los límites"></iframe>
-  <!-- Para un PDF local usá: ../pdf/propiedades-de-los-límites.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 3 - Propiedades de los límites"></iframe>
-</article>
-</div>
-</section><section id="4">
-<h2>Límites finitos e infinitos</h2>
-<p class="nota">Espacio para desarrollar la teoría, escribir definiciones, fórmulas, observaciones y consignas breves.</p>
-<div class="formula">
-$$\text{Acá podés escribir una fórmula o idea central del tema.}$$
-</div>
-<div class="hilera-ejemplos">
-<article class="ejemplo">
-  <h4>Ejemplo 1</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Límites finitos e infinitos</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 1 - Límites finitos e infinitos"></iframe>
-  <!-- Para un PDF local usá: ../pdf/límites-finitos-e-infinitos.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 1 - Límites finitos e infinitos"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 2</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Límites finitos e infinitos</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 2 - Límites finitos e infinitos"></iframe>
-  <!-- Para un PDF local usá: ../pdf/límites-finitos-e-infinitos.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 2 - Límites finitos e infinitos"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 3</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Límites finitos e infinitos</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 3 - Límites finitos e infinitos"></iframe>
-  <!-- Para un PDF local usá: ../pdf/límites-finitos-e-infinitos.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 3 - Límites finitos e infinitos"></iframe>
-</article>
-</div>
-</section><section id="5">
-<h2>Límites laterales</h2>
-<p class="nota">Espacio para desarrollar la teoría, escribir definiciones, fórmulas, observaciones y consignas breves.</p>
-<div class="formula">
-$$\text{Acá podés escribir una fórmula o idea central del tema.}$$
-</div>
-<div class="hilera-ejemplos">
-<article class="ejemplo">
-  <h4>Ejemplo 1</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Límites laterales</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 1 - Límites laterales"></iframe>
-  <!-- Para un PDF local usá: ../pdf/límites-laterales.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 1 - Límites laterales"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 2</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Límites laterales</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 2 - Límites laterales"></iframe>
-  <!-- Para un PDF local usá: ../pdf/límites-laterales.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 2 - Límites laterales"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 3</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Límites laterales</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 3 - Límites laterales"></iframe>
-  <!-- Para un PDF local usá: ../pdf/límites-laterales.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 3 - Límites laterales"></iframe>
-</article>
-</div>
-</section><section id="6">
-<h2>Indeterminaciones básicas</h2>
-<p class="nota">Espacio para desarrollar la teoría, escribir definiciones, fórmulas, observaciones y consignas breves.</p>
-<div class="formula">
-$$\text{Acá podés escribir una fórmula o idea central del tema.}$$
-</div>
-<div class="hilera-ejemplos">
-<article class="ejemplo">
-  <h4>Ejemplo 1</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Indeterminaciones básicas</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 1 - Indeterminaciones básicas"></iframe>
-  <!-- Para un PDF local usá: ../pdf/indeterminaciones-básicas.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 1 - Indeterminaciones básicas"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 2</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Indeterminaciones básicas</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 2 - Indeterminaciones básicas"></iframe>
-  <!-- Para un PDF local usá: ../pdf/indeterminaciones-básicas.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 2 - Indeterminaciones básicas"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 3</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Indeterminaciones básicas</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 3 - Indeterminaciones básicas"></iframe>
-  <!-- Para un PDF local usá: ../pdf/indeterminaciones-básicas.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 3 - Indeterminaciones básicas"></iframe>
-</article>
-</div>
-</section><section id="7">
-<h2>Continuidad</h2>
-<p class="nota">Espacio para desarrollar la teoría, escribir definiciones, fórmulas, observaciones y consignas breves.</p>
-<div class="formula">
-$$\text{Acá podés escribir una fórmula o idea central del tema.}$$
-</div>
-<div class="hilera-ejemplos">
-<article class="ejemplo">
-  <h4>Ejemplo 1</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Continuidad</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 1 - Continuidad"></iframe>
-  <!-- Para un PDF local usá: ../pdf/continuidad.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 1 - Continuidad"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 2</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Continuidad</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 2 - Continuidad"></iframe>
-  <!-- Para un PDF local usá: ../pdf/continuidad.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 2 - Continuidad"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 3</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Continuidad</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 3 - Continuidad"></iframe>
-  <!-- Para un PDF local usá: ../pdf/continuidad.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 3 - Continuidad"></iframe>
-</article>
-</div>
-</section><section id="8">
-<h2>Tipos de discontinuidades</h2>
-<p class="nota">Espacio para desarrollar la teoría, escribir definiciones, fórmulas, observaciones y consignas breves.</p>
-<div class="formula">
-$$\text{Acá podés escribir una fórmula o idea central del tema.}$$
-</div>
-<div class="hilera-ejemplos">
-<article class="ejemplo">
-  <h4>Ejemplo 1</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Tipos de discontinuidades</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 1 - Tipos de discontinuidades"></iframe>
-  <!-- Para un PDF local usá: ../pdf/tipos-de-discontinuidades.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 1 - Tipos de discontinuidades"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 2</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Tipos de discontinuidades</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 2 - Tipos de discontinuidades"></iframe>
-  <!-- Para un PDF local usá: ../pdf/tipos-de-discontinuidades.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 2 - Tipos de discontinuidades"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 3</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Tipos de discontinuidades</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 3 - Tipos de discontinuidades"></iframe>
-  <!-- Para un PDF local usá: ../pdf/tipos-de-discontinuidades.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 3 - Tipos de discontinuidades"></iframe>
-</article>
-</div>
-</section><section id="9">
-<h2>Comportamiento de funciones</h2>
-<p class="nota">Espacio para desarrollar la teoría, escribir definiciones, fórmulas, observaciones y consignas breves.</p>
-<div class="formula">
-$$\text{Acá podés escribir una fórmula o idea central del tema.}$$
-</div>
-<div class="hilera-ejemplos">
-<article class="ejemplo">
-  <h4>Ejemplo 1</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Comportamiento de funciones</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 1 - Comportamiento de funciones"></iframe>
-  <!-- Para un PDF local usá: ../pdf/comportamiento-de-funciones.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 1 - Comportamiento de funciones"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 2</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Comportamiento de funciones</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 2 - Comportamiento de funciones"></iframe>
-  <!-- Para un PDF local usá: ../pdf/comportamiento-de-funciones.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 2 - Comportamiento de funciones"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 3</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Comportamiento de funciones</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 3 - Comportamiento de funciones"></iframe>
-  <!-- Para un PDF local usá: ../pdf/comportamiento-de-funciones.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 3 - Comportamiento de funciones"></iframe>
-</article>
-</div>
-</section>
-</main>
-<footer><a href="../index.html">Volver a la página principal</a></footer>
-  <!-- JAVASCRIPT -->
+
+  <!-- =========================================================
+       ENCABEZADO
+       ========================================================= -->
+  <header>
+    <h1>Unidad 2: Límites y continuidad</h1>
+
+    <p>
+      Aproximación, interpretación gráfica, cálculo y aplicaciones en situaciones
+      vinculadas con la Tecnicatura en Automotores.
+    </p>
+  </header>
+
+  <main>
+
+    <!-- =======================================================
+         TEMARIO
+         ======================================================= -->
+    <section class="temario" aria-labelledby="titulo-temario">
+      <h2 id="titulo-temario">Temas de la unidad</h2>
+
+      <ul>
+        <li><a href="#1">Presentación y pregunta orientadora</a></li>
+        <li><a href="#2">Intervalos, entornos y valores cercanos</a></li>
+        <li><a href="#3">Noción intuitiva de límite</a></li>
+        <li><a href="#4">Límite y valor de la función</a></li>
+        <li><a href="#5">Límites laterales y existencia</a></li>
+        <li><a href="#6">Lectura de límites en gráficos</a></li>
+        <li><a href="#7">Propiedades de los límites</a></li>
+        <li><a href="#8">Sustitución directa</a></li>
+        <li><a href="#9">Indeterminación \(\frac{0}{0}\)</a></li>
+        <li><a href="#10">Límites finitos e infinitos</a></li>
+        <li><a href="#11">Límites cuando \(x\) tiende a infinito</a></li>
+        <li><a href="#12">Continuidad</a></li>
+        <li><a href="#13">Tipos de discontinuidad</a></li>
+        <li><a href="#14">Aplicaciones técnicas</a></li>
+        <li><a href="#15">Actividades de aplicación</a></li>
+        <li><a href="#16">Síntesis y materiales</a></li>
+      </ul>
+    </section>
+
+    <!-- =======================================================
+         1. PRESENTACIÓN
+         ======================================================= -->
+    <section id="1">
+      <h2>1. Presentación de la unidad</h2>
+
+      <article class="tarjeta">
+        <h3>¿Para qué sirven los límites?</h3>
+
+        <p>
+          En un vehículo cambian muchas magnitudes: la temperatura del motor,
+          la presión de un fluido, la tensión entregada por el alternador,
+          la velocidad, el consumo y las señales registradas por los sensores.
+        </p>
+
+        <p>
+          Algunas veces interesa conocer el valor de una magnitud en un instante
+          determinado. En otras situaciones interesa anticipar
+          <strong>hacia qué valor se aproxima</strong>.
+        </p>
+
+        <div class="definicion">
+          <h4>Pregunta que orienta el estudio</h4>
+
+          <p>
+            ¿Cómo podemos anticipar el comportamiento de una magnitud técnica
+            cuando sus valores se acercan a una condición determinada,
+            aunque no evaluemos exactamente en ella?
+          </p>
+        </div>
+
+        <p>
+          El concepto de <strong>límite</strong> permite describir esa tendencia.
+          La <strong>continuidad</strong> permite decidir si el comportamiento
+          cambia sin saltos, huecos o interrupciones en la zona estudiada.
+        </p>
+
+        <div class="nota">
+          <p>
+            <strong>Idea central:</strong> en esta unidad no alcanza con obtener
+            un número. También debemos explicar qué representa, cuáles son sus
+            unidades y dentro de qué condiciones el modelo resulta válido.
+          </p>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Modos de representar un fenómeno</h3>
+
+        <p>
+          Para estudiar una variación vamos a relacionar distintas representaciones:
+        </p>
+
+        <div class="tabla-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Representación</th>
+                <th>Qué permite observar</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Descripción verbal</td>
+                <td>El significado de las variables y del fenómeno.</td>
+              </tr>
+              <tr>
+                <td>Tabla</td>
+                <td>Valores próximos y tendencias numéricas.</td>
+              </tr>
+              <tr>
+                <td>Fórmula</td>
+                <td>La relación matemática entre las magnitudes.</td>
+              </tr>
+              <tr>
+                <td>Gráfico</td>
+                <td>El comportamiento global, los saltos, huecos y asíntotas.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <!-- =======================================================
+         2. ENTORNOS
+         ======================================================= -->
+    <section id="2">
+      <h2>2. Intervalos, entornos y valores cercanos</h2>
+
+      <article class="tarjeta">
+        <h3>Recordatorio de intervalos</h3>
+
+        <p>
+          Para hablar de valores cercanos a un número necesitamos indicar
+          qué parte de la recta real estamos considerando.
+        </p>
+
+        <div class="tabla-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Notación</th>
+                <th>Significado</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Intervalo abierto</td>
+                <td>\((a,b)\)</td>
+                <td>\(a\lt x\lt b\). No incluye los extremos.</td>
+              </tr>
+              <tr>
+                <td>Intervalo cerrado</td>
+                <td>\([a,b]\)</td>
+                <td>\(a\leq x\leq b\). Incluye los extremos.</td>
+              </tr>
+              <tr>
+                <td>Semiabierto</td>
+                <td>\([a,b)\)</td>
+                <td>\(a\leq x\lt b\).</td>
+              </tr>
+              <tr>
+                <td>Semiabierto</td>
+                <td>\((a,b]\)</td>
+                <td>\(a\lt x\leq b\).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Entorno de un número</h3>
+
+        <div class="definicion">
+          <h4>Entorno</h4>
+
+          <p>
+            Un entorno de centro \(a\) y radio \(r>0\) es el intervalo:
+          </p>
+
+          <p class="formula">
+            \[
+              E(a,r)=(a-r,a+r)
+            \]
+          </p>
+        </div>
+
+        <div class="definicion">
+          <h4>Entorno reducido</h4>
+
+          <p>
+            Un entorno reducido contiene valores cercanos a \(a\), pero excluye
+            el propio valor \(a\):
+          </p>
+
+          <p class="formula">
+            \[
+              E^*(a,r)=(a-r,a)\cup(a,a+r)
+            \]
+          </p>
+        </div>
+
+        <div class="ejemplo">
+          <h4>Ejemplo</h4>
+
+          <p>
+            El entorno de centro \(5\) y radio \(0{,}2\) es:
+          </p>
+
+          <p class="formula">
+            \[
+              E(5,0{,}2)=(4{,}8,5{,}2)
+            \]
+          </p>
+
+          <p>
+            Los valores cercanos a \(5\), pero diferentes de \(5\), pertenecen a:
+          </p>
+
+          <p class="formula">
+            \[
+              E^*(5,0{,}2)=(4{,}8,5)\cup(5,5{,}2)
+            \]
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <!-- =======================================================
+         3. NOCIÓN INTUITIVA
+         ======================================================= -->
+    <section id="3">
+      <h2>3. Noción intuitiva de límite</h2>
+
+      <article class="tarjeta">
+        <h3>Una función con un punto no definido</h3>
+
+        <p>
+          Consideremos la función:
+        </p>
+
+        <p class="formula">
+          \[
+            f(x)=\frac{x^2-4}{x-2}
+          \]
+        </p>
+
+        <p>
+          La expresión no está definida en \(x=2\), porque el denominador se hace
+          cero. Sin embargo, podemos estudiar qué ocurre cuando \(x\) toma valores
+          cada vez más cercanos a \(2\).
+        </p>
+
+        <div class="tabla-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>\(x\)</th>
+                <th>\(1{,}9\)</th>
+                <th>\(1{,}99\)</th>
+                <th>\(1{,}999\)</th>
+                <th>\(2{,}001\)</th>
+                <th>\(2{,}01\)</th>
+                <th>\(2{,}1\)</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <th>\(f(x)\)</th>
+                <td>\(3{,}9\)</td>
+                <td>\(3{,}99\)</td>
+                <td>\(3{,}999\)</td>
+                <td>\(4{,}001\)</td>
+                <td>\(4{,}01\)</td>
+                <td>\(4{,}1\)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          Los valores de \(f(x)\) se aproximan a \(4\) cuando \(x\) se aproxima a
+          \(2\), tanto por la izquierda como por la derecha.
+        </p>
+
+        <p class="formula">
+          \[
+            \boxed{\lim_{x\to2}\frac{x^2-4}{x-2}=4}
+          \]
+        </p>
+
+        <div class="definicion">
+          <h4>Definición intuitiva</h4>
+
+          <p>
+            Escribimos:
+          </p>
+
+          <p class="formula">
+            \[
+              \lim_{x\to a}f(x)=L
+            \]
+          </p>
+
+          <p>
+            cuando los valores de \(f(x)\) pueden quedar tan cerca de \(L\) como
+            deseemos al tomar valores de \(x\) suficientemente cercanos a \(a\),
+            con \(x\neq a\).
+          </p>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Interpretación gráfica</h3>
+
+        <p>
+          Para \(x\neq2\), la expresión puede simplificarse:
+        </p>
+
+        <p class="formula">
+          \[
+            \frac{x^2-4}{x-2}
+            =
+            \frac{(x-2)(x+2)}{x-2}
+            =
+            x+2
+          \]
+        </p>
+
+        <p>
+          La gráfica coincide con la recta \(y=x+2\), pero tiene un hueco en
+          el punto \((2,4)\).
+        </p>
+
+        <figure class="figura">
+          <svg
+            viewBox="0 0 720 430"
+            role="img"
+            aria-labelledby="titulo-grafico-limite descripcion-grafico-limite">
+            <title id="titulo-grafico-limite">
+              Gráfico de la recta y igual a x más 2 con un hueco en el punto 2 coma 4
+            </title>
+
+            <desc id="descripcion-grafico-limite">
+              La función se aproxima al valor 4 cuando x se aproxima a 2,
+              aunque no está definida en ese punto.
+            </desc>
+
+            <rect width="720" height="430" fill="#ffffff"></rect>
+
+            <!-- Cuadrícula -->
+            <g stroke="#d9e2ec" stroke-width="1">
+              <line x1="80" y1="60" x2="80" y2="370"></line>
+              <line x1="170" y1="60" x2="170" y2="370"></line>
+              <line x1="260" y1="60" x2="260" y2="370"></line>
+              <line x1="350" y1="60" x2="350" y2="370"></line>
+              <line x1="440" y1="60" x2="440" y2="370"></line>
+              <line x1="530" y1="60" x2="530" y2="370"></line>
+              <line x1="620" y1="60" x2="620" y2="370"></line>
+
+              <line x1="80" y1="370" x2="650" y2="370"></line>
+              <line x1="80" y1="320" x2="650" y2="320"></line>
+              <line x1="80" y1="270" x2="650" y2="270"></line>
+              <line x1="80" y1="220" x2="650" y2="220"></line>
+              <line x1="80" y1="170" x2="650" y2="170"></line>
+              <line x1="80" y1="120" x2="650" y2="120"></line>
+              <line x1="80" y1="70" x2="650" y2="70"></line>
+            </g>
+
+            <!-- Ejes -->
+            <g stroke="#1f2937" stroke-width="2">
+              <line x1="80" y1="370" x2="670" y2="370"></line>
+              <line x1="80" y1="390" x2="80" y2="45"></line>
+            </g>
+
+            <!-- Curva y=x+2 -->
+            <line
+              x1="80"
+              y1="270"
+              x2="620"
+              y2="70"
+              stroke="#2336c7"
+              stroke-width="5"
+              stroke-linecap="round">
+            </line>
+
+            <!-- Hueco en (2,4) -->
+            <circle
+              cx="350"
+              cy="170"
+              r="9"
+              fill="#ffffff"
+              stroke="#2336c7"
+              stroke-width="5">
+            </circle>
+
+            <!-- Líneas auxiliares -->
+            <g stroke="#a23a3a" stroke-width="2" stroke-dasharray="8 6">
+              <line x1="350" y1="370" x2="350" y2="170"></line>
+              <line x1="80" y1="170" x2="350" y2="170"></line>
+            </g>
+
+            <!-- Etiquetas -->
+            <g
+              fill="#1f2937"
+              font-family="Arial, sans-serif"
+              font-size="20">
+              <text x="675" y="377">x</text>
+              <text x="70" y="40">y</text>
+              <text x="342" y="398">2</text>
+              <text x="52" y="177">4</text>
+              <text x="370" y="150">hueco</text>
+              <text x="505" y="90">y = x + 2</text>
+            </g>
+          </svg>
+
+          <figcaption>
+            El límite depende de lo que ocurre alrededor de \(x=2\), no de que
+            exista un punto dibujado exactamente allí.
+          </figcaption>
+        </figure>
+
+        <div class="nota">
+          <p>
+            <strong>Importante:</strong> el límite estudia el comportamiento
+            <em>cerca</em> de \(a\). Por eso, \(f(a)\) puede existir, no existir
+            o ser diferente del límite.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <!-- =======================================================
+         4. LÍMITE Y VALOR
+         ======================================================= -->
+    <section id="4">
+      <h2>4. Límite y valor de la función no son lo mismo</h2>
+
+      <article class="tarjeta">
+        <h3>Tres situaciones posibles</h3>
+
+        <div class="tabla-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Caso</th>
+                <th>Información</th>
+                <th>Conclusión</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>\(\lim_{x\to a}f(x)=L\) y \(f(a)=L\)</td>
+                <td>El límite coincide con el valor de la función.</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>\(\lim_{x\to a}f(x)=L\), pero \(f(a)\) no existe</td>
+                <td>El límite puede existir aunque falte el punto.</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>\(\lim_{x\to a}f(x)=L\), pero \(f(a)=M\neq L\)</td>
+                <td>El límite puede existir aunque el punto esté en otra altura.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="ejemplo">
+          <h4>Ejemplo: dato aislado incorrecto de un sensor</h4>
+
+          <p>
+            Supongamos que una función \(S(v)\) modeliza la señal de un sensor.
+            Cerca de \(v=5\), los valores se aproximan a \(10\), pero el dato
+            almacenado exactamente en \(v=5\) es \(7\).
+          </p>
+
+          <p class="formula">
+            \[
+              \lim_{v\to5}S(v)=10
+              \qquad\text{y}\qquad
+              S(5)=7
+            \]
+          </p>
+
+          <p>
+            El límite describe la tendencia de las lecturas cercanas.
+            \(S(5)\) describe el valor asignado en ese punto.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <!-- =======================================================
+         5. LÍMITES LATERALES
+         ======================================================= -->
+    <section id="5">
+      <h2>5. Límites laterales y existencia del límite</h2>
+
+      <article class="tarjeta">
+        <h3>Aproximarse desde cada lado</h3>
+
+        <div class="definicion">
+          <h4>Límite por la izquierda</h4>
+
+          <p>
+            Se consideran valores menores que \(a\):
+          </p>
+
+          <p class="formula">
+            \[
+              \lim_{x\to a^-}f(x)=L_1
+            \]
+          </p>
+        </div>
+
+        <div class="definicion">
+          <h4>Límite por la derecha</h4>
+
+          <p>
+            Se consideran valores mayores que \(a\):
+          </p>
+
+          <p class="formula">
+            \[
+              \lim_{x\to a^+}f(x)=L_2
+            \]
+          </p>
+        </div>
+
+        <div class="nota">
+          <p>
+            El límite bilateral existe si los dos límites laterales existen
+            y son iguales:
+          </p>
+
+          <p class="formula">
+            \[
+              \boxed{
+                \lim_{x\to a}f(x)=L
+                \iff
+                \lim_{x\to a^-}f(x)
+                =
+                \lim_{x\to a^+}f(x)
+                =
+                L
+              }
+            \]
+          </p>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Ejemplo: encendido de un electroventilador</h3>
+
+        <p>
+          Un modelo idealizado del estado de un electroventilador es:
+        </p>
+
+        <p class="formula">
+          \[
+            E(T)=
+            \begin{cases}
+              0, & T\lt95,\\
+              1, & T\geq95,
+            \end{cases}
+          \]
+        </p>
+
+        <p>
+          donde \(E=0\) significa apagado y \(E=1\) significa encendido.
+        </p>
+
+        <p class="formula">
+          \[
+            \lim_{T\to95^-}E(T)=0
+            \qquad\text{y}\qquad
+            \lim_{T\to95^+}E(T)=1
+          \]
+        </p>
+
+        <p>
+          Como los límites laterales son diferentes:
+        </p>
+
+        <p class="formula">
+          \[
+            \boxed{\lim_{T\to95}E(T)\text{ no existe}}
+          \]
+        </p>
+
+        <figure class="figura">
+          <svg
+            viewBox="0 0 720 390"
+            role="img"
+            aria-labelledby="titulo-electro descripcion-electro">
+            <title id="titulo-electro">
+              Gráfico del estado de un electroventilador con salto en 95 grados
+            </title>
+
+            <desc id="descripcion-electro">
+              El estado vale cero antes de 95 grados y uno a partir de 95 grados.
+            </desc>
+
+            <rect width="720" height="390" fill="#ffffff"></rect>
+
+            <!-- Cuadrícula -->
+            <g stroke="#d9e2ec" stroke-width="1">
+              <line x1="95" y1="75" x2="95" y2="325"></line>
+              <line x1="205" y1="75" x2="205" y2="325"></line>
+              <line x1="315" y1="75" x2="315" y2="325"></line>
+              <line x1="425" y1="75" x2="425" y2="325"></line>
+              <line x1="535" y1="75" x2="535" y2="325"></line>
+              <line x1="645" y1="75" x2="645" y2="325"></line>
+
+              <line x1="95" y1="300" x2="645" y2="300"></line>
+              <line x1="95" y1="150" x2="645" y2="150"></line>
+            </g>
+
+            <!-- Ejes -->
+            <g stroke="#1f2937" stroke-width="2">
+              <line x1="95" y1="325" x2="670" y2="325"></line>
+              <line x1="95" y1="345" x2="95" y2="55"></line>
+            </g>
+
+            <!-- Función escalón -->
+            <line
+              x1="95"
+              y1="300"
+              x2="370"
+              y2="300"
+              stroke="#2336c7"
+              stroke-width="6">
+            </line>
+
+            <line
+              x1="370"
+              y1="150"
+              x2="645"
+              y2="150"
+              stroke="#2336c7"
+              stroke-width="6">
+            </line>
+
+            <!-- Puntos -->
+            <circle
+              cx="370"
+              cy="300"
+              r="9"
+              fill="#ffffff"
+              stroke="#2336c7"
+              stroke-width="5">
+            </circle>
+
+            <circle
+              cx="370"
+              cy="150"
+              r="9"
+              fill="#2336c7"
+              stroke="#2336c7"
+              stroke-width="4">
+            </circle>
+
+            <!-- Umbral -->
+            <line
+              x1="370"
+              y1="325"
+              x2="370"
+              y2="120"
+              stroke="#a23a3a"
+              stroke-width="2"
+              stroke-dasharray="8 6">
+            </line>
+
+            <!-- Etiquetas -->
+            <g
+              fill="#1f2937"
+              font-family="Arial, sans-serif"
+              font-size="20">
+              <text x="675" y="333">T</text>
+              <text x="82" y="50">E</text>
+              <text x="350" y="355">95 °C</text>
+              <text x="65" y="307">0</text>
+              <text x="65" y="157">1</text>
+              <text x="455" y="118">encendido</text>
+              <text x="190" y="275">apagado</text>
+            </g>
+          </svg>
+
+          <figcaption>
+            El modelo presenta una discontinuidad de salto en el umbral
+            de activación.
+          </figcaption>
+        </figure>
+      </article>
+    </section>
+
+    <!-- =======================================================
+         6. LECTURA GRÁFICA
+         ======================================================= -->
+    <section id="6">
+      <h2>6. Lectura de límites en gráficos</h2>
+
+      <article class="tarjeta">
+        <h3>Procedimiento de lectura</h3>
+
+        <ol>
+          <li>Ubicá el valor \(a\) sobre el eje horizontal.</li>
+          <li>Seguí la curva cuando \(x\) se acerca a \(a\) por la izquierda.</li>
+          <li>Seguí la curva cuando \(x\) se acerca a \(a\) por la derecha.</li>
+          <li>Compará las alturas obtenidas.</li>
+          <li>Observá por separado el punto lleno para conocer \(f(a)\).</li>
+        </ol>
+
+        <div class="nota">
+          <p>
+            Un círculo vacío indica que ese punto no pertenece a la gráfica.
+            Un círculo lleno indica el valor que la función toma exactamente allí.
+          </p>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Ejemplo de lectura</h3>
+
+        <p>
+          Supongamos que, cerca de \(x=-1\), una función se aproxima a \(2{,}5\)
+          desde la izquierda y a \(1{,}75\) desde la derecha.
+        </p>
+
+        <p class="formula">
+          \[
+            \lim_{x\to-1^-}f(x)=2{,}5
+            \qquad\text{y}\qquad
+            \lim_{x\to-1^+}f(x)=1{,}75
+          \]
+        </p>
+
+        <p>
+          Como los resultados no coinciden:
+        </p>
+
+        <p class="formula">
+          \[
+            \lim_{x\to-1}f(x)\text{ no existe}
+          \]
+        </p>
+
+        <p>
+          Esta conclusión no cambia aunque el gráfico tenga un punto lleno que
+          indique, por ejemplo, \(f(-1)=4\).
+        </p>
+      </article>
+    </section>
+
+    <!-- =======================================================
+         7. PROPIEDADES
+         ======================================================= -->
+    <section id="7">
+      <h2>7. Propiedades de los límites</h2>
+
+      <article class="tarjeta">
+        <h3>Álgebra de límites</h3>
+
+        <p>
+          Supongamos que:
+        </p>
+
+        <p class="formula">
+          \[
+            \lim_{x\to a}f(x)=L
+            \qquad\text{y}\qquad
+            \lim_{x\to a}g(x)=M
+          \]
+        </p>
+
+        <div class="tabla-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Operación</th>
+                <th>Propiedad</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Suma</td>
+                <td>
+                  \(\displaystyle
+                  \lim_{x\to a}[f(x)+g(x)]=L+M
+                  \)
+                </td>
+              </tr>
+
+              <tr>
+                <td>Resta</td>
+                <td>
+                  \(\displaystyle
+                  \lim_{x\to a}[f(x)-g(x)]=L-M
+                  \)
+                </td>
+              </tr>
+
+              <tr>
+                <td>Producto por una constante</td>
+                <td>
+                  \(\displaystyle
+                  \lim_{x\to a}[k f(x)]=kL
+                  \)
+                </td>
+              </tr>
+
+              <tr>
+                <td>Producto</td>
+                <td>
+                  \(\displaystyle
+                  \lim_{x\to a}[f(x)g(x)]=LM
+                  \)
+                </td>
+              </tr>
+
+              <tr>
+                <td>Cociente</td>
+                <td>
+                  \(\displaystyle
+                  \lim_{x\to a}\frac{f(x)}{g(x)}=\frac{L}{M}
+                  \), si \(M\neq0\)
+                </td>
+              </tr>
+
+              <tr>
+                <td>Potencia</td>
+                <td>
+                  \(\displaystyle
+                  \lim_{x\to a}[f(x)]^n=L^n
+                  \)
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <!-- =======================================================
+         8. SUSTITUCIÓN
+         ======================================================= -->
+    <section id="8">
+      <h2>8. Cálculo por sustitución directa</h2>
+
+      <article class="tarjeta">
+        <h3>Funciones polinómicas</h3>
+
+        <p>
+          Calculemos:
+        </p>
+
+        <p class="formula">
+          \[
+            \lim_{x\to2}(3x^2-5x+4)
+          \]
+        </p>
+
+        <p>
+          Como es una función polinómica, sustituimos \(x=2\):
+        </p>
+
+        <p class="formula">
+          \[
+            3(2)^2-5(2)+4=12-10+4=6
+          \]
+        </p>
+
+        <p class="formula">
+          \[
+            \boxed{\lim_{x\to2}(3x^2-5x+4)=6}
+          \]
+        </p>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Funciones racionales</h3>
+
+        <p>
+          Calculemos:
+        </p>
+
+        <p class="formula">
+          \[
+            \lim_{x\to3}\frac{2x+1}{x+4}
+          \]
+        </p>
+
+        <p>
+          El denominador no se anula en \(x=3\), por lo tanto:
+        </p>
+
+        <p class="formula">
+          \[
+            \lim_{x\to3}\frac{2x+1}{x+4}
+            =
+            \frac{2\cdot3+1}{3+4}
+            =
+            \frac77
+            =
+            1
+          \]
+        </p>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Ruta inicial para calcular un límite</h3>
+
+        <ol>
+          <li>Sustituí el valor al que tiende la variable.</li>
+          <li>Si obtenés un número real, el cálculo terminó.</li>
+          <li>
+            Si aparece una expresión problemática, analizá qué transformación
+            algebraica puede utilizarse.
+          </li>
+          <li>Verificá el resultado con una tabla o un gráfico.</li>
+          <li>Interpretá el resultado en el contexto.</li>
+        </ol>
+      </article>
+    </section>
+
+    <!-- =======================================================
+         9. INDETERMINACIÓN 0/0
+         ======================================================= -->
+    <section id="9">
+      <h2>9. Indeterminación \(\frac{0}{0}\)</h2>
+
+      <article class="tarjeta">
+        <h3>¿Qué significa \(\frac{0}{0}\)?</h3>
+
+        <p>
+          Cuando la sustitución directa produce:
+        </p>
+
+        <p class="formula">
+          \[
+            \frac00
+          \]
+        </p>
+
+        <p>
+          no podemos concluir que el límite sea cero ni que el límite no exista.
+          La expresión indica que la sustitución directa
+          <strong>no alcanza para decidir</strong>.
+        </p>
+
+        <div class="nota">
+          <p>
+            Debemos transformar la expresión mediante factorización,
+            simplificación, desarrollo o racionalización.
+          </p>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Estrategia 1: factorizar y simplificar</h3>
+
+        <p class="formula">
+          \[
+            \lim_{x\to3}\frac{x^2-9}{x-3}
+          \]
+        </p>
+
+        <p>
+          La sustitución produce \(\frac00\). Factorizamos:
+        </p>
+
+        <p class="formula">
+          \[
+            \frac{x^2-9}{x-3}
+            =
+            \frac{(x-3)(x+3)}{x-3}
+            =
+            x+3,
+            \qquad x\neq3
+          \]
+        </p>
+
+        <p class="formula">
+          \[
+            \boxed{\lim_{x\to3}\frac{x^2-9}{x-3}=6}
+          \]
+        </p>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Estrategia 2: desarrollar y extraer factor común</h3>
+
+        <p class="formula">
+          \[
+            \lim_{x\to0}\frac{(4+x)^2-16}{x}
+          \]
+        </p>
+
+        <p>
+          Desarrollamos el cuadrado:
+        </p>
+
+        <p class="formula">
+          \[
+            (4+x)^2-16
+            =
+            16+8x+x^2-16
+            =
+            x(8+x)
+          \]
+        </p>
+
+        <p>
+          Simplificamos:
+        </p>
+
+        <p class="formula">
+          \[
+            \frac{x(8+x)}{x}=8+x,
+            \qquad x\neq0
+          \]
+        </p>
+
+        <p class="formula">
+          \[
+            \boxed{\lim_{x\to0}\frac{(4+x)^2-16}{x}=8}
+          \]
+        </p>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Estrategia 3: racionalizar</h3>
+
+        <p class="formula">
+          \[
+            \lim_{x\to0}\frac{\sqrt{x+9}-3}{x}
+          \]
+        </p>
+
+        <p>
+          Multiplicamos por el conjugado:
+        </p>
+
+        <p class="formula">
+          \[
+            \frac{\sqrt{x+9}-3}{x}
+            \cdot
+            \frac{\sqrt{x+9}+3}{\sqrt{x+9}+3}
+            =
+            \frac{x}{x(\sqrt{x+9}+3)}
+          \]
+        </p>
+
+        <p>
+          Para \(x\neq0\):
+        </p>
+
+        <p class="formula">
+          \[
+            \frac{x}{x(\sqrt{x+9}+3)}
+            =
+            \frac{1}{\sqrt{x+9}+3}
+          \]
+        </p>
+
+        <p class="formula">
+          \[
+            \boxed{
+              \lim_{x\to0}\frac{\sqrt{x+9}-3}{x}
+              =
+              \frac16
+            }
+          \]
+        </p>
+      </article>
+    </section>
+
+    <!-- =======================================================
+         10. FINITOS E INFINITOS
+         ======================================================= -->
+    <section id="10">
+      <h2>10. Límites finitos e infinitos</h2>
+
+      <article class="tarjeta">
+        <h3>Límite finito</h3>
+
+        <p>
+          Un límite es finito cuando la función se aproxima a un número real:
+        </p>
+
+        <p class="formula">
+          \[
+            \lim_{x\to a}f(x)=L,
+            \qquad L\in\mathbb{R}
+          \]
+        </p>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Límite infinito</h3>
+
+        <p>
+          Escribimos:
+        </p>
+
+        <p class="formula">
+          \[
+            \lim_{x\to a}f(x)=+\infty
+          \]
+        </p>
+
+        <p>
+          cuando los valores de \(f(x)\) crecen sin cota al acercarse \(x\) a \(a\).
+          De manera análoga:
+        </p>
+
+        <p class="formula">
+          \[
+            \lim_{x\to a}f(x)=-\infty
+          \]
+        </p>
+
+        <p>
+          indica que los valores disminuyen sin cota.
+        </p>
+
+        <div class="nota">
+          <p>
+            El símbolo \(\infty\) no representa un número real. Describe
+            un comportamiento.
+          </p>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Ejemplo: asíntota vertical</h3>
+
+        <p>
+          Para:
+        </p>
+
+        <p class="formula">
+          \[
+            f(x)=\frac{1}{(x-2)^2}
+          \]
+        </p>
+
+        <p>
+          se cumple:
+        </p>
+
+        <p class="formula">
+          \[
+            \lim_{x\to2^-}f(x)=+\infty
+            \qquad\text{y}\qquad
+            \lim_{x\to2^+}f(x)=+\infty
+          \]
+        </p>
+
+        <p class="formula">
+          \[
+            \boxed{
+              \lim_{x\to2}\frac{1}{(x-2)^2}=+\infty
+            }
+          \]
+        </p>
+
+        <p>
+          La recta \(x=2\) es una <strong>asíntota vertical</strong>.
+        </p>
+      </article>
+    </section>
+
+    <!-- =======================================================
+         11. INFINITO
+         ======================================================= -->
+    <section id="11">
+      <h2>11. Límites cuando la variable tiende a infinito</h2>
+
+      <article class="tarjeta">
+        <h3>Comportamiento para valores muy grandes</h3>
+
+        <p>
+          A veces interesa estudiar qué ocurre cuando la variable toma valores
+          cada vez mayores o cada vez más negativos:
+        </p>
+
+        <p class="formula">
+          \[
+            \lim_{x\to+\infty}f(x)=L
+            \qquad\text{o}\qquad
+            \lim_{x\to-\infty}f(x)=L
+          \]
+        </p>
+
+        <p>
+          Cuando la función se aproxima a \(L\), la recta \(y=L\) es una
+          <strong>asíntota horizontal</strong>.
+        </p>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Ejemplo: tensión regulada</h3>
+
+        <p>
+          Un modelo idealizado de la tensión entregada por un sistema de carga es:
+        </p>
+
+        <p class="formula">
+          \[
+            V(n)=14{,}4-\frac{2400}{n},
+            \qquad n>0
+          \]
+        </p>
+
+        <p>
+          donde \(n\) representa las revoluciones por minuto y \(V(n)\) se mide
+          en voltios.
+        </p>
+
+        <p>
+          Cuando \(n\) aumenta:
+        </p>
+
+        <p class="formula">
+          \[
+            \frac{2400}{n}\to0
+          \]
+        </p>
+
+        <p>
+          Por lo tanto:
+        </p>
+
+        <p class="formula">
+          \[
+            \boxed{\lim_{n\to+\infty}V(n)=14{,}4}
+          \]
+        </p>
+
+        <p>
+          Según el modelo, la tensión se aproxima a \(14{,}4\ \text{V}\).
+        </p>
+
+        <div class="nota">
+          <p>
+            El límite no afirma que un motor real pueda trabajar a revoluciones
+            ilimitadas. Describe la tendencia de una expresión matemática.
+          </p>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Funciones racionales en el infinito</h3>
+
+        <p>
+          Para:
+        </p>
+
+        <p class="formula">
+          \[
+            f(x)=\frac{P(x)}{Q(x)}
+          \]
+        </p>
+
+        <p>
+          podemos comparar los grados del numerador y del denominador.
+        </p>
+
+        <div class="tabla-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Comparación</th>
+                <th>Comportamiento</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>\(\deg P\lt\deg Q\)</td>
+                <td>El límite es \(0\).</td>
+              </tr>
+              <tr>
+                <td>\(\deg P=\deg Q\)</td>
+                <td>
+                  El límite es el cociente entre los coeficientes principales.
+                </td>
+              </tr>
+              <tr>
+                <td>\(\deg P>\deg Q\)</td>
+                <td>
+                  No hay asíntota horizontal. El comportamiento requiere otro análisis.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="ejemplo">
+          <h4>Ejemplo</h4>
+
+          <p class="formula">
+            \[
+              \lim_{x\to+\infty}
+              \frac{3x^2+1}{2x^2-5x}
+              =
+              \frac32
+            \]
+          </p>
+
+          <p>
+            Numerador y denominador tienen grado \(2\). El límite es el cociente
+            entre los coeficientes principales: \(\frac32\).
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <!-- =======================================================
+         12. CONTINUIDAD
+         ======================================================= -->
+    <section id="12">
+      <h2>12. Continuidad</h2>
+
+      <article class="tarjeta">
+        <h3>Continuidad en un punto</h3>
+
+        <p>
+          Intuitivamente, una función es continua cuando su gráfica puede recorrerse
+          sin saltos, huecos ni crecimientos infinitos.
+        </p>
+
+        <div class="definicion">
+          <h4>Condiciones de continuidad en \(x=a\)</h4>
+
+          <p>
+            Una función \(f\) es continua en \(x=a\) si se cumplen las tres condiciones:
+          </p>
+
+          <ol>
+            <li>\(f(a)\) está definida.</li>
+            <li>Existe \(\displaystyle\lim_{x\to a}f(x)\).</li>
+            <li>
+              \(\displaystyle\lim_{x\to a}f(x)=f(a)\).
+            </li>
+          </ol>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Ejemplos</h3>
+
+        <div class="ejemplo">
+          <h4>Función polinómica</h4>
+
+          <p>
+            La función:
+          </p>
+
+          <p class="formula">
+            \[
+              f(x)=x^2-3x+1
+            \]
+          </p>
+
+          <p>
+            es continua para todo número real.
+          </p>
+        </div>
+
+        <div class="ejemplo">
+          <h4>Función racional</h4>
+
+          <p>
+            La función:
+          </p>
+
+          <p class="formula">
+            \[
+              g(x)=\frac{x+1}{x-4}
+            \]
+          </p>
+
+          <p>
+            es continua en todos los puntos de su dominio:
+          </p>
+
+          <p class="formula">
+            \[
+              \Dom(g)=\mathbb{R}\setminus\{4\}
+            \]
+          </p>
+
+          <p>
+            En \(x=4\) no es continua porque no está definida y presenta
+            una asíntota vertical.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <!-- =======================================================
+         13. DISCONTINUIDADES
+         ======================================================= -->
+    <section id="13">
+      <h2>13. Tipos de discontinuidad</h2>
+
+      <article class="tarjeta">
+        <h3>Clasificación</h3>
+
+        <div class="tabla-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Tipo</th>
+                <th>Qué ocurre</th>
+                <th>Imagen mental</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Evitable</td>
+                <td>
+                  El límite existe, pero falta el punto o está ubicado en otra altura.
+                </td>
+                <td>Hueco.</td>
+              </tr>
+
+              <tr>
+                <td>De salto</td>
+                <td>
+                  Los límites laterales existen, pero son diferentes.
+                </td>
+                <td>Escalón.</td>
+              </tr>
+
+              <tr>
+                <td>Infinita</td>
+                <td>
+                  Al menos uno de los límites laterales es infinito.
+                </td>
+                <td>Asíntota vertical.</td>
+              </tr>
+
+              <tr>
+                <td>Oscilatoria</td>
+                <td>
+                  Los valores no se aproximan a un único resultado.
+                </td>
+                <td>Oscilación cada vez más rápida.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Discontinuidad evitable</h3>
+
+        <p>
+          La función:
+        </p>
+
+        <p class="formula">
+          \[
+            f(x)=\frac{x^2-4}{x-2},
+            \qquad x\neq2
+          \]
+        </p>
+
+        <p>
+          tiene un hueco en \((2,4)\). Puede repararse definiendo \(f(2)=4\).
+        </p>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Discontinuidad de salto</h3>
+
+        <p>
+          Aparece cuando:
+        </p>
+
+        <p class="formula">
+          \[
+            \lim_{x\to a^-}f(x)
+            \neq
+            \lim_{x\to a^+}f(x)
+          \]
+        </p>
+
+        <p>
+          El modelo idealizado del electroventilador es un ejemplo.
+        </p>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Discontinuidad infinita</h3>
+
+        <p>
+          La función:
+        </p>
+
+        <p class="formula">
+          \[
+            f(x)=\frac{1}{x-2}
+          \]
+        </p>
+
+        <p>
+          presenta una asíntota vertical en \(x=2\).
+        </p>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Discontinuidad oscilatoria</h3>
+
+        <p>
+          Un ejemplo clásico es:
+        </p>
+
+        <p class="formula">
+          \[
+            f(x)=\sen\left(\frac1x\right)
+          \]
+        </p>
+
+        <p>
+          cuando \(x\to0\). Los valores oscilan entre \(-1\) y \(1\) sin
+          aproximarse a un único número.
+        </p>
+      </article>
+    </section>
+
+    <!-- =======================================================
+         14. APLICACIONES
+         ======================================================= -->
+    <section id="14">
+      <h2>14. Aplicaciones en contextos técnicos</h2>
+
+      <p class="nota">
+        Los siguientes modelos son simplificaciones didácticas. Sirven para
+        interpretar tendencias y no reemplazan mediciones reales, manuales
+        de servicio ni ensayos de taller.
+      </p>
+
+      <article class="tarjeta">
+        <h3>Enfriamiento de un motor</h3>
+
+        <p>
+          Después de apagar un vehículo, la temperatura del refrigerante se
+          modeliza mediante:
+        </p>
+
+        <p class="formula">
+          \[
+            T(t)=22+78e^{-0{,}08t}
+          \]
+        </p>
+
+        <p>
+          donde \(t\) se mide en minutos y \(T\) en grados Celsius.
+        </p>
+
+        <p>
+          Como:
+        </p>
+
+        <p class="formula">
+          \[
+            e^{-0{,}08t}\to0
+            \qquad\text{cuando}\qquad
+            t\to+\infty
+          \]
+        </p>
+
+        <p>
+          se obtiene:
+        </p>
+
+        <p class="formula">
+          \[
+            \boxed{\lim_{t\to+\infty}T(t)=22}
+          \]
+        </p>
+
+        <p>
+          Según el modelo, la temperatura se aproxima a
+          \(22\,^\circ\text{C}\), que representa la temperatura ambiente.
+        </p>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Lectura cercana a un dato no disponible</h3>
+
+        <p>
+          Un modelo de calibración produce:
+        </p>
+
+        <p class="formula">
+          \[
+            S(v)=\frac{v^2-25}{v-5},
+            \qquad v\neq5
+          \]
+        </p>
+
+        <p>
+          Para \(v\neq5\):
+        </p>
+
+        <p class="formula">
+          \[
+            S(v)=
+            \frac{(v-5)(v+5)}{v-5}
+            =
+            v+5
+          \]
+        </p>
+
+        <p>
+          Por lo tanto:
+        </p>
+
+        <p class="formula">
+          \[
+            \boxed{\lim_{v\to5}S(v)=10}
+          \]
+        </p>
+
+        <p>
+          El límite permite describir la tendencia de la señal alrededor
+          del dato faltante.
+        </p>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Umbral de activación</h3>
+
+        <p>
+          En un controlador idealizado, la salida puede cambiar de \(0\) a \(1\)
+          al alcanzar cierta temperatura.
+        </p>
+
+        <p>
+          El salto representa una decisión de control. En un sistema real puede
+          existir histéresis, retardo o una transición no instantánea.
+        </p>
+
+        <div class="nota">
+          <p>
+            El modelo matemático ayuda a distinguir una variación continua de
+            una respuesta que cambia al alcanzar un umbral.
+          </p>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Presión y zona crítica de un modelo</h3>
+
+        <p>
+          Supongamos el modelo simplificado:
+        </p>
+
+        <p class="formula">
+          \[
+            P(x)=\frac{12}{x-1}
+          \]
+        </p>
+
+        <p>
+          Al acercarse \(x\) a \(1\), aparece una discontinuidad infinita.
+          Esto no debe interpretarse como una presión físicamente infinita.
+        </p>
+
+        <p>
+          El resultado puede indicar que el modelo deja de ser adecuado cerca
+          de esa condición o que se requiere revisar los supuestos, las unidades
+          y los datos utilizados.
+        </p>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Matemática y decisiones técnicas</h3>
+
+        <p>
+          Todo resultado debe acompañarse de:
+        </p>
+
+        <ul>
+          <li>unidades;</li>
+          <li>interpretación del valor obtenido;</li>
+          <li>dominio de validez del modelo;</li>
+          <li>comparación con datos o condiciones reales;</li>
+          <li>consideraciones de seguridad y cuidado ambiental.</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- =======================================================
+         15. ACTIVIDADES
+         ======================================================= -->
+    <section id="15">
+      <h2>15. Actividades de aplicación</h2>
+
+      <article class="tarjeta">
+        <h3>Actividad 1: aproximación numérica</h3>
+
+        <p>
+          Completá una tabla con valores cercanos a \(x=3\) para la función:
+        </p>
+
+        <p class="formula">
+          \[
+            f(x)=\frac{x^2-9}{x-3}
+          \]
+        </p>
+
+        <ol>
+          <li>Usá valores menores y mayores que \(3\).</li>
+          <li>Indicá a qué número parecen aproximarse las imágenes.</li>
+          <li>Factorizá la expresión y calculá el límite.</li>
+          <li>Explicá por qué la función original no está definida en \(x=3\).</li>
+        </ol>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Actividad 2: límites laterales</h3>
+
+        <p>
+          Sea:
+        </p>
+
+        <p class="formula">
+          \[
+            C(T)=
+            \begin{cases}
+              0, & T\lt90,\\
+              2, & T\geq90.
+            \end{cases}
+          \]
+        </p>
+
+        <ol>
+          <li>Calculá \(\displaystyle\lim_{T\to90^-}C(T)\).</li>
+          <li>Calculá \(\displaystyle\lim_{T\to90^+}C(T)\).</li>
+          <li>Decidí si existe \(\displaystyle\lim_{T\to90}C(T)\).</li>
+          <li>Interpretá qué representa el salto.</li>
+        </ol>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Actividad 3: cálculo algebraico</h3>
+
+        <p>Calculá los siguientes límites:</p>
+
+        <ol>
+          <li>
+            \(\displaystyle
+            \lim_{x\to2}(x^2+3x-1)
+            \)
+          </li>
+          <li>
+            \(\displaystyle
+            \lim_{x\to1}\frac{3x+2}{x+4}
+            \)
+          </li>
+          <li>
+            \(\displaystyle
+            \lim_{x\to4}\frac{x^2-16}{x-4}
+            \)
+          </li>
+          <li>
+            \(\displaystyle
+            \lim_{x\to0}\frac{(5+x)^2-25}{x}
+            \)
+          </li>
+          <li>
+            \(\displaystyle
+            \lim_{x\to0}\frac{\sqrt{x+16}-4}{x}
+            \)
+          </li>
+        </ol>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Actividad 4: continuidad</h3>
+
+        <p>
+          Analizá la continuidad de:
+        </p>
+
+        <p class="formula">
+          \[
+            f(x)=
+            \begin{cases}
+              x+2, & x\lt1,\\
+              4, & x=1,\\
+              2x, & x>1.
+            \end{cases}
+          \]
+        </p>
+
+        <ol>
+          <li>Calculá el límite por la izquierda en \(x=1\).</li>
+          <li>Calculá el límite por la derecha en \(x=1\).</li>
+          <li>Indicá si existe el límite bilateral.</li>
+          <li>Compará el límite con \(f(1)\).</li>
+          <li>Clasificá la discontinuidad, si existe.</li>
+        </ol>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Actividad 5: sistema de carga</h3>
+
+        <p>
+          La tensión de un modelo idealizado está dada por:
+        </p>
+
+        <p class="formula">
+          \[
+            V(n)=14{,}2-\frac{1800}{n},
+            \qquad n>0
+          \]
+        </p>
+
+        <ol>
+          <li>Calculá \(V(1000)\), \(V(2000)\) y \(V(4000)\).</li>
+          <li>Indicá qué sucede con la tensión al aumentar \(n\).</li>
+          <li>Calculá \(\displaystyle\lim_{n\to+\infty}V(n)\).</li>
+          <li>Explicá el significado del resultado y escribí la unidad.</li>
+          <li>
+            Señalá por qué el modelo no habilita a concluir que un motor puede
+            trabajar a revoluciones ilimitadas.
+          </li>
+        </ol>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Trabajo en grupos: diagnóstico de un modelo</h3>
+
+        <p>
+          En grupos, elijan uno de los modelos de esta unidad y elaboren
+          una breve ficha técnica con:
+        </p>
+
+        <ul>
+          <li>variables y unidades;</li>
+          <li>dominio considerado;</li>
+          <li>tabla con algunos valores;</li>
+          <li>gráfico aproximado;</li>
+          <li>límite estudiado;</li>
+          <li>interpretación del resultado;</li>
+          <li>limitaciones del modelo;</li>
+          <li>una pregunta para otro grupo.</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- =======================================================
+         16. SÍNTESIS Y MATERIALES
+         ======================================================= -->
+    <section id="16">
+      <h2>16. Síntesis y materiales</h2>
+
+      <article class="tarjeta">
+        <h3>Cuadro de síntesis</h3>
+
+        <div class="tabla-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Concepto</th>
+                <th>Idea principal</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Límite</td>
+                <td>
+                  Describe el valor al que se aproxima una función cerca de un
+                  punto o para valores muy grandes de la variable.
+                </td>
+              </tr>
+
+              <tr>
+                <td>Límites laterales</td>
+                <td>
+                  Estudian por separado la aproximación desde la izquierda
+                  y desde la derecha.
+                </td>
+              </tr>
+
+              <tr>
+                <td>Existencia</td>
+                <td>
+                  El límite bilateral existe cuando los dos límites laterales
+                  existen y coinciden.
+                </td>
+              </tr>
+
+              <tr>
+                <td>Sustitución directa</td>
+                <td>
+                  Se utiliza cuando la expresión puede evaluarse sin producir
+                  una forma problemática.
+                </td>
+              </tr>
+
+              <tr>
+                <td>Indeterminación \(0/0\)</td>
+                <td>
+                  Requiere transformar la expresión antes de volver a evaluar.
+                </td>
+              </tr>
+
+              <tr>
+                <td>Límite infinito</td>
+                <td>
+                  Describe crecimiento o decrecimiento sin cota y puede indicar
+                  una asíntota vertical.
+                </td>
+              </tr>
+
+              <tr>
+                <td>Límite en el infinito</td>
+                <td>
+                  Describe la tendencia para valores cada vez mayores o menores
+                  de la variable.
+                </td>
+              </tr>
+
+              <tr>
+                <td>Continuidad</td>
+                <td>
+                  En \(x=a\), existe \(f(a)\), existe el límite y ambos coinciden.
+                </td>
+              </tr>
+
+              <tr>
+                <td>Discontinuidad</td>
+                <td>
+                  Puede ser evitable, de salto, infinita u oscilatoria.
+                </td>
+              </tr>
+
+              <tr>
+                <td>Interpretación técnica</td>
+                <td>
+                  El resultado debe expresarse con unidades, condiciones y
+                  límites de validez.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Preguntas para revisar antes de resolver</h3>
+
+        <ol>
+          <li>¿Estoy buscando \(f(a)\) o el comportamiento cuando \(x\to a\)?</li>
+          <li>¿Necesito analizar izquierda y derecha?</li>
+          <li>¿La sustitución directa produce un número o una indeterminación?</li>
+          <li>¿Puedo factorizar, simplificar, desarrollar o racionalizar?</li>
+          <li>¿El resultado es finito o infinito?</li>
+          <li>¿La función es continua en el punto?</li>
+          <li>¿Qué significa el resultado y cuáles son sus unidades?</li>
+        </ol>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Materiales de la unidad</h3>
+
+        <p>
+          Para que estos enlaces funcionen, guardá los dos PDF dentro de la
+          carpeta <code>pdf</code> ubicada en la raíz del proyecto.
+        </p>
+
+        <ul>
+          <li>
+            <a
+              href="../pdf/Unidad_2_Limites_Continuidad_Teoria.pdf"
+              target="_blank"
+              rel="noopener">
+              Abrir el apunte teórico de la Unidad 2
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="../pdf/Unidad_2_Limites_Continuidad_Practica.pdf"
+              target="_blank"
+              rel="noopener">
+              Abrir la guía de actividades prácticas
+            </a>
+          </li>
+        </ul>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Referencias de elaboración</h3>
+
+        <p>
+          Esta unidad se organiza a partir del programa de Análisis Matemático,
+          la planificación del Área de Formación Científico-Técnica y los
+          materiales de límite y continuidad utilizados como bibliografía.
+        </p>
+      </article>
+    </section>
+
+  </main>
+
+  <!-- =========================================================
+       PIE DE PÁGINA
+       Se usan las clases ya previstas en el proyecto.
+       ========================================================= -->
+  <footer class="pie-pagina">
+    <div class="pie-informacion">
+      <p>
+        Análisis Matemático · 4.º año · Tecnicatura en Automotores
+      </p>
+
+      <p>
+        Material educativo para el Área de Formación Científico-Técnica.
+      </p>
+    </div>
+
+    <div class="pie-licencia">
+      <p>
+        Licencia
+        <a
+          href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es"
+          target="_blank"
+          rel="license noopener">
+          CC BY-NC-SA 4.0
+        </a>
+      </p>
+    </div>
+
+    <div class="pie-logo">
+      <img
+        src="../img/logo-lc-matematica.png"
+        alt="Logo del sitio de Análisis Matemático"
+      />
+    </div>
+  </footer>
+
+  <!-- Se conserva el archivo JavaScript general del proyecto -->
   <script src="../js/script.js"></script>
+
 </body>
 </html>
