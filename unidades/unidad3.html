@@ -1,344 +1,2245 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Unidad 3 - Análisis Matemático</title>
-<script>window.MathJax = { tex: { inlineMath: [['$', '$'], ['\(', '\)']] } };</script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<link rel="stylesheet" href="../css/estilos.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Unidad 3 de Análisis Matemático: derivada, razón de cambio, recta tangente, reglas de derivación y aplicaciones en la Tecnicatura en Automotores."
+  />
+
+  <title>Unidad 3 - Derivada</title>
+
+  <!-- MathJax: permite escribir fórmulas con sintaxis LaTeX -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        macros: {
+          sen: "\\operatorname{sen}",
+          Dom: "\\operatorname{Dom}",
+          Im: "\\operatorname{Im}"
+        }
+      }
+    };
+  </script>
+
+  <script
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+
+  <!-- La página está pensada para guardarse dentro de la carpeta unidades -->
+  <link rel="stylesheet" href="../css/estilos.css" />
 </head>
+
 <body>
-<div class="barra-superior">
-  <div class="nav-contenedor">
-    <a class="logo" href="../index.html">Análisis Matemático</a>
-    <nav><a href="unidad0.html" class="">Unidad 0</a><a href="unidad1.html" class="">Unidad 1</a><a href="unidad2.html" class="">Unidad 2</a><a href="unidad3.html" class="activo">Unidad 3</a><a href="unidad4.html" class="">Unidad 4</a><a href="unidad5.html" class="">Unidad 5</a></nav>
+
+  <!-- =========================================================
+       NAVEGACIÓN PRINCIPAL
+       ========================================================= -->
+  <div class="barra-superior">
+    <div class="nav-contenedor">
+      <a class="logo" href="../index.html">Análisis Matemático</a>
+
+      <nav aria-label="Unidades de la materia">
+        <a href="unidad0.html">Unidad 0</a>
+        <a href="unidad1.html">Unidad 1</a>
+        <a href="unidad2.html">Unidad 2</a>
+        <a href="unidad3.html" class="activo" aria-current="page">Unidad 3</a>
+        <a href="unidad4.html">Unidad 4</a>
+        <a href="unidad5.html">Unidad 5</a>
+      </nav>
+    </div>
   </div>
-</div>
-<header>
-<h1>Unidad 3: Derivada</h1>
-<p>Teoría, ejemplos, videos y apuntes para trabajar esta unidad.</p>
-</header>
-<main>
-<section class="temario">
-<h2>Temas de la unidad</h2>
-<ul><li><a href="#1">Definición de derivada</a></li>
-<li><a href="#2">Interpretación geométrica</a></li>
-<li><a href="#3">Interpretación física</a></li>
-<li><a href="#4">Reglas de derivación</a></li>
-<li><a href="#5">Uso de tablas</a></li>
-<li><a href="#6">Aplicaciones iniciales</a></li>
-<li><a href="#7">Derivación logarítmica</a></li>
-<li><a href="#8">Derivadas sucesivas</a></li></ul>
-</section>
-<section id="1">
-<h2>Definición de derivada</h2>
-<p class="nota">Espacio para desarrollar la teoría, escribir definiciones, fórmulas, observaciones y consignas breves.</p>
-<div class="formula">
-$$\text{Acá podés escribir una fórmula o idea central del tema.}$$
-</div>
-<div class="hilera-ejemplos">
-<article class="ejemplo">
-  <h4>Ejemplo 1</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Definición de derivada</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 1 - Definición de derivada"></iframe>
-  <!-- Para un PDF local usá: ../pdf/definición-de-derivada.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 1 - Definición de derivada"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 2</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Definición de derivada</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 2 - Definición de derivada"></iframe>
-  <!-- Para un PDF local usá: ../pdf/definición-de-derivada.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 2 - Definición de derivada"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 3</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Definición de derivada</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 3 - Definición de derivada"></iframe>
-  <!-- Para un PDF local usá: ../pdf/definición-de-derivada.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 3 - Definición de derivada"></iframe>
-</article>
-</div>
-</section><section id="2">
-<h2>Interpretación geométrica</h2>
-<p class="nota">Espacio para desarrollar la teoría, escribir definiciones, fórmulas, observaciones y consignas breves.</p>
-<div class="formula">
-$$\text{Acá podés escribir una fórmula o idea central del tema.}$$
-</div>
-<div class="hilera-ejemplos">
-<article class="ejemplo">
-  <h4>Ejemplo 1</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Interpretación geométrica</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 1 - Interpretación geométrica"></iframe>
-  <!-- Para un PDF local usá: ../pdf/interpretación-geométrica.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 1 - Interpretación geométrica"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 2</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Interpretación geométrica</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 2 - Interpretación geométrica"></iframe>
-  <!-- Para un PDF local usá: ../pdf/interpretación-geométrica.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 2 - Interpretación geométrica"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 3</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Interpretación geométrica</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 3 - Interpretación geométrica"></iframe>
-  <!-- Para un PDF local usá: ../pdf/interpretación-geométrica.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 3 - Interpretación geométrica"></iframe>
-</article>
-</div>
-</section><section id="3">
-<h2>Interpretación física</h2>
-<p class="nota">Espacio para desarrollar la teoría, escribir definiciones, fórmulas, observaciones y consignas breves.</p>
-<div class="formula">
-$$\text{Acá podés escribir una fórmula o idea central del tema.}$$
-</div>
-<div class="hilera-ejemplos">
-<article class="ejemplo">
-  <h4>Ejemplo 1</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Interpretación física</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 1 - Interpretación física"></iframe>
-  <!-- Para un PDF local usá: ../pdf/interpretación-física.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 1 - Interpretación física"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 2</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Interpretación física</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 2 - Interpretación física"></iframe>
-  <!-- Para un PDF local usá: ../pdf/interpretación-física.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 2 - Interpretación física"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 3</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Interpretación física</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 3 - Interpretación física"></iframe>
-  <!-- Para un PDF local usá: ../pdf/interpretación-física.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 3 - Interpretación física"></iframe>
-</article>
-</div>
-</section><section id="4">
-<h2>Reglas de derivación</h2>
-<p class="nota">Espacio para desarrollar la teoría, escribir definiciones, fórmulas, observaciones y consignas breves.</p>
-<div class="formula">
-$$\text{Acá podés escribir una fórmula o idea central del tema.}$$
-</div>
-<div class="hilera-ejemplos">
-<article class="ejemplo">
-  <h4>Ejemplo 1</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Reglas de derivación</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 1 - Reglas de derivación"></iframe>
-  <!-- Para un PDF local usá: ../pdf/reglas-de-derivación.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 1 - Reglas de derivación"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 2</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Reglas de derivación</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 2 - Reglas de derivación"></iframe>
-  <!-- Para un PDF local usá: ../pdf/reglas-de-derivación.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 2 - Reglas de derivación"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 3</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Reglas de derivación</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 3 - Reglas de derivación"></iframe>
-  <!-- Para un PDF local usá: ../pdf/reglas-de-derivación.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 3 - Reglas de derivación"></iframe>
-</article>
-</div>
-</section><section id="5">
-<h2>Uso de tablas</h2>
-<p class="nota">Espacio para desarrollar la teoría, escribir definiciones, fórmulas, observaciones y consignas breves.</p>
-<div class="formula">
-$$\text{Acá podés escribir una fórmula o idea central del tema.}$$
-</div>
-<div class="hilera-ejemplos">
-<article class="ejemplo">
-  <h4>Ejemplo 1</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Uso de tablas</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 1 - Uso de tablas"></iframe>
-  <!-- Para un PDF local usá: ../pdf/uso-de-tablas.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 1 - Uso de tablas"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 2</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Uso de tablas</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 2 - Uso de tablas"></iframe>
-  <!-- Para un PDF local usá: ../pdf/uso-de-tablas.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 2 - Uso de tablas"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 3</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Uso de tablas</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 3 - Uso de tablas"></iframe>
-  <!-- Para un PDF local usá: ../pdf/uso-de-tablas.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 3 - Uso de tablas"></iframe>
-</article>
-</div>
-</section><section id="6">
-<h2>Aplicaciones iniciales</h2>
-<p class="nota">Espacio para desarrollar la teoría, escribir definiciones, fórmulas, observaciones y consignas breves.</p>
-<div class="formula">
-$$\text{Acá podés escribir una fórmula o idea central del tema.}$$
-</div>
-<div class="hilera-ejemplos">
-<article class="ejemplo">
-  <h4>Ejemplo 1</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Aplicaciones iniciales</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 1 - Aplicaciones iniciales"></iframe>
-  <!-- Para un PDF local usá: ../pdf/aplicaciones-iniciales.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 1 - Aplicaciones iniciales"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 2</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Aplicaciones iniciales</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 2 - Aplicaciones iniciales"></iframe>
-  <!-- Para un PDF local usá: ../pdf/aplicaciones-iniciales.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 2 - Aplicaciones iniciales"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 3</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Aplicaciones iniciales</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 3 - Aplicaciones iniciales"></iframe>
-  <!-- Para un PDF local usá: ../pdf/aplicaciones-iniciales.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 3 - Aplicaciones iniciales"></iframe>
-</article>
-</div>
-</section><section id="7">
-<h2>Derivación logarítmica</h2>
-<p class="nota">Espacio para desarrollar la teoría, escribir definiciones, fórmulas, observaciones y consignas breves.</p>
-<div class="formula">
-$$\text{Acá podés escribir una fórmula o idea central del tema.}$$
-</div>
-<div class="hilera-ejemplos">
-<article class="ejemplo">
-  <h4>Ejemplo 1</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Derivación logarítmica</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 1 - Derivación logarítmica"></iframe>
-  <!-- Para un PDF local usá: ../pdf/derivación-logarítmica.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 1 - Derivación logarítmica"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 2</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Derivación logarítmica</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 2 - Derivación logarítmica"></iframe>
-  <!-- Para un PDF local usá: ../pdf/derivación-logarítmica.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 2 - Derivación logarítmica"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 3</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Derivación logarítmica</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 3 - Derivación logarítmica"></iframe>
-  <!-- Para un PDF local usá: ../pdf/derivación-logarítmica.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 3 - Derivación logarítmica"></iframe>
-</article>
-</div>
-</section><section id="8">
-<h2>Derivadas sucesivas</h2>
-<p class="nota">Espacio para desarrollar la teoría, escribir definiciones, fórmulas, observaciones y consignas breves.</p>
-<div class="formula">
-$$\text{Acá podés escribir una fórmula o idea central del tema.}$$
-</div>
-<div class="hilera-ejemplos">
-<article class="ejemplo">
-  <h4>Ejemplo 1</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Derivadas sucesivas</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 1 - Derivadas sucesivas"></iframe>
-  <!-- Para un PDF local usá: ../pdf/derivadas-sucesivas.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 1 - Derivadas sucesivas"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 2</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Derivadas sucesivas</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 2 - Derivadas sucesivas"></iframe>
-  <!-- Para un PDF local usá: ../pdf/derivadas-sucesivas.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 2 - Derivadas sucesivas"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 3</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Derivadas sucesivas</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 3 - Derivadas sucesivas"></iframe>
-  <!-- Para un PDF local usá: ../pdf/derivadas-sucesivas.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 3 - Derivadas sucesivas"></iframe>
-</article>
-</div>
-</section>
-</main>
-<footer><a href="../index.html">Volver a la página principal</a></footer>
-  <!-- JAVASCRIPT -->
+
+  <!-- =========================================================
+       ENCABEZADO
+       ========================================================= -->
+  <header>
+    <h1>Unidad 3: Derivada</h1>
+
+    <p>
+      Razones de cambio, velocidad instantánea, recta tangente,
+      reglas de derivación y aplicaciones técnicas.
+    </p>
+  </header>
+
+  <main>
+
+    <!-- =======================================================
+         TEMARIO
+         ======================================================= -->
+    <section class="temario" aria-labelledby="titulo-temario">
+      <h2 id="titulo-temario">Temas de la unidad</h2>
+
+      <ul>
+        <li><a href="#1">Presentación y pregunta orientadora</a></li>
+        <li><a href="#2">Razón de cambio media</a></li>
+        <li><a href="#3">De la velocidad media a la instantánea</a></li>
+        <li><a href="#4">Definición de derivada</a></li>
+        <li><a href="#5">Interpretación geométrica</a></li>
+        <li><a href="#6">Interpretación física y unidades</a></li>
+        <li><a href="#7">Función derivada y notaciones</a></li>
+        <li><a href="#8">Derivabilidad y continuidad</a></li>
+        <li><a href="#9">Tabla de derivadas elementales</a></li>
+        <li><a href="#10">Reglas de derivación</a></li>
+        <li><a href="#11">Cómo elegir una regla</a></li>
+        <li><a href="#12">Derivación logarítmica</a></li>
+        <li><a href="#13">Derivadas sucesivas</a></li>
+        <li><a href="#14">Aplicaciones técnicas</a></li>
+        <li><a href="#15">Actividades de aplicación</a></li>
+        <li><a href="#16">Síntesis y materiales</a></li>
+      </ul>
+    </section>
+
+    <!-- =======================================================
+         1. PRESENTACIÓN
+         ======================================================= -->
+    <section id="1">
+      <h2>1. Presentación de la unidad</h2>
+
+      <article class="tarjeta">
+        <h3>¿Qué tan rápido está cambiando una magnitud?</h3>
+
+        <p>
+          En los sistemas automotrices aparecen muchas magnitudes que cambian:
+          la posición de un vehículo, su velocidad, la temperatura del motor,
+          la presión de un fluido, la tensión entregada por el sistema de carga
+          o la señal registrada por un sensor.
+        </p>
+
+        <p>
+          Algunas veces alcanza con conocer cuánto cambió una magnitud durante
+          un intervalo. En otras situaciones necesitamos saber
+          <strong>cómo está cambiando en un instante determinado</strong>.
+        </p>
+
+        <div class="definicion">
+          <h4>Pregunta orientadora</h4>
+
+          <p>
+            ¿Cómo podemos medir matemáticamente la rapidez con la que cambia
+            una magnitud en un instante y utilizar esa información para
+            interpretar un sistema técnico?
+          </p>
+        </div>
+
+        <p>
+          La <strong>derivada</strong> permite responder esa pregunta. Puede
+          interpretarse como una razón de cambio instantánea y también como
+          la pendiente de la recta tangente al gráfico de una función.
+        </p>
+
+        <div class="nota">
+          <p>
+            <strong>Idea central:</strong> una derivada no es solamente un
+            cálculo algebraico. Debemos indicar qué representa, cuáles son sus
+            unidades y si el resultado es razonable dentro del modelo estudiado.
+          </p>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Representaciones que vamos a relacionar</h3>
+
+        <div class="tabla-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Representación</th>
+                <th>Información que aporta</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Descripción verbal</td>
+                <td>Define las variables y el significado del fenómeno.</td>
+              </tr>
+              <tr>
+                <td>Tabla</td>
+                <td>Permite comparar cambios en distintos intervalos.</td>
+              </tr>
+              <tr>
+                <td>Fórmula</td>
+                <td>Expresa la relación entre las magnitudes.</td>
+              </tr>
+              <tr>
+                <td>Gráfico</td>
+                <td>Muestra crecimiento, decrecimiento y pendientes.</td>
+              </tr>
+              <tr>
+                <td>Unidades</td>
+                <td>Permiten interpretar físicamente el resultado.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <!-- =======================================================
+         2. RAZÓN DE CAMBIO MEDIA
+         ======================================================= -->
+    <section id="2">
+      <h2>2. Razón de cambio media</h2>
+
+      <article class="tarjeta">
+        <h3>Comparar variaciones</h3>
+
+        <p>
+          Sea una magnitud \(y=f(x)\). Entre \(x=a\) y \(x=b\), la variación
+          de la variable independiente es:
+        </p>
+
+        <p class="formula">
+          \[
+            \Delta x=b-a
+          \]
+        </p>
+
+        <p>
+          y la variación de la función es:
+        </p>
+
+        <p class="formula">
+          \[
+            \Delta y=f(b)-f(a)
+          \]
+        </p>
+
+        <div class="definicion">
+          <h4>Razón de cambio media</h4>
+
+          <p class="formula">
+            \[
+              \boxed{
+                \frac{\Delta y}{\Delta x}
+                =
+                \frac{f(b)-f(a)}{b-a}
+              }
+            \]
+          </p>
+
+          <p>
+            Esta razón compara cuánto cambió la magnitud dependiente por cada
+            unidad de cambio de la variable independiente.
+          </p>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Ejemplo: velocidad media</h3>
+
+        <p>
+          Un vehículo recorre \(180\ \text{km}\) en \(2\ \text{h}\). Su velocidad
+          media es:
+        </p>
+
+        <p class="formula">
+          \[
+            v_m=
+            \frac{\Delta s}{\Delta t}
+            =
+            \frac{180\ \text{km}}{2\ \text{h}}
+            =
+            90\ \text{km/h}
+          \]
+        </p>
+
+        <p>
+          Este valor describe el viaje completo, pero no informa qué indicaba
+          el velocímetro en cada instante.
+        </p>
+
+        <div class="nota">
+          <p>
+            Dos viajes pueden tener la misma velocidad media y, sin embargo,
+            desarrollarse con velocidades instantáneas muy diferentes.
+          </p>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Interpretación geométrica</h3>
+
+        <p>
+          Los puntos \(A=(a,f(a))\) y \(B=(b,f(b))\) determinan una recta secante.
+          Su pendiente coincide con la razón de cambio media:
+        </p>
+
+        <p class="formula">
+          \[
+            m_{\text{secante}}
+            =
+            \frac{f(b)-f(a)}{b-a}
+          \]
+        </p>
+
+        <figure class="figura">
+          <svg
+            viewBox="0 0 760 440"
+            role="img"
+            aria-labelledby="titulo-secante descripcion-secante">
+            <title id="titulo-secante">
+              Gráfico de una función y una recta secante
+            </title>
+
+            <desc id="descripcion-secante">
+              La recta secante pasa por los puntos A y B del gráfico.
+              Su pendiente representa una razón de cambio media.
+            </desc>
+
+            <rect width="760" height="440" fill="#ffffff"></rect>
+
+            <g stroke="#d9e2ec" stroke-width="1">
+              <line x1="80" y1="370" x2="700" y2="370"></line>
+              <line x1="80" y1="310" x2="700" y2="310"></line>
+              <line x1="80" y1="250" x2="700" y2="250"></line>
+              <line x1="80" y1="190" x2="700" y2="190"></line>
+              <line x1="80" y1="130" x2="700" y2="130"></line>
+              <line x1="80" y1="70" x2="700" y2="70"></line>
+
+              <line x1="80" y1="60" x2="80" y2="370"></line>
+              <line x1="170" y1="60" x2="170" y2="370"></line>
+              <line x1="260" y1="60" x2="260" y2="370"></line>
+              <line x1="350" y1="60" x2="350" y2="370"></line>
+              <line x1="440" y1="60" x2="440" y2="370"></line>
+              <line x1="530" y1="60" x2="530" y2="370"></line>
+              <line x1="620" y1="60" x2="620" y2="370"></line>
+            </g>
+
+            <g stroke="#1f2937" stroke-width="2">
+              <line x1="80" y1="370" x2="720" y2="370"></line>
+              <line x1="80" y1="390" x2="80" y2="40"></line>
+            </g>
+
+            <path
+              d="M 105 335
+                 C 205 330, 260 295, 325 260
+                 C 410 215, 495 180, 650 85"
+              fill="none"
+              stroke="#2336c7"
+              stroke-width="5"
+              stroke-linecap="round">
+            </path>
+
+            <line
+              x1="135"
+              y1="345"
+              x2="660"
+              y2="100"
+              stroke="#a23a3a"
+              stroke-width="4">
+            </line>
+
+            <circle cx="260" cy="292" r="7" fill="#2336c7"></circle>
+            <circle cx="530" cy="160" r="7" fill="#2336c7"></circle>
+
+            <g stroke="#4b5563" stroke-width="2" stroke-dasharray="7 6">
+              <line x1="260" y1="292" x2="260" y2="370"></line>
+              <line x1="530" y1="160" x2="530" y2="370"></line>
+            </g>
+
+            <g fill="#1f2937" font-family="Arial, sans-serif" font-size="20">
+              <text x="730" y="378">x</text>
+              <text x="68" y="35">y</text>
+              <text x="238" y="282">A</text>
+              <text x="540" y="150">B</text>
+              <text x="245" y="402">a</text>
+              <text x="520" y="402">b</text>
+              <text x="470" y="105">recta secante</text>
+            </g>
+          </svg>
+
+          <figcaption>
+            La pendiente de la secante mide el cambio promedio entre
+            los puntos \(A\) y \(B\).
+          </figcaption>
+        </figure>
+      </article>
+    </section>
+
+    <!-- =======================================================
+         3. VELOCIDAD INSTANTÁNEA
+         ======================================================= -->
+    <section id="3">
+      <h2>3. De la velocidad media a la velocidad instantánea</h2>
+
+      <article class="tarjeta">
+        <h3>Intervalos cada vez más pequeños</h3>
+
+        <p>
+          Para conocer la velocidad de un vehículo en \(t=a\), podemos calcular
+          velocidades medias en intervalos que comienzan en \(a\) y terminan
+          cada vez más cerca de ese instante.
+        </p>
+
+        <p>
+          Consideremos:
+        </p>
+
+        <p class="formula">
+          \[
+            s(t)=2t^2+4t
+          \]
+        </p>
+
+        <p>
+          donde \(s\) se mide en metros y \(t\) en segundos. Queremos aproximar
+          la velocidad en \(t=3\).
+        </p>
+
+        <div class="tabla-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Intervalo</th>
+                <th>Velocidad media</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>\([3,4]\)</td>
+                <td>\(18\ \text{m/s}\)</td>
+              </tr>
+              <tr>
+                <td>\([3,3{,}5]\)</td>
+                <td>\(17\ \text{m/s}\)</td>
+              </tr>
+              <tr>
+                <td>\([3,3{,}1]\)</td>
+                <td>\(16{,}2\ \text{m/s}\)</td>
+              </tr>
+              <tr>
+                <td>\([3,3{,}01]\)</td>
+                <td>\(16{,}02\ \text{m/s}\)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          Las velocidades medias se aproximan a \(16\ \text{m/s}\). Ese valor
+          es la velocidad instantánea del vehículo en \(t=3\).
+        </p>
+
+        <p class="formula">
+          \[
+            \boxed{v(3)=16\ \text{m/s}}
+          \]
+        </p>
+      </article>
+
+      <article class="tarjeta">
+        <h3>El papel del límite</h3>
+
+        <p>
+          Si el segundo instante es \(a+h\), la velocidad media resulta:
+        </p>
+
+        <p class="formula">
+          \[
+            \frac{s(a+h)-s(a)}{h}
+          \]
+        </p>
+
+        <p>
+          Cuando \(h\) se aproxima a \(0\), el intervalo de tiempo se hace
+          cada vez más pequeño y la velocidad media se aproxima a la
+          velocidad instantánea.
+        </p>
+
+        <p class="formula">
+          \[
+            v(a)=
+            \lim_{h\to0}
+            \frac{s(a+h)-s(a)}{h}
+          \]
+        </p>
+      </article>
+    </section>
+
+    <!-- =======================================================
+         4. DEFINICIÓN
+         ======================================================= -->
+    <section id="4">
+      <h2>4. Definición de derivada</h2>
+
+      <article class="tarjeta">
+        <h3>Derivada de una función en un punto</h3>
+
+        <div class="definicion">
+          <p>
+            Sea \(f\) una función y \(a\) un valor de su dominio. La derivada
+            de \(f\) en \(a\) se define por:
+          </p>
+
+          <p class="formula">
+            \[
+              \boxed{
+                f'(a)=
+                \lim_{h\to0}
+                \frac{f(a+h)-f(a)}{h}
+              }
+            \]
+          </p>
+
+          <p>
+            siempre que el límite exista y sea un número real.
+          </p>
+        </div>
+
+        <p>
+          La expresión:
+        </p>
+
+        <p class="formula">
+          \[
+            \frac{f(a+h)-f(a)}{h}
+          \]
+        </p>
+
+        <p>
+          se llama <strong>cociente incremental</strong>. Es una razón de cambio
+          media calculada en un intervalo de longitud \(h\).
+        </p>
+
+        <p>
+          También puede utilizarse la forma equivalente:
+        </p>
+
+        <p class="formula">
+          \[
+            f'(a)=
+            \lim_{x\to a}
+            \frac{f(x)-f(a)}{x-a}
+          \]
+        </p>
+
+        <div class="nota">
+          <p>
+            No se reemplaza directamente \(h=0\), porque aparecería la forma
+            \(\frac00\). Primero se transforma algebraicamente el cociente y
+            después se calcula el límite.
+          </p>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Ejemplo por definición</h3>
+
+        <p>
+          Sea:
+        </p>
+
+        <p class="formula">
+          \[
+            f(x)=x^2
+          \]
+        </p>
+
+        <p>
+          Calculamos la derivada en un valor general \(a\):
+        </p>
+
+        <p class="formula">
+          \[
+            \begin{aligned}
+              f'(a)
+              &=
+              \lim_{h\to0}
+              \frac{(a+h)^2-a^2}{h}\\[2mm]
+              &=
+              \lim_{h\to0}
+              \frac{a^2+2ah+h^2-a^2}{h}\\[2mm]
+              &=
+              \lim_{h\to0}
+              \frac{h(2a+h)}{h}\\[2mm]
+              &=
+              \lim_{h\to0}(2a+h)\\[2mm]
+              &=2a
+            \end{aligned}
+          \]
+        </p>
+
+        <p>
+          Por lo tanto, la función derivada es:
+        </p>
+
+        <p class="formula">
+          \[
+            \boxed{f'(x)=2x}
+          \]
+        </p>
+      </article>
+    </section>
+
+    <!-- =======================================================
+         5. INTERPRETACIÓN GEOMÉTRICA
+         ======================================================= -->
+    <section id="5">
+      <h2>5. Interpretación geométrica: recta tangente</h2>
+
+      <article class="tarjeta">
+        <h3>De la secante a la tangente</h3>
+
+        <p>
+          Cuando el punto \(B\) se acerca al punto \(A\), las rectas secantes
+          se aproximan a una posición límite: la recta tangente.
+        </p>
+
+        <div class="definicion">
+          <p>
+            La derivada \(f'(a)\) es la pendiente de la recta tangente al
+            gráfico de \(f\) en el punto \((a,f(a))\).
+          </p>
+        </div>
+
+        <figure class="figura">
+          <svg
+            viewBox="0 0 760 450"
+            role="img"
+            aria-labelledby="titulo-tangente descripcion-tangente">
+            <title id="titulo-tangente">
+              Rectas secantes que se aproximan a una recta tangente
+            </title>
+
+            <desc id="descripcion-tangente">
+              Varias rectas secantes pasan por un punto fijo y otro punto
+              que se acerca. La posición límite es la recta tangente.
+            </desc>
+
+            <rect width="760" height="450" fill="#ffffff"></rect>
+
+            <g stroke="#d9e2ec" stroke-width="1">
+              <line x1="80" y1="380" x2="700" y2="380"></line>
+              <line x1="80" y1="320" x2="700" y2="320"></line>
+              <line x1="80" y1="260" x2="700" y2="260"></line>
+              <line x1="80" y1="200" x2="700" y2="200"></line>
+              <line x1="80" y1="140" x2="700" y2="140"></line>
+              <line x1="80" y1="80" x2="700" y2="80"></line>
+            </g>
+
+            <g stroke="#1f2937" stroke-width="2">
+              <line x1="80" y1="380" x2="720" y2="380"></line>
+              <line x1="80" y1="400" x2="80" y2="45"></line>
+            </g>
+
+            <path
+              d="M 110 345
+                 C 210 340, 290 310, 355 270
+                 C 440 215, 525 165, 660 75"
+              fill="none"
+              stroke="#2336c7"
+              stroke-width="5"
+              stroke-linecap="round">
+            </path>
+
+            <circle cx="310" cy="298" r="8" fill="#2336c7"></circle>
+
+            <g stroke="#a23a3a" stroke-width="3">
+              <line x1="145" y1="350" x2="660" y2="118" opacity="0.28"></line>
+              <line x1="145" y1="360" x2="620" y2="143" opacity="0.42"></line>
+              <line x1="145" y1="370" x2="575" y2="172" opacity="0.58"></line>
+              <line x1="145" y1="380" x2="525" y2="200" opacity="0.72"></line>
+            </g>
+
+            <line
+              x1="140"
+              y1="390"
+              x2="680"
+              y2="120"
+              stroke="#1e6b52"
+              stroke-width="5">
+            </line>
+
+            <g fill="#1f2937" font-family="Arial, sans-serif" font-size="20">
+              <text x="730" y="388">x</text>
+              <text x="68" y="40">y</text>
+              <text x="285" y="288">A</text>
+              <text x="560" y="115">recta tangente</text>
+            </g>
+          </svg>
+
+          <figcaption>
+            La pendiente de la tangente es el valor de la derivada en el punto.
+          </figcaption>
+        </figure>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Ecuación de la recta tangente</h3>
+
+        <p>
+          La recta tangente al gráfico de \(f\) en \(x=a\) pasa por el punto
+          \((a,f(a))\) y tiene pendiente \(f'(a)\). Su ecuación es:
+        </p>
+
+        <p class="formula">
+          \[
+            \boxed{
+              y-f(a)=f'(a)(x-a)
+            }
+          \]
+        </p>
+
+        <div class="ejemplo">
+          <h4>Ejemplo</h4>
+
+          <p>
+            Sea \(f(x)=x^2+1\). Buscamos la tangente en \(x=2\).
+          </p>
+
+          <p class="formula">
+            \[
+              f(2)=5,
+              \qquad
+              f'(x)=2x,
+              \qquad
+              f'(2)=4
+            \]
+          </p>
+
+          <p class="formula">
+            \[
+              y-5=4(x-2)
+            \]
+          </p>
+
+          <p class="formula">
+            \[
+              \boxed{y=4x-3}
+            \]
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <!-- =======================================================
+         6. INTERPRETACIÓN FÍSICA
+         ======================================================= -->
+    <section id="6">
+      <h2>6. Interpretación física y unidades</h2>
+
+      <article class="tarjeta">
+        <h3>La derivada como tasa de variación</h3>
+
+        <p>
+          La derivada indica cuánto cambia una magnitud por cada unidad de cambio
+          de otra. Por eso sus unidades se obtienen dividiendo las unidades de
+          la variable dependiente por las de la variable independiente.
+        </p>
+
+        <div class="tabla-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Función</th>
+                <th>Derivada</th>
+                <th>Unidades</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Posición \(s(t)\) en m</td>
+                <td>\(v(t)=s'(t)\)</td>
+                <td>m/s</td>
+              </tr>
+              <tr>
+                <td>Velocidad \(v(t)\) en m/s</td>
+                <td>\(a(t)=v'(t)=s''(t)\)</td>
+                <td>m/s\(^2\)</td>
+              </tr>
+              <tr>
+                <td>Temperatura \(T(t)\) en °C</td>
+                <td>\(T'(t)\)</td>
+                <td>°C/min</td>
+              </tr>
+              <tr>
+                <td>Tensión \(V(n)\) en voltios</td>
+                <td>\(V'(n)\)</td>
+                <td>V/rpm</td>
+              </tr>
+              <tr>
+                <td>Presión \(P(t)\) en kPa</td>
+                <td>\(P'(t)\)</td>
+                <td>kPa/s</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Interpretación del signo</h3>
+
+        <div class="tabla-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Signo de \(f'(a)\)</th>
+                <th>Interpretación local</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>\(f'(a)>0\)</td>
+                <td>La magnitud está aumentando en ese instante.</td>
+              </tr>
+              <tr>
+                <td>\(f'(a)<0\)</td>
+                <td>La magnitud está disminuyendo en ese instante.</td>
+              </tr>
+              <tr>
+                <td>\(f'(a)=0\)</td>
+                <td>La variación instantánea es nula.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="nota">
+          <p>
+            Que la derivada sea cero en un instante no significa necesariamente
+            que el sistema permanezca detenido o constante. Describe solamente
+            la variación local en ese punto.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <!-- =======================================================
+         7. FUNCIÓN DERIVADA
+         ======================================================= -->
+    <section id="7">
+      <h2>7. Función derivada y notaciones</h2>
+
+      <article class="tarjeta">
+        <h3>Una nueva función</h3>
+
+        <p>
+          Si calculamos la derivada en todos los puntos donde existe, obtenemos
+          una nueva función llamada <strong>función derivada</strong>:
+        </p>
+
+        <p class="formula">
+          \[
+            \boxed{
+              f'(x)=
+              \lim_{h\to0}
+              \frac{f(x+h)-f(x)}{h}
+            }
+          \]
+        </p>
+
+        <div class="nota">
+          <p>
+            \(f(x)\) informa el valor de una magnitud. \(f'(x)\) informa
+            cómo está cambiando esa magnitud.
+          </p>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Notaciones habituales</h3>
+
+        <p>
+          La derivada puede escribirse de distintas maneras:
+        </p>
+
+        <p class="formula">
+          \[
+            f'(x),
+            \qquad
+            y',
+            \qquad
+            \frac{dy}{dx},
+            \qquad
+            Df(x)
+          \]
+        </p>
+
+        <p>
+          Todas estas expresiones representan la función derivada, aunque
+          algunas notaciones resultan más útiles en ciertos contextos.
+        </p>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Dominio de la derivada</h3>
+
+        <p>
+          La derivada sólo existe en los puntos donde el límite del cociente
+          incremental existe como número real.
+        </p>
+
+        <p class="formula">
+          \[
+            \Dom(f')\subseteq\Dom(f)
+          \]
+        </p>
+
+        <div class="ejemplo">
+          <h4>Ejemplo</h4>
+
+          <p>
+            Para \(f(x)=\sqrt{x}\):
+          </p>
+
+          <p class="formula">
+            \[
+              \Dom(f)=[0,+\infty)
+            \]
+          </p>
+
+          <p>
+            pero:
+          </p>
+
+          <p class="formula">
+            \[
+              f'(x)=\frac{1}{2\sqrt{x}}
+            \]
+          </p>
+
+          <p>
+            está definida solamente para \(x>0\). Por lo tanto:
+          </p>
+
+          <p class="formula">
+            \[
+              \Dom(f')=(0,+\infty)
+            \]
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <!-- =======================================================
+         8. DERIVABILIDAD
+         ======================================================= -->
+    <section id="8">
+      <h2>8. Derivabilidad y continuidad</h2>
+
+      <article class="tarjeta">
+        <h3>Relación entre ambos conceptos</h3>
+
+        <div class="definicion">
+          <p>
+            Si una función es derivable en \(x=a\), entonces es continua
+            en \(x=a\).
+          </p>
+        </div>
+
+        <p class="formula">
+          \[
+            f\text{ derivable en }a
+            \quad\Longrightarrow\quad
+            f\text{ continua en }a
+          \]
+        </p>
+
+        <p>
+          La afirmación inversa no siempre es verdadera: una función puede ser
+          continua y no ser derivable.
+        </p>
+
+        <div class="ejemplo">
+          <h4>Ejemplo</h4>
+
+          <p>
+            La función \(f(x)=|x|\) es continua en \(x=0\), pero su gráfico
+            presenta un punto anguloso. La pendiente por la izquierda es
+            diferente de la pendiente por la derecha, por lo que \(f'(0)\)
+            no existe.
+          </p>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Situaciones en las que puede no existir la derivada</h3>
+
+        <ul>
+          <li>La función es discontinua.</li>
+          <li>El gráfico tiene un punto anguloso.</li>
+          <li>El gráfico presenta una cúspide.</li>
+          <li>La recta tangente es vertical.</li>
+        </ul>
+
+        <figure class="figura">
+          <svg
+            viewBox="0 0 760 380"
+            role="img"
+            aria-labelledby="titulo-no-derivable descripcion-no-derivable">
+            <title id="titulo-no-derivable">
+              Dos ejemplos de funciones no derivables
+            </title>
+
+            <desc id="descripcion-no-derivable">
+              A la izquierda hay un punto anguloso y a la derecha una tangente vertical.
+            </desc>
+
+            <rect width="760" height="380" fill="#ffffff"></rect>
+
+            <!-- Primer gráfico -->
+            <g transform="translate(45,20)">
+              <g stroke="#1f2937" stroke-width="2">
+                <line x1="35" y1="300" x2="315" y2="300"></line>
+                <line x1="175" y1="325" x2="175" y2="45"></line>
+              </g>
+
+              <polyline
+                points="65,100 175,300 285,100"
+                fill="none"
+                stroke="#2336c7"
+                stroke-width="5"
+                stroke-linejoin="round">
+              </polyline>
+
+              <circle cx="175" cy="300" r="6" fill="#2336c7"></circle>
+
+              <g fill="#1f2937" font-family="Arial, sans-serif" font-size="19">
+                <text x="80" y="355">punto anguloso</text>
+              </g>
+            </g>
+
+            <!-- Segundo gráfico -->
+            <g transform="translate(405,20)">
+              <g stroke="#1f2937" stroke-width="2">
+                <line x1="25" y1="300" x2="305" y2="300"></line>
+                <line x1="165" y1="325" x2="165" y2="45"></line>
+              </g>
+
+              <path
+                d="M 60 270
+                   C 110 260, 145 220, 160 80
+                   C 164 50, 166 50, 170 80
+                   C 185 220, 220 260, 270 270"
+                fill="none"
+                stroke="#2336c7"
+                stroke-width="5">
+              </path>
+
+              <line
+                x1="165"
+                y1="55"
+                x2="165"
+                y2="300"
+                stroke="#a23a3a"
+                stroke-width="3"
+                stroke-dasharray="8 6">
+              </line>
+
+              <g fill="#1f2937" font-family="Arial, sans-serif" font-size="19">
+                <text x="78" y="355">tangente vertical</text>
+              </g>
+            </g>
+          </svg>
+
+          <figcaption>
+            En estos puntos la pendiente no puede representarse mediante
+            un único número real.
+          </figcaption>
+        </figure>
+      </article>
+    </section>
+
+    <!-- =======================================================
+         9. TABLA
+         ======================================================= -->
+    <section id="9">
+      <h2>9. Tabla de derivadas elementales</h2>
+
+      <article class="tarjeta">
+        <h3>Funciones básicas</h3>
+
+        <p>
+          Estas fórmulas permiten evitar el cálculo por definición en cada caso.
+          En las funciones trigonométricas, el ángulo debe expresarse en
+          <strong>radianes</strong>.
+        </p>
+
+        <div class="tabla-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>\(f(x)\)</th>
+                <th>\(f'(x)\)</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>\(k\)</td>
+                <td>\(0\)</td>
+              </tr>
+              <tr>
+                <td>\(x\)</td>
+                <td>\(1\)</td>
+              </tr>
+              <tr>
+                <td>\(x^n\)</td>
+                <td>\(nx^{n-1}\)</td>
+              </tr>
+              <tr>
+                <td>\(\sqrt{x}\)</td>
+                <td>\(\dfrac{1}{2\sqrt{x}}\)</td>
+              </tr>
+              <tr>
+                <td>\(\dfrac1x\)</td>
+                <td>\(-\dfrac1{x^2}\)</td>
+              </tr>
+              <tr>
+                <td>\(e^x\)</td>
+                <td>\(e^x\)</td>
+              </tr>
+              <tr>
+                <td>\(a^x\)</td>
+                <td>\(a^x\ln(a)\)</td>
+              </tr>
+              <tr>
+                <td>\(\ln x\)</td>
+                <td>\(\dfrac1x\)</td>
+              </tr>
+              <tr>
+                <td>\(\log_a x\)</td>
+                <td>\(\dfrac{1}{x\ln(a)}\)</td>
+              </tr>
+              <tr>
+                <td>\(\sen x\)</td>
+                <td>\(\cos x\)</td>
+              </tr>
+              <tr>
+                <td>\(\cos x\)</td>
+                <td>\(-\sen x\)</td>
+              </tr>
+              <tr>
+                <td>\(\tan x\)</td>
+                <td>\(\dfrac1{\cos^2x}\)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <!-- =======================================================
+         10. REGLAS
+         ======================================================= -->
+    <section id="10">
+      <h2>10. Reglas de derivación</h2>
+
+      <article class="tarjeta">
+        <h3>Suma, resta y producto por una constante</h3>
+
+        <p class="formula">
+          \[
+            (f+g)'=f'+g'
+          \]
+        </p>
+
+        <p class="formula">
+          \[
+            (f-g)'=f'-g'
+          \]
+        </p>
+
+        <p class="formula">
+          \[
+            (kf)'=kf'
+          \]
+        </p>
+
+        <div class="ejemplo">
+          <h4>Ejemplo</h4>
+
+          <p class="formula">
+            \[
+              f(x)=3x^4-5x^2+7x-2
+            \]
+          </p>
+
+          <p class="formula">
+            \[
+              \boxed{f'(x)=12x^3-10x+7}
+            \]
+          </p>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Regla del producto</h3>
+
+        <p class="formula">
+          \[
+            \boxed{(f\cdot g)'=f'g+fg'}
+          \]
+        </p>
+
+        <div class="nota">
+          <p>
+            La derivada de un producto no es, en general, el producto
+            de las derivadas.
+          </p>
+        </div>
+
+        <div class="ejemplo">
+          <h4>Ejemplo</h4>
+
+          <p class="formula">
+            \[
+              h(x)=(x^2+1)e^x
+            \]
+          </p>
+
+          <p class="formula">
+            \[
+              \begin{aligned}
+                h'(x)
+                &=(2x)e^x+(x^2+1)e^x\\
+                &=e^x(x^2+2x+1)
+              \end{aligned}
+            \]
+          </p>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Regla del cociente</h3>
+
+        <p class="formula">
+          \[
+            \boxed{
+              \left(\frac{f}{g}\right)'
+              =
+              \frac{f'g-fg'}{g^2}
+            },
+            \qquad g(x)\neq0
+          \]
+        </p>
+
+        <div class="ejemplo">
+          <h4>Ejemplo</h4>
+
+          <p class="formula">
+            \[
+              r(x)=\frac{x^2+1}{x-1}
+            \]
+          </p>
+
+          <p class="formula">
+            \[
+              \begin{aligned}
+                r'(x)
+                &=
+                \frac{2x(x-1)-(x^2+1)}{(x-1)^2}\\
+                &=
+                \frac{x^2-2x-1}{(x-1)^2}
+              \end{aligned}
+            \]
+          </p>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Regla de la cadena</h3>
+
+        <p>
+          Si una función está dentro de otra:
+        </p>
+
+        <p class="formula">
+          \[
+            y=f(g(x))
+          \]
+        </p>
+
+        <p>
+          entonces:
+        </p>
+
+        <p class="formula">
+          \[
+            \boxed{
+              (f\circ g)'(x)=f'(g(x))\,g'(x)
+            }
+          \]
+        </p>
+
+        <p>
+          En palabras: derivamos la función exterior y multiplicamos por la
+          derivada de la función interior.
+        </p>
+
+        <div class="ejemplo">
+          <h4>Ejemplo 1</h4>
+
+          <p class="formula">
+            \[
+              q(x)=(3x-2)^5
+            \]
+          </p>
+
+          <p class="formula">
+            \[
+              \boxed{q'(x)=15(3x-2)^4}
+            \]
+          </p>
+        </div>
+
+        <div class="ejemplo">
+          <h4>Ejemplo 2</h4>
+
+          <p class="formula">
+            \[
+              p(x)=\sen(2x+1)
+            \]
+          </p>
+
+          <p class="formula">
+            \[
+              \boxed{p'(x)=2\cos(2x+1)}
+            \]
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <!-- =======================================================
+         11. ELEGIR REGLA
+         ======================================================= -->
+    <section id="11">
+      <h2>11. Cómo elegir una regla</h2>
+
+      <article class="tarjeta">
+        <h3>Reconocer la estructura</h3>
+
+        <div class="tabla-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Forma de la función</th>
+                <th>Estrategia principal</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Suma o resta</td>
+                <td>Derivar término a término.</td>
+              </tr>
+              <tr>
+                <td>Constante por función</td>
+                <td>Conservar la constante y derivar la función.</td>
+              </tr>
+              <tr>
+                <td>Producto de funciones</td>
+                <td>Aplicar la regla del producto.</td>
+              </tr>
+              <tr>
+                <td>Cociente de funciones</td>
+                <td>Aplicar la regla del cociente.</td>
+              </tr>
+              <tr>
+                <td>Una función dentro de otra</td>
+                <td>Aplicar la regla de la cadena.</td>
+              </tr>
+              <tr>
+                <td>Base y exponente variables</td>
+                <td>Utilizar derivación logarítmica.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="nota">
+          <p>
+            Antes de derivar, conviene observar la función completa. En algunos
+            casos, simplificar o desarrollar la expresión facilita el cálculo;
+            en otros, es preferible conservar su estructura.
+          </p>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Ejemplo de análisis previo</h3>
+
+        <p>
+          Consideremos:
+        </p>
+
+        <p class="formula">
+          \[
+            f(x)=x^2\cos(2x)
+          \]
+        </p>
+
+        <p>
+          La función es un producto entre \(x^2\) y \(\cos(2x)\). Dentro del
+          coseno aparece otra función. Por lo tanto, necesitamos:
+        </p>
+
+        <ul>
+          <li>regla del producto;</li>
+          <li>regla de la cadena para derivar \(\cos(2x)\).</li>
+        </ul>
+
+        <p class="formula">
+          \[
+            f'(x)
+            =
+            2x\cos(2x)-2x^2\sen(2x)
+          \]
+        </p>
+      </article>
+    </section>
+
+    <!-- =======================================================
+         12. LOGARÍTMICA
+         ======================================================= -->
+    <section id="12">
+      <h2>12. Derivación logarítmica</h2>
+
+      <article class="tarjeta">
+        <h3>¿Cuándo resulta útil?</h3>
+
+        <p>
+          La derivación logarítmica es especialmente útil cuando aparecen:
+        </p>
+
+        <ul>
+          <li>productos de varios factores;</li>
+          <li>cocientes complejos;</li>
+          <li>funciones cuya base y exponente dependen de la variable.</li>
+        </ul>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Procedimiento</h3>
+
+        <ol>
+          <li>Escribir \(y=f(x)\).</li>
+          <li>Aplicar logaritmo natural a ambos miembros.</li>
+          <li>Utilizar las propiedades de los logaritmos.</li>
+          <li>Derivar implícitamente.</li>
+          <li>Despejar \(y'\) y reemplazar nuevamente \(y=f(x)\).</li>
+        </ol>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Ejemplo: derivada de \(x^x\)</h3>
+
+        <p>
+          Sea:
+        </p>
+
+        <p class="formula">
+          \[
+            y=x^x,
+            \qquad x>0
+          \]
+        </p>
+
+        <p>
+          Aplicamos logaritmo natural:
+        </p>
+
+        <p class="formula">
+          \[
+            \ln y=x\ln x
+          \]
+        </p>
+
+        <p>
+          Derivamos:
+        </p>
+
+        <p class="formula">
+          \[
+            \frac{y'}{y}=\ln x+1
+          \]
+        </p>
+
+        <p>
+          Despejamos \(y'\):
+        </p>
+
+        <p class="formula">
+          \[
+            y'=y(\ln x+1)
+          \]
+        </p>
+
+        <p>
+          Como \(y=x^x\):
+        </p>
+
+        <p class="formula">
+          \[
+            \boxed{
+              \frac{d}{dx}(x^x)=x^x(\ln x+1)
+            }
+          \]
+        </p>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Ejemplo: potencia con exponente variable</h3>
+
+        <p class="formula">
+          \[
+            y=(2x+1)^x
+          \]
+        </p>
+
+        <p class="formula">
+          \[
+            \ln y=x\ln(2x+1)
+          \]
+        </p>
+
+        <p class="formula">
+          \[
+            \frac{y'}{y}
+            =
+            \ln(2x+1)
+            +
+            \frac{2x}{2x+1}
+          \]
+        </p>
+
+        <p class="formula">
+          \[
+            \boxed{
+              y'
+              =
+              (2x+1)^x
+              \left[
+                \ln(2x+1)
+                +
+                \frac{2x}{2x+1}
+              \right]
+            }
+          \]
+        </p>
+      </article>
+    </section>
+
+    <!-- =======================================================
+         13. SUCESIVAS
+         ======================================================= -->
+    <section id="13">
+      <h2>13. Derivadas sucesivas</h2>
+
+      <article class="tarjeta">
+        <h3>Derivar más de una vez</h3>
+
+        <p>
+          La derivada de \(f'(x)\) se llama segunda derivada y se escribe
+          \(f''(x)\). Se puede continuar con derivadas de orden superior:
+        </p>
+
+        <p class="formula">
+          \[
+            f(x),
+            \qquad
+            f'(x),
+            \qquad
+            f''(x),
+            \qquad
+            f'''(x),
+            \ldots
+          \]
+        </p>
+
+        <div class="ejemplo">
+          <h4>Ejemplo</h4>
+
+          <p class="formula">
+            \[
+              f(x)=x^4-2x^3+x
+            \]
+          </p>
+
+          <p class="formula">
+            \[
+              f'(x)=4x^3-6x^2+1
+            \]
+          </p>
+
+          <p class="formula">
+            \[
+              f''(x)=12x^2-12x
+            \]
+          </p>
+
+          <p class="formula">
+            \[
+              f'''(x)=24x-12
+            \]
+          </p>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Posición, velocidad y aceleración</h3>
+
+        <p>
+          Si \(s(t)\) representa la posición de un vehículo:
+        </p>
+
+        <p class="formula">
+          \[
+            \boxed{v(t)=s'(t)}
+          \]
+        </p>
+
+        <p>
+          representa su velocidad instantánea, mientras que:
+        </p>
+
+        <p class="formula">
+          \[
+            \boxed{a(t)=v'(t)=s''(t)}
+          \]
+        </p>
+
+        <p>
+          representa su aceleración instantánea.
+        </p>
+      </article>
+    </section>
+
+    <!-- =======================================================
+         14. APLICACIONES
+         ======================================================= -->
+    <section id="14">
+      <h2>14. Aplicaciones en contextos técnicos</h2>
+
+      <p class="nota">
+        Los modelos que aparecen a continuación son simplificaciones didácticas.
+        Deben interpretarse dentro de su dominio y no reemplazan mediciones,
+        ensayos ni documentación técnica real.
+      </p>
+
+      <article class="tarjeta">
+        <h3>Movimiento de un vehículo</h3>
+
+        <p>
+          Durante un ensayo en un tramo recto, la posición se modeliza por:
+        </p>
+
+        <p class="formula">
+          \[
+            s(t)=t^3+2t^2
+          \]
+        </p>
+
+        <p>
+          donde \(s\) se mide en metros y \(t\) en segundos.
+        </p>
+
+        <p class="formula">
+          \[
+            v(t)=s'(t)=3t^2+4t
+          \]
+        </p>
+
+        <p>
+          En \(t=2\):
+        </p>
+
+        <p class="formula">
+          \[
+            v(2)=20\ \text{m/s}
+          \]
+        </p>
+
+        <p>
+          La aceleración es:
+        </p>
+
+        <p class="formula">
+          \[
+            a(t)=s''(t)=6t+4
+          \]
+        </p>
+
+        <p class="formula">
+          \[
+            a(2)=16\ \text{m/s}^2
+          \]
+        </p>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Variación de la temperatura del refrigerante</h3>
+
+        <p>
+          Un modelo didáctico del calentamiento es:
+        </p>
+
+        <p class="formula">
+          \[
+            T(t)=90-70e^{-0{,}1t}
+          \]
+        </p>
+
+        <p>
+          con \(t\) en minutos y \(T\) en grados Celsius.
+        </p>
+
+        <p class="formula">
+          \[
+            T'(t)=7e^{-0{,}1t}
+          \]
+        </p>
+
+        <p>
+          Como \(T'(t)>0\), la temperatura aumenta. Sin embargo, el valor de
+          \(T'(t)\) disminuye con el tiempo: el sistema continúa calentándose,
+          pero cada vez más lentamente.
+        </p>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Tensión y revoluciones</h3>
+
+        <p>
+          Un modelo simplificado de la tensión entregada por un sistema
+          de carga es:
+        </p>
+
+        <p class="formula">
+          \[
+            V(n)=14{,}4-\frac{2400}{n},
+            \qquad n>0
+          \]
+        </p>
+
+        <p>
+          donde \(n\) representa las revoluciones por minuto.
+        </p>
+
+        <p class="formula">
+          \[
+            V'(n)=\frac{2400}{n^2}
+          \]
+        </p>
+
+        <p>
+          La derivada es positiva: la tensión aumenta al aumentar las rpm.
+          Pero el valor de la derivada se hace cada vez menor, por lo que el
+          efecto de un nuevo aumento de las rpm es progresivamente menor.
+        </p>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Sensibilidad local de un sensor</h3>
+
+        <p>
+          Supongamos que la señal del sensor se aproxima mediante:
+        </p>
+
+        <p class="formula">
+          \[
+            S(x)=0{,}02x^2+0{,}4x+1
+          \]
+        </p>
+
+        <p>
+          Entonces:
+        </p>
+
+        <p class="formula">
+          \[
+            S'(x)=0{,}04x+0{,}4
+          \]
+        </p>
+
+        <p>
+          En \(x=5\):
+        </p>
+
+        <p class="formula">
+          \[
+            S'(5)=0{,}6
+          \]
+        </p>
+
+        <p>
+          Este valor describe la sensibilidad local: alrededor de \(x=5\),
+          la señal cambia aproximadamente \(0{,}6\) voltios por cada unidad
+          de aumento de la magnitud medida.
+        </p>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Consumo instantáneo modelizado</h3>
+
+        <p>
+          El consumo acumulado durante una prueba se modeliza por:
+        </p>
+
+        <p class="formula">
+          \[
+            C(t)=0{,}04t^3+0{,}3t^2+0{,}5t
+          \]
+        </p>
+
+        <p>
+          donde \(C\) se mide en litros y \(t\) en horas.
+        </p>
+
+        <p class="formula">
+          \[
+            C'(t)=0{,}12t^2+0{,}6t+0{,}5
+          \]
+        </p>
+
+        <p>
+          La función \(C'(t)\) representa la tasa instantánea de consumo,
+          expresada en litros por hora.
+        </p>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Interpretación responsable de un modelo</h3>
+
+        <p>
+          En una aplicación técnica debemos indicar:
+        </p>
+
+        <ul>
+          <li>qué representan las variables;</li>
+          <li>cuáles son sus unidades;</li>
+          <li>qué dominio se considera;</li>
+          <li>qué significa el signo y el valor de la derivada;</li>
+          <li>qué limitaciones tiene el modelo;</li>
+          <li>cómo podría verificarse con mediciones.</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- =======================================================
+         15. ACTIVIDADES
+         ======================================================= -->
+    <section id="15">
+      <h2>15. Actividades de aplicación</h2>
+
+      <article class="tarjeta">
+        <h3>Actividad 1: razón de cambio media</h3>
+
+        <p>
+          Un vehículo recorre \(72\ \text{km}\) en \(45\) minutos.
+        </p>
+
+        <ol>
+          <li>Expresá el tiempo en horas.</li>
+          <li>Calculá la velocidad media.</li>
+          <li>Indicá las unidades.</li>
+          <li>
+            Explicá por qué ese resultado no permite conocer la velocidad
+            en cada instante.
+          </li>
+        </ol>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Actividad 2: aproximación de una velocidad</h3>
+
+        <p>
+          La posición de un móvil está dada por:
+        </p>
+
+        <p class="formula">
+          \[
+            s(t)=t^2+4t
+          \]
+        </p>
+
+        <ol>
+          <li>Calculá la velocidad media entre \(t=2\) y \(t=3\).</li>
+          <li>Calculá la velocidad media entre \(t=2\) y \(t=2{,}1\).</li>
+          <li>Indicá a qué valor parecen aproximarse los resultados.</li>
+          <li>Verificá la respuesta calculando \(s'(2)\).</li>
+        </ol>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Actividad 3: derivada por definición</h3>
+
+        <p>
+          Para \(f(x)=x^2-2x+3\):
+        </p>
+
+        <ol>
+          <li>Calculá \(f'(x)\) mediante el cociente incremental.</li>
+          <li>Hallá \(f'(3)\).</li>
+          <li>Determiná el punto del gráfico con abscisa \(3\).</li>
+          <li>Escribí la ecuación de la recta tangente en ese punto.</li>
+        </ol>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Actividad 4: tabla de derivadas</h3>
+
+        <p>Calculá:</p>
+
+        <ol>
+          <li>\(\displaystyle \frac{d}{dx}(7)\)</li>
+          <li>\(\displaystyle \frac{d}{dx}(x^5)\)</li>
+          <li>\(\displaystyle \frac{d}{dx}(\sqrt{x})\)</li>
+          <li>\(\displaystyle \frac{d}{dx}\left(\frac1x\right)\)</li>
+          <li>\(\displaystyle \frac{d}{dx}(e^x)\)</li>
+          <li>\(\displaystyle \frac{d}{dx}(\ln x)\)</li>
+          <li>\(\displaystyle \frac{d}{dx}(\sen x)\)</li>
+          <li>\(\displaystyle \frac{d}{dx}(\cos x)\)</li>
+        </ol>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Actividad 5: reglas de derivación</h3>
+
+        <p>Derivá y señalá las reglas utilizadas:</p>
+
+        <ol>
+          <li>\(f(x)=(x^2+1)(3x-2)\)</li>
+          <li>\(g(x)=\dfrac{x+2}{x-1}\)</li>
+          <li>\(h(x)=(2x+1)^6\)</li>
+          <li>\(p(x)=x^2\cos(2x)\)</li>
+          <li>\(q(x)=e^{x^2+1}\)</li>
+        </ol>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Actividad 6: derivabilidad</h3>
+
+        <p>
+          Analizá si existe la derivada en el punto indicado:
+        </p>
+
+        <ol>
+          <li>\(f(x)=|x|\) en \(x=0\).</li>
+          <li>\(g(x)=\dfrac1{x-2}\) en \(x=2\).</li>
+          <li>\(h(x)=x^2\) en \(x=0\).</li>
+          <li>\(p(x)=|x-3|\) en \(x=3\).</li>
+        </ol>
+
+        <p>
+          Justificá cada respuesta utilizando continuidad, pendientes laterales
+          o el comportamiento del gráfico.
+        </p>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Actividad 7: derivación logarítmica</h3>
+
+        <p>Utilizá derivación logarítmica:</p>
+
+        <ol>
+          <li>\(f(x)=x^x\), con \(x>0\).</li>
+          <li>\(g(x)=(x+1)^x\), con \(x>-1\).</li>
+          <li>\(h(x)=x^{2x}\), con \(x>0\).</li>
+        </ol>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Actividad 8: ensayo de movimiento</h3>
+
+        <p>
+          La posición de un vehículo durante una prueba se modeliza por:
+        </p>
+
+        <p class="formula">
+          \[
+            s(t)=t^3+3t^2+2t
+          \]
+        </p>
+
+        <ol>
+          <li>Hallá la función velocidad.</li>
+          <li>Hallá la función aceleración.</li>
+          <li>Calculá \(v(2)\) y \(a(2)\).</li>
+          <li>Indicá las unidades.</li>
+          <li>Interpretá el signo de la aceleración.</li>
+        </ol>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Actividad 9: temperatura del refrigerante</h3>
+
+        <p class="formula">
+          \[
+            T(t)=90-70e^{-0{,}1t}
+          \]
+        </p>
+
+        <ol>
+          <li>Calculá \(T'(t)\).</li>
+          <li>Hallá \(T'(0)\) y \(T'(10)\).</li>
+          <li>Escribí las unidades.</li>
+          <li>
+            Compará ambos valores y explicá qué ocurre con la rapidez
+            de calentamiento.
+          </li>
+        </ol>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Actividad 10: sistema de carga</h3>
+
+        <p class="formula">
+          \[
+            V(n)=14{,}4-\frac{2400}{n},
+            \qquad n>0
+          \]
+        </p>
+
+        <ol>
+          <li>Calculá \(V'(n)\).</li>
+          <li>Hallá \(V'(1000)\) y \(V'(3000)\).</li>
+          <li>Interpretá el signo de la derivada.</li>
+          <li>
+            Explicá por qué el efecto de aumentar las rpm es menor
+            a \(3000\) rpm que a \(1000\) rpm.
+          </li>
+          <li>Indicá una limitación del modelo.</li>
+        </ol>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Actividad integradora: informe técnico breve</h3>
+
+        <p>
+          Elegí una de las situaciones técnicas de la unidad y elaborá
+          un informe que incluya:
+        </p>
+
+        <ul>
+          <li>descripción de las variables y unidades;</li>
+          <li>función utilizada y dominio considerado;</li>
+          <li>derivada y procedimiento de cálculo;</li>
+          <li>interpretación del signo y del valor de la derivada;</li>
+          <li>una tabla con al menos cuatro valores;</li>
+          <li>un gráfico aproximado y una recta tangente;</li>
+          <li>una limitación del modelo;</li>
+          <li>una propuesta para verificar el resultado mediante mediciones.</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- =======================================================
+         16. SÍNTESIS Y MATERIALES
+         ======================================================= -->
+    <section id="16">
+      <h2>16. Síntesis y materiales</h2>
+
+      <article class="tarjeta">
+        <h3>Cuadro de síntesis</h3>
+
+        <div class="tabla-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Concepto</th>
+                <th>Idea principal</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Razón de cambio media</td>
+                <td>
+                  Compara la variación de una magnitud con la variación
+                  de otra en un intervalo.
+                </td>
+              </tr>
+              <tr>
+                <td>Derivada en un punto</td>
+                <td>
+                  Es el límite del cociente incremental cuando el incremento
+                  tiende a cero.
+                </td>
+              </tr>
+              <tr>
+                <td>Interpretación geométrica</td>
+                <td>
+                  Es la pendiente de la recta tangente al gráfico.
+                </td>
+              </tr>
+              <tr>
+                <td>Interpretación física</td>
+                <td>
+                  Es una razón de cambio instantánea, con unidades propias.
+                </td>
+              </tr>
+              <tr>
+                <td>Función derivada</td>
+                <td>
+                  Asigna a cada punto la pendiente o tasa de cambio correspondiente.
+                </td>
+              </tr>
+              <tr>
+                <td>Derivabilidad</td>
+                <td>
+                  Requiere que el límite del cociente incremental exista
+                  como número real.
+                </td>
+              </tr>
+              <tr>
+                <td>Continuidad</td>
+                <td>
+                  Toda función derivable es continua en el punto considerado.
+                </td>
+              </tr>
+              <tr>
+                <td>Reglas de derivación</td>
+                <td>
+                  Permiten derivar sumas, productos, cocientes y composiciones.
+                </td>
+              </tr>
+              <tr>
+                <td>Derivación logarítmica</td>
+                <td>
+                  Resulta útil cuando base y exponente dependen de la variable.
+                </td>
+              </tr>
+              <tr>
+                <td>Derivadas sucesivas</td>
+                <td>
+                  Permiten estudiar velocidad, aceleración y cambios de orden superior.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Preguntas para revisar antes de derivar</h3>
+
+        <ol>
+          <li>¿Qué representan las variables?</li>
+          <li>¿Qué unidades tendrá la derivada?</li>
+          <li>¿La función es derivable en el punto?</li>
+          <li>¿Qué estructura tiene la expresión?</li>
+          <li>¿Qué regla o combinación de reglas necesito?</li>
+          <li>¿El resultado puede simplificarse?</li>
+          <li>¿Qué significa el signo de la derivada?</li>
+          <li>¿El valor obtenido es razonable en el contexto?</li>
+        </ol>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Uso de herramientas digitales</h3>
+
+        <p>
+          GeoGebra puede utilizarse para:
+        </p>
+
+        <ul>
+          <li>graficar la función;</li>
+          <li>ubicar un punto sobre el gráfico;</li>
+          <li>trazar la recta tangente;</li>
+          <li>comparar la pendiente con el valor de la derivada;</li>
+          <li>verificar una función derivada calculada previamente.</li>
+        </ul>
+
+        <div class="nota">
+          <p>
+            La herramienta digital sirve para explorar y verificar. El
+            procedimiento matemático y la interpretación deben quedar escritos.
+          </p>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Materiales de la unidad</h3>
+
+        <p>
+          Para que estos enlaces funcionen, guardá los dos PDF en la carpeta
+          <code>pdf</code> ubicada en la raíz del proyecto.
+        </p>
+
+        <ul>
+          <li>
+            <a
+              href="../pdf/Unidad_3_Derivada_Teoria.pdf"
+              target="_blank"
+              rel="noopener">
+              Abrir el apunte teórico de la Unidad 3
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="../pdf/Unidad_3_Derivada_Practica.pdf"
+              target="_blank"
+              rel="noopener">
+              Abrir la guía de actividades prácticas
+            </a>
+          </li>
+        </ul>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Referencias de elaboración</h3>
+
+        <p>
+          La unidad se organiza a partir del programa de Análisis Matemático,
+          la planificación del Área de Formación Científico-Técnica, el apunte
+          elaborado para el curso y el material bibliográfico de derivadas
+          utilizado como referencia.
+        </p>
+      </article>
+    </section>
+
+  </main>
+
+  <!-- =========================================================
+       PIE DE PÁGINA
+       ========================================================= -->
+  <footer class="pie-pagina">
+    <div class="pie-informacion">
+      <p>
+        Análisis Matemático · 4.º año · Tecnicatura en Automotores
+      </p>
+
+      <p>
+        Material educativo para el Área de Formación Científico-Técnica.
+      </p>
+    </div>
+
+    <div class="pie-licencia">
+      <p>
+        Licencia
+        <a
+          href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es"
+          target="_blank"
+          rel="license noopener">
+          CC BY-NC-SA 4.0
+        </a>
+      </p>
+    </div>
+
+    <div class="pie-logo">
+      <img
+        src="../img/logo-lc-matematica.png"
+        alt="Logo del sitio de Análisis Matemático"
+      />
+    </div>
+  </footer>
+
+  <!-- Se conserva el archivo JavaScript general del proyecto -->
   <script src="../js/script.js"></script>
+
 </body>
 </html>
