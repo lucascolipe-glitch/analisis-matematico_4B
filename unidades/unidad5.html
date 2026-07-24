@@ -1,264 +1,1483 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Unidad 5 - Análisis Matemático</title>
-<script>window.MathJax = { tex: { inlineMath: [['$', '$'], ['\(', '\)']] } };</script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<link rel="stylesheet" href="../css/estilos.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Unidad 5 de Análisis Matemático: primitivas, integral indefinida y definida, métodos de integración, áreas y aplicaciones técnicas." />
+
+  <title>Unidad 5 - Integrales y sus aplicaciones</title>
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        macros: {
+          sen: "\\operatorname{sen}",
+          Dom: "\\operatorname{Dom}",
+          Im: "\\operatorname{Im}"
+        }
+      }
+    };
+  </script>
+
+  <script
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+
+  <link rel="stylesheet" href="../css/estilos.css" />
 </head>
+
 <body>
-<div class="barra-superior">
-  <div class="nav-contenedor">
-    <a class="logo" href="../index.html">Análisis Matemático</a>
-    <nav><a href="unidad0.html" class="">Unidad 0</a><a href="unidad1.html" class="">Unidad 1</a><a href="unidad2.html" class="">Unidad 2</a><a href="unidad3.html" class="">Unidad 3</a><a href="unidad4.html" class="">Unidad 4</a><a href="unidad5.html" class="activo">Unidad 5</a></nav>
+  <div class="barra-superior">
+    <div class="nav-contenedor">
+      <a class="logo" href="../index.html">Análisis Matemático</a>
+
+      <nav aria-label="Unidades de la materia">
+        <a href="unidad0.html">Unidad 0</a>
+        <a href="unidad1.html">Unidad 1</a>
+        <a href="unidad2.html">Unidad 2</a>
+        <a href="unidad3.html">Unidad 3</a>
+        <a href="unidad4.html">Unidad 4</a>
+        <a href="unidad5.html" class="activo" aria-current="page">Unidad 5</a>
+      </nav>
+    </div>
   </div>
-</div>
-<header>
-<h1>Unidad 5: Integrales y sus aplicaciones</h1>
-<p>Teoría, ejemplos, videos y apuntes para trabajar esta unidad.</p>
-</header>
-<main>
-<section class="temario">
-<h2>Temas de la unidad</h2>
-<ul><li><a href="#1">Integral indefinida como primitiva</a></li>
-<li><a href="#2">Integral definida</a></li>
-<li><a href="#3">Área bajo la curva</a></li>
-<li><a href="#4">Propiedades de la integral</a></li>
-<li><a href="#5">Métodos básicos de integración</a></li>
-<li><a href="#6">Áreas entre curvas</a></li></ul>
-</section>
-<section id="1">
-<h2>Integral indefinida como primitiva</h2>
-<p class="nota">Espacio para desarrollar la teoría, escribir definiciones, fórmulas, observaciones y consignas breves.</p>
-<div class="formula">
-$$\text{Acá podés escribir una fórmula o idea central del tema.}$$
-</div>
-<div class="hilera-ejemplos">
-<article class="ejemplo">
-  <h4>Ejemplo 1</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Integral indefinida como primitiva</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 1 - Integral indefinida como primitiva"></iframe>
-  <!-- Para un PDF local usá: ../pdf/integral-indefinida-como-primitiva.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 1 - Integral indefinida como primitiva"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 2</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Integral indefinida como primitiva</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 2 - Integral indefinida como primitiva"></iframe>
-  <!-- Para un PDF local usá: ../pdf/integral-indefinida-como-primitiva.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 2 - Integral indefinida como primitiva"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 3</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Integral indefinida como primitiva</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 3 - Integral indefinida como primitiva"></iframe>
-  <!-- Para un PDF local usá: ../pdf/integral-indefinida-como-primitiva.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 3 - Integral indefinida como primitiva"></iframe>
-</article>
-</div>
-</section><section id="2">
-<h2>Integral definida</h2>
-<p class="nota">Espacio para desarrollar la teoría, escribir definiciones, fórmulas, observaciones y consignas breves.</p>
-<div class="formula">
-$$\text{Acá podés escribir una fórmula o idea central del tema.}$$
-</div>
-<div class="hilera-ejemplos">
-<article class="ejemplo">
-  <h4>Ejemplo 1</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Integral definida</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 1 - Integral definida"></iframe>
-  <!-- Para un PDF local usá: ../pdf/integral-definida.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 1 - Integral definida"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 2</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Integral definida</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 2 - Integral definida"></iframe>
-  <!-- Para un PDF local usá: ../pdf/integral-definida.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 2 - Integral definida"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 3</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Integral definida</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 3 - Integral definida"></iframe>
-  <!-- Para un PDF local usá: ../pdf/integral-definida.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 3 - Integral definida"></iframe>
-</article>
-</div>
-</section><section id="3">
-<h2>Área bajo la curva</h2>
-<p class="nota">Espacio para desarrollar la teoría, escribir definiciones, fórmulas, observaciones y consignas breves.</p>
-<div class="formula">
-$$\text{Acá podés escribir una fórmula o idea central del tema.}$$
-</div>
-<div class="hilera-ejemplos">
-<article class="ejemplo">
-  <h4>Ejemplo 1</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Área bajo la curva</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 1 - Área bajo la curva"></iframe>
-  <!-- Para un PDF local usá: ../pdf/área-bajo-la-curva.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 1 - Área bajo la curva"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 2</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Área bajo la curva</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 2 - Área bajo la curva"></iframe>
-  <!-- Para un PDF local usá: ../pdf/área-bajo-la-curva.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 2 - Área bajo la curva"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 3</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Área bajo la curva</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 3 - Área bajo la curva"></iframe>
-  <!-- Para un PDF local usá: ../pdf/área-bajo-la-curva.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 3 - Área bajo la curva"></iframe>
-</article>
-</div>
-</section><section id="4">
-<h2>Propiedades de la integral</h2>
-<p class="nota">Espacio para desarrollar la teoría, escribir definiciones, fórmulas, observaciones y consignas breves.</p>
-<div class="formula">
-$$\text{Acá podés escribir una fórmula o idea central del tema.}$$
-</div>
-<div class="hilera-ejemplos">
-<article class="ejemplo">
-  <h4>Ejemplo 1</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Propiedades de la integral</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 1 - Propiedades de la integral"></iframe>
-  <!-- Para un PDF local usá: ../pdf/propiedades-de-la-integral.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 1 - Propiedades de la integral"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 2</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Propiedades de la integral</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 2 - Propiedades de la integral"></iframe>
-  <!-- Para un PDF local usá: ../pdf/propiedades-de-la-integral.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 2 - Propiedades de la integral"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 3</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Propiedades de la integral</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 3 - Propiedades de la integral"></iframe>
-  <!-- Para un PDF local usá: ../pdf/propiedades-de-la-integral.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 3 - Propiedades de la integral"></iframe>
-</article>
-</div>
-</section><section id="5">
-<h2>Métodos básicos de integración</h2>
-<p class="nota">Espacio para desarrollar la teoría, escribir definiciones, fórmulas, observaciones y consignas breves.</p>
-<div class="formula">
-$$\text{Acá podés escribir una fórmula o idea central del tema.}$$
-</div>
-<div class="hilera-ejemplos">
-<article class="ejemplo">
-  <h4>Ejemplo 1</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Métodos básicos de integración</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 1 - Métodos básicos de integración"></iframe>
-  <!-- Para un PDF local usá: ../pdf/métodos-básicos-de-integración.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 1 - Métodos básicos de integración"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 2</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Métodos básicos de integración</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 2 - Métodos básicos de integración"></iframe>
-  <!-- Para un PDF local usá: ../pdf/métodos-básicos-de-integración.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 2 - Métodos básicos de integración"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 3</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Métodos básicos de integración</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 3 - Métodos básicos de integración"></iframe>
-  <!-- Para un PDF local usá: ../pdf/métodos-básicos-de-integración.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 3 - Métodos básicos de integración"></iframe>
-</article>
-</div>
-</section><section id="6">
-<h2>Áreas entre curvas</h2>
-<p class="nota">Espacio para desarrollar la teoría, escribir definiciones, fórmulas, observaciones y consignas breves.</p>
-<div class="formula">
-$$\text{Acá podés escribir una fórmula o idea central del tema.}$$
-</div>
-<div class="hilera-ejemplos">
-<article class="ejemplo">
-  <h4>Ejemplo 1</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Áreas entre curvas</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 1 - Áreas entre curvas"></iframe>
-  <!-- Para un PDF local usá: ../pdf/áreas-entre-curvas.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 1 - Áreas entre curvas"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 2</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Áreas entre curvas</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 2 - Áreas entre curvas"></iframe>
-  <!-- Para un PDF local usá: ../pdf/áreas-entre-curvas.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 2 - Áreas entre curvas"></iframe>
-</article>
-<article class="ejemplo">
-  <h4>Ejemplo 3</h4>
-  <p>Breve descripción del ejemplo sobre <strong>Áreas entre curvas</strong>. Podés escribir acá qué se trabaja en el video.</p>
-  <a class="boton" href="https://www.youtube.com/" target="_blank">Ver video</a>
-  <!-- Para embeber YouTube, reemplazá el src por algo como: https://www.youtube.com/embed/ID_DEL_VIDEO -->
-  <iframe class="video-embed" src="about:blank" title="Video ejemplo 3 - Áreas entre curvas"></iframe>
-  <!-- Para un PDF local usá: ../pdf/áreas-entre-curvas.pdf -->
-  <!-- Para Google Drive conviene usar un enlace de vista previa: https://drive.google.com/file/d/ID_DEL_ARCHIVO/preview -->
-  <iframe class="pdf-embed" src="about:blank" title="PDF ejemplo 3 - Áreas entre curvas"></iframe>
-</article>
-</div>
-</section>
-</main>
+
+  <header>
+    <h1>Unidad 5: Integrales y sus aplicaciones</h1>
+    <p>Primitivas, acumulación, áreas y aplicaciones en trabajo, energía, caudal y movimiento.</p>
+  </header>
+
+  <main>
+    <section class="temario" aria-labelledby="titulo-temario">
+      <h2 id="titulo-temario">Temas de la unidad</h2>
+      <ul>
+        <li><a href="#1">Presentación de la unidad</a></li>
+        <li><a href="#2">De una tasa a una cantidad acumulada</a></li>
+        <li><a href="#3">Primitiva de una función</a></li>
+        <li><a href="#4">Integral indefinida</a></li>
+        <li><a href="#5">Tabla de primitivas</a></li>
+        <li><a href="#6">Integración directa y descomposición</a></li>
+        <li><a href="#7">Método de sustitución</a></li>
+        <li><a href="#8">Integración por partes</a></li>
+        <li><a href="#9">Integral definida</a></li>
+        <li><a href="#10">Interpretación geométrica y signo</a></li>
+        <li><a href="#11">Propiedades de la integral definida</a></li>
+        <li><a href="#12">Teorema fundamental y regla de Barrow</a></li>
+        <li><a href="#13">Cálculo de áreas</a></li>
+        <li><a href="#14">Aplicaciones técnicas</a></li>
+        <li><a href="#15">Herramientas digitales</a></li>
+        <li><a href="#16">Actividades de aplicación</a></li>
+        <li><a href="#17">Síntesis y materiales</a></li>
+      </ul>
+    </section>
+
+
+    <section id="1">
+      <h2>1. Presentación de la unidad</h2>
+
+      <article class="tarjeta">
+        <h3>De la variación a la acumulación</h3>
+
+        <p>
+          En las unidades anteriores estudiamos cómo describir una magnitud y
+          cómo calcular su razón de cambio mediante la derivada. En esta unidad
+          recorreremos el camino inverso: a partir de una tasa de variación,
+          buscaremos la cantidad que se acumuló.
+        </p>
+
+        <ul>
+          <li>Desde la velocidad, calcular una distancia.</li>
+          <li>Desde un caudal, calcular un volumen.</li>
+          <li>Desde la corriente eléctrica, calcular una carga.</li>
+          <li>Desde la potencia, calcular energía.</li>
+          <li>Desde una fuerza variable, calcular trabajo.</li>
+        </ul>
+
+        <div class="definicion">
+          <h4>Pregunta orientadora</h4>
+          <p>
+            ¿Cómo podemos sumar matemáticamente pequeños cambios para obtener
+            una cantidad total acumulada en un proceso técnico?
+          </p>
+        </div>
+
+        <div class="nota">
+          <p>
+            <strong>Idea central:</strong> la derivada estudia una tasa de cambio.
+            La integral estudia la acumulación de esos cambios. Derivación e
+            integración son procesos estrechamente relacionados.
+          </p>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Interpretar antes de calcular</h3>
+
+        <p>
+          En una situación técnica, el resultado de una integral debe incluir:
+        </p>
+
+        <ul>
+          <li>variables y unidades;</li>
+          <li>intervalo de análisis;</li>
+          <li>significado físico;</li>
+          <li>condiciones de validez;</li>
+          <li>verificación de que el resultado sea razonable.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section id="2">
+      <h2>2. De una tasa de cambio a una cantidad acumulada</h2>
+
+      <article class="tarjeta">
+        <h3>Velocidad constante</h3>
+
+        <p>
+          Si un vehículo mantiene \(20\ \text{m/s}\) durante \(5\ \text{s}\),
+          la distancia es:
+        </p>
+
+        <p class="formula">
+          \[
+            20\ \frac{\text{m}}{\text{s}}\cdot5\ \text{s}
+            =
+            100\ \text{m}
+          \]
+        </p>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Velocidad variable</h3>
+
+        <p>
+          Cuando la velocidad cambia, no alcanza con multiplicar un único valor
+          por el tiempo total. Podemos dividir el intervalo en tramos pequeños,
+          aproximar la velocidad en cada tramo y sumar las distancias parciales.
+        </p>
+
+        <figure class="figura">
+          <svg viewBox="0 0 760 440" role="img"
+               aria-labelledby="titulo-rectangulos descripcion-rectangulos">
+            <title id="titulo-rectangulos">
+              Aproximación de una acumulación mediante rectángulos
+            </title>
+            <desc id="descripcion-rectangulos">
+              Una curva de velocidad y varios rectángulos representan distancias
+              parciales aproximadas.
+            </desc>
+
+            <rect width="760" height="440" fill="#ffffff"></rect>
+
+            <g stroke="#d9e2ec" stroke-width="1">
+              <line x1="70" y1="360" x2="700" y2="360"></line>
+              <line x1="70" y1="300" x2="700" y2="300"></line>
+              <line x1="70" y1="240" x2="700" y2="240"></line>
+              <line x1="70" y1="180" x2="700" y2="180"></line>
+              <line x1="70" y1="120" x2="700" y2="120"></line>
+              <line x1="70" y1="60" x2="700" y2="60"></line>
+            </g>
+
+            <g stroke="#1f2937" stroke-width="2">
+              <line x1="70" y1="360" x2="720" y2="360"></line>
+              <line x1="70" y1="385" x2="70" y2="40"></line>
+            </g>
+
+            <g fill="#eaf0ff" stroke="#6574ff" stroke-width="2">
+              <rect x="100" y="292" width="85" height="68"></rect>
+              <rect x="185" y="267" width="85" height="93"></rect>
+              <rect x="270" y="235" width="85" height="125"></rect>
+              <rect x="355" y="197" width="85" height="163"></rect>
+              <rect x="440" y="150" width="85" height="210"></rect>
+              <rect x="525" y="95" width="85" height="265"></rect>
+            </g>
+
+            <path d="M 100 292 C 220 270, 340 230, 450 170 C 525 130, 590 90, 650 55"
+                  fill="none" stroke="#2336c7" stroke-width="6"></path>
+
+            <g fill="#1f2937" font-family="Arial, sans-serif" font-size="20">
+              <text x="725" y="368">t</text>
+              <text x="58" y="35">v(t)</text>
+              <text x="250" y="410">intervalos pequeños</text>
+            </g>
+          </svg>
+
+          <figcaption>
+            Cada rectángulo aproxima velocidad × tiempo, es decir, una distancia parcial.
+          </figcaption>
+        </figure>
+
+        <p>
+          Cuanto más pequeños son los intervalos, mejor resulta la aproximación.
+          La integral definida formaliza este proceso.
+        </p>
+      </article>
+    </section>
+
+    <section id="3">
+      <h2>3. Primitiva de una función</h2>
+
+      <article class="tarjeta">
+        <h3>Definición</h3>
+
+        <div class="definicion">
+          <p>
+            Una función \(F\) es una primitiva de \(f\) en un intervalo si:
+          </p>
+
+          <p class="formula">
+            \[
+              \boxed{F'(x)=f(x)}
+            \]
+          </p>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Recuperar la posición a partir de la velocidad</h3>
+
+        <p>
+          Si la velocidad es:
+        </p>
+
+        <p class="formula">
+          \[
+            v(t)=6t+4
+          \]
+        </p>
+
+        <p>una posible posición es:</p>
+
+        <p class="formula">
+          \[
+            s(t)=3t^2+4t
+          \]
+        </p>
+
+        <p>
+          También son primitivas \(3t^2+4t+5\) y \(3t^2+4t-12\),
+          porque la derivada de una constante es cero.
+        </p>
+
+        <div class="nota">
+          <p>
+            Si \(F\) es una primitiva de \(f\), todas las primitivas tienen
+            la forma \(F(x)+C\), con \(C\in\mathbb{R}\).
+          </p>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Condición inicial</h3>
+
+        <p>
+          Si \(v(t)=6t+4\) y \(s(0)=10\), entonces:
+        </p>
+
+        <p class="formula">
+          \[
+            s(t)=3t^2+4t+C
+          \]
+        </p>
+
+        <p>
+          Como \(s(0)=10\), se obtiene \(C=10\):
+        </p>
+
+        <p class="formula">
+          \[
+            \boxed{s(t)=3t^2+4t+10}
+          \]
+        </p>
+      </article>
+    </section>
+
+    <section id="4">
+      <h2>4. Integral indefinida</h2>
+
+      <article class="tarjeta">
+        <h3>Una familia de primitivas</h3>
+
+        <div class="definicion">
+          <p>
+            El conjunto de todas las primitivas de \(f\) se representa por:
+          </p>
+
+          <p class="formula">
+            \[
+              \boxed{
+                \int f(x)\,dx=F(x)+C
+              }
+          \]
+          </p>
+
+          <p>donde \(F'(x)=f(x)\).</p>
+        </div>
+
+        <div class="tabla-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Símbolo</th>
+                <th>Significado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>\(\int\)</td>
+                <td>Símbolo de integración.</td>
+              </tr>
+              <tr>
+                <td>\(f(x)\)</td>
+                <td>Integrando.</td>
+              </tr>
+              <tr>
+                <td>\(dx\)</td>
+                <td>Variable respecto de la cual se integra.</td>
+              </tr>
+              <tr>
+                <td>\(C\)</td>
+                <td>Constante de integración.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="nota">
+          <p>
+            Una integral indefinida no representa un número ni una sola función.
+            Representa una familia de funciones.
+          </p>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Propiedades básicas</h3>
+
+        <p class="formula">
+          \[
+            \int[f(x)+g(x)]\,dx
+            =
+            \int f(x)\,dx+\int g(x)\,dx
+          \]
+        </p>
+
+        <p class="formula">
+          \[
+            \int[f(x)-g(x)]\,dx
+            =
+            \int f(x)\,dx-\int g(x)\,dx
+          \]
+        </p>
+
+        <p class="formula">
+          \[
+            \int kf(x)\,dx
+            =
+            k\int f(x)\,dx
+          \]
+        </p>
+      </article>
+    </section>
+
+    <section id="5">
+      <h2>5. Tabla de primitivas inmediatas</h2>
+
+      <article class="tarjeta">
+        <div class="tabla-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Integrando</th>
+                <th>Primitiva</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>\(k\)</td>
+                <td>\(kx+C\)</td>
+              </tr>
+              <tr>
+                <td>\(x^n,\ n\neq-1\)</td>
+                <td>\(\dfrac{x^{n+1}}{n+1}+C\)</td>
+              </tr>
+              <tr>
+                <td>\(\dfrac1x\)</td>
+                <td>\(\ln|x|+C\)</td>
+              </tr>
+              <tr>
+                <td>\(e^x\)</td>
+                <td>\(e^x+C\)</td>
+              </tr>
+              <tr>
+                <td>\(a^x\)</td>
+                <td>\(\dfrac{a^x}{\ln a}+C\)</td>
+              </tr>
+              <tr>
+                <td>\(\sen x\)</td>
+                <td>\(-\cos x+C\)</td>
+              </tr>
+              <tr>
+                <td>\(\cos x\)</td>
+                <td>\(\sen x+C\)</td>
+              </tr>
+              <tr>
+                <td>\(\dfrac{1}{\cos^2x}\)</td>
+                <td>\(\tan x+C\)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="nota">
+          <p>
+            La regla de la potencia no se aplica a \(x^{-1}=1/x\). Ese caso se
+            integra con \(\ln|x|\).
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section id="6">
+      <h2>6. Integración directa y por descomposición</h2>
+
+      <article class="tarjeta">
+        <h3>Integral de un polinomio</h3>
+
+        <p class="formula">
+          \[
+            \int(3x^2-4x+5)\,dx
+          \]
+        </p>
+
+        <p>Integramos término a término:</p>
+
+        <p class="formula">
+          \[
+            \boxed{
+              \int(3x^2-4x+5)\,dx
+              =
+              x^3-2x^2+5x+C
+            }
+          \]
+        </p>
+
+        <p>El resultado puede verificarse derivándolo.</p>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Simplificar antes de integrar</h3>
+
+        <p class="formula">
+          \[
+            \int\frac{x^2+2x}{x}\,dx
+            =
+            \int(x+2)\,dx
+          \]
+        </p>
+
+        <p class="formula">
+          \[
+            \boxed{
+              \frac{x^2}{2}+2x+C
+            },
+            \qquad x\neq0
+          \]
+        </p>
+
+        <p>
+          Antes de aplicar una fórmula, conviene observar si la expresión puede
+          simplificarse o descomponerse.
+        </p>
+      </article>
+    </section>
+
+    <section id="7">
+      <h2>7. Método de sustitución</h2>
+
+      <article class="tarjeta">
+        <h3>Invertir la regla de la cadena</h3>
+
+        <div class="definicion">
+          <p>Si:</p>
+
+          <p class="formula">
+            \[
+              u=g(x),
+              \qquad
+              du=g'(x)\,dx
+            \]
+          </p>
+
+          <p>entonces:</p>
+
+          <p class="formula">
+            \[
+              \int f(g(x))g'(x)\,dx
+              =
+              \int f(u)\,du
+            \]
+          </p>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Ejemplo: potencia de una función</h3>
+
+        <p class="formula">
+          \[
+            \int2x(x^2+1)^3\,dx
+          \]
+        </p>
+
+        <p>
+          Elegimos \(u=x^2+1\), por lo que \(du=2x\,dx\):
+        </p>
+
+        <p class="formula">
+          \[
+            \int u^3\,du
+            =
+            \frac{u^4}{4}+C
+          \]
+        </p>
+
+        <p class="formula">
+          \[
+            \boxed{
+              \int2x(x^2+1)^3\,dx
+              =
+              \frac{(x^2+1)^4}{4}+C
+            }
+          \]
+        </p>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Ejemplo: exponencial con expresión lineal</h3>
+
+        <p class="formula">
+          \[
+            \int e^{3x-2}\,dx
+          \]
+        </p>
+
+        <p>
+          Con \(u=3x-2\), \(du=3\,dx\):
+        </p>
+
+        <p class="formula">
+          \[
+            \boxed{
+              \int e^{3x-2}\,dx
+              =
+              \frac13e^{3x-2}+C
+            }
+          \]
+        </p>
+      </article>
+    </section>
+
+    <section id="8">
+      <h2>8. Integración por partes</h2>
+
+      <article class="tarjeta">
+        <h3>Invertir la regla del producto</h3>
+
+        <div class="definicion">
+          <p class="formula">
+            \[
+              \boxed{
+                \int u\,dv=uv-\int v\,du
+              }
+            \]
+          </p>
+        </div>
+
+        <p>
+          En general se elige como \(u\) la función que se simplifica al derivarla
+          y como \(dv\) la parte que sabemos integrar.
+        </p>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Ejemplo</h3>
+
+        <p class="formula">
+          \[
+            \int xe^x\,dx
+          \]
+        </p>
+
+        <p>
+          Elegimos \(u=x\) y \(dv=e^x\,dx\). Entonces
+          \(du=dx\) y \(v=e^x\):
+        </p>
+
+        <p class="formula">
+          \[
+            \int xe^x\,dx
+            =
+            xe^x-\int e^x\,dx
+          \]
+        </p>
+
+        <p class="formula">
+          \[
+            \boxed{
+              \int xe^x\,dx=e^x(x-1)+C
+            }
+          \]
+        </p>
+
+        <div class="nota">
+          <p>
+            La elección del método depende de la estructura del integrando.
+            No existe una regla automática que sirva para todos los casos.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section id="9">
+      <h2>9. Integral definida</h2>
+
+      <article class="tarjeta">
+        <h3>Acumulación en un intervalo</h3>
+
+        <div class="definicion">
+          <p>
+            La integral definida de \(f\) entre \(a\) y \(b\) se representa por:
+          </p>
+
+          <p class="formula">
+            \[
+              \boxed{
+                \int_a^b f(x)\,dx
+              }
+            \]
+          </p>
+
+          <p>
+            Es un número que representa una acumulación neta en \([a,b]\).
+          </p>
+        </div>
+
+        <p>
+          Los números \(a\) y \(b\) se llaman límites de integración.
+        </p>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Integral indefinida e integral definida</h3>
+
+        <div class="tabla-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Integral indefinida</th>
+                <th>Integral definida</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Representa una familia de funciones.</td>
+                <td>Representa un número.</td>
+              </tr>
+              <tr>
+                <td>Incluye \(+C\).</td>
+                <td>No incluye \(+C\).</td>
+              </tr>
+              <tr>
+                <td>\(\int f(x)\,dx\)</td>
+                <td>\(\int_a^b f(x)\,dx\)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section id="10">
+      <h2>10. Interpretación geométrica y signo</h2>
+
+      <article class="tarjeta">
+        <h3>Área con signo</h3>
+
+        <p>
+          Si \(f(x)\geq0\) en \([a,b]\), la integral coincide con el área
+          limitada por el gráfico, el eje \(x\) y las rectas \(x=a\), \(x=b\).
+        </p>
+
+        <p>
+          Cuando la función está debajo del eje, la integral aporta un valor
+          negativo. Por eso representa una acumulación neta.
+        </p>
+
+        <figure class="figura">
+          <svg viewBox="0 0 760 430" role="img"
+               aria-labelledby="titulo-area-signo descripcion-area-signo">
+            <title id="titulo-area-signo">Regiones positivas y negativas</title>
+            <desc id="descripcion-area-signo">
+              Una curva forma una región positiva sobre el eje y una región
+              negativa debajo del eje.
+            </desc>
+
+            <rect width="760" height="430" fill="#ffffff"></rect>
+
+            <g stroke="#1f2937" stroke-width="2">
+              <line x1="70" y1="225" x2="720" y2="225"></line>
+              <line x1="70" y1="390" x2="70" y2="35"></line>
+            </g>
+
+            <path d="M 95 290 C 175 120, 290 90, 385 225 C 470 345, 585 350, 680 155"
+                  fill="none" stroke="#2336c7" stroke-width="6"></path>
+
+            <path d="M 125 225 C 190 125, 285 105, 385 225 L 125 225 Z"
+                  fill="#e8f6f0" stroke="none"></path>
+            <path d="M 385 225 C 470 345, 585 350, 630 225 L 385 225 Z"
+                  fill="#fdecec" stroke="none"></path>
+
+            <path d="M 95 290 C 175 120, 290 90, 385 225 C 470 345, 585 350, 680 155"
+                  fill="none" stroke="#2336c7" stroke-width="6"></path>
+
+            <g fill="#1f2937" font-family="Arial, sans-serif" font-size="22">
+              <text x="725" y="233">x</text>
+              <text x="58" y="30">y</text>
+              <text x="240" y="165" fill="#1e6b52">+</text>
+              <text x="500" y="300" fill="#a23a3a">−</text>
+            </g>
+          </svg>
+
+          <figcaption>
+            Las regiones sobre el eje suman y las regiones debajo del eje restan.
+          </figcaption>
+        </figure>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Integral neta y área geométrica</h3>
+
+        <p>Para \(f(x)=x-1\) en \([0,2]\):</p>
+
+        <p class="formula">
+          \[
+            \int_0^2(x-1)\,dx
+            =
+            \left[\frac{x^2}{2}-x\right]_0^2
+            =
+            0
+          \]
+        </p>
+
+        <p>
+          La integral vale cero porque las áreas positiva y negativa se compensan.
+          El área geométrica total, en cambio, es \(1\) unidad cuadrada.
+        </p>
+      </article>
+    </section>
+
+    <section id="11">
+      <h2>11. Propiedades de la integral definida</h2>
+
+      <article class="tarjeta">
+        <p class="formula">
+          \[
+            \int_a^a f(x)\,dx=0
+          \]
+        </p>
+
+        <p class="formula">
+          \[
+            \int_a^b f(x)\,dx
+            =
+            -\int_b^a f(x)\,dx
+          \]
+        </p>
+
+        <p class="formula">
+          \[
+            \int_a^b[f(x)+g(x)]\,dx
+            =
+            \int_a^b f(x)\,dx+\int_a^b g(x)\,dx
+          \]
+        </p>
+
+        <p class="formula">
+          \[
+            \int_a^b kf(x)\,dx
+            =
+            k\int_a^b f(x)\,dx
+          \]
+        </p>
+
+        <p class="formula">
+          \[
+            \int_a^b f(x)\,dx
+            =
+            \int_a^c f(x)\,dx+\int_c^b f(x)\,dx
+          \]
+        </p>
+
+        <div class="nota">
+          <p>
+            La última propiedad permite dividir un ensayo técnico en etapas y
+            sumar las acumulaciones parciales.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section id="12">
+      <h2>12. Teorema fundamental y regla de Barrow</h2>
+
+      <article class="tarjeta">
+        <h3>Conectar la acumulación con una primitiva</h3>
+
+        <div class="definicion">
+          <p>
+            Si \(f\) es continua en \([a,b]\) y \(F\) es una primitiva de \(f\):
+          </p>
+
+          <p class="formula">
+            \[
+              \boxed{
+                \int_a^b f(x)\,dx=F(b)-F(a)
+              }
+            \]
+          </p>
+
+          <p>También se escribe \(\left[F(x)\right]_a^b\).</p>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Ejemplo</h3>
+
+        <p class="formula">
+          \[
+            \int_0^3(2x+1)\,dx
+          \]
+        </p>
+
+        <p>Una primitiva es \(F(x)=x^2+x\):</p>
+
+        <p class="formula">
+          \[
+            \int_0^3(2x+1)\,dx
+            =
+            [x^2+x]_0^3
+            =
+            12
+          \]
+        </p>
+
+        <p class="formula">
+          \[
+            \boxed{12}
+          \]
+        </p>
+
+        <div class="nota">
+          <p>
+            En una integral definida no se agrega \(+C\), porque la constante
+            se cancela al calcular \(F(b)-F(a)\).
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section id="13">
+      <h2>13. Cálculo de áreas</h2>
+
+      <article class="tarjeta">
+        <h3>Área entre una función y el eje horizontal</h3>
+
+        <p>Si \(f(x)\geq0\) en \([a,b]\):</p>
+
+        <p class="formula">
+          \[
+            A=\int_a^b f(x)\,dx
+          \]
+        </p>
+
+        <p>
+          Si \(f\) cambia de signo, se divide el intervalo en sus raíces y se
+          suman los valores absolutos de las integrales de cada tramo.
+        </p>
+
+        <div class="ejemplo">
+          <h4>Área bajo una parábola</h4>
+          <p class="formula">
+            \[
+              f(x)=4x-x^2
+            \]
+          </p>
+          <p>
+            La función es no negativa entre \(0\) y \(4\):
+          </p>
+          <p class="formula">
+            \[
+              A=\int_0^4(4x-x^2)\,dx
+              =
+              \boxed{\frac{32}{3}}
+            \]
+          </p>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Área entre dos curvas</h3>
+
+        <p>
+          Si \(f(x)\geq g(x)\) en \([a,b]\):
+        </p>
+
+        <p class="formula">
+          \[
+            \boxed{
+              A=\int_a^b[f(x)-g(x)]\,dx
+            }
+          \]
+        </p>
+
+        <div class="ejemplo">
+          <h4>Parábola y recta</h4>
+
+          <p class="formula">
+            \[
+              f(x)=4x-x^2,
+              \qquad
+              g(x)=x
+            \]
+          </p>
+
+          <p>
+            Se cortan en \(x=0\) y \(x=3\). En ese intervalo:
+          </p>
+
+          <p class="formula">
+            \[
+              A=\int_0^3(3x-x^2)\,dx
+              =
+              \boxed{\frac92}
+            \]
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section id="14">
+      <h2>14. Aplicaciones técnicas</h2>
+
+      <p class="nota">
+        Los modelos son simplificaciones didácticas y deben interpretarse dentro
+        de su dominio, con unidades y condiciones de validez.
+      </p>
+
+      <article class="tarjeta">
+        <h3>Distancia a partir de la velocidad</h3>
+
+        <p class="formula">
+          \[
+            \Delta s=\int_{t_1}^{t_2}v(t)\,dt
+          \]
+        </p>
+
+        <p>
+          Durante una prueba:
+        </p>
+
+        <p class="formula">
+          \[
+            v(t)=4t+8,
+            \qquad
+            0\leq t\leq5
+          \]
+        </p>
+
+        <p class="formula">
+          \[
+            \int_0^5(4t+8)\,dt
+            =
+            [2t^2+8t]_0^5
+            =
+            \boxed{90\ \text{m}}
+          \]
+        </p>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Volumen a partir de un caudal</h3>
+
+        <p class="formula">
+          \[
+            V=\int_{t_1}^{t_2}Q(t)\,dt
+          \]
+        </p>
+
+        <p>
+          Si \(Q(t)=3+0{,}5t\) L/min durante \(4\) minutos:
+        </p>
+
+        <p class="formula">
+          \[
+            V=\int_0^4(3+0{,}5t)\,dt
+            =
+            \boxed{16\ \text{L}}
+          \]
+        </p>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Carga eléctrica a partir de la corriente</h3>
+
+        <p class="formula">
+          \[
+            Q=\int I(t)\,dt
+          \]
+        </p>
+
+        <p>
+          Si \(I(t)=20+8t\) A, con \(t\) en horas, durante media hora:
+        </p>
+
+        <p class="formula">
+          \[
+            Q=\int_0^{0{,}5}(20+8t)\,dt
+            =
+            \boxed{11\ \text{Ah}}
+          \]
+        </p>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Energía a partir de la potencia</h3>
+
+        <p class="formula">
+          \[
+            E=\int P(t)\,dt
+          \]
+        </p>
+
+        <p>
+          Si \(P(t)=400+100t\) W y \(0\leq t\leq2\) horas:
+        </p>
+
+        <p class="formula">
+          \[
+            E=\int_0^2(400+100t)\,dt
+            =
+            \boxed{1000\ \text{Wh}=1\ \text{kWh}}
+          \]
+        </p>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Trabajo de una fuerza variable</h3>
+
+        <p class="formula">
+          \[
+            W=\int_a^bF(x)\,dx
+          \]
+        </p>
+
+        <p>
+          Para un resorte ideal con \(F(x)=20000x\) N:
+        </p>
+
+        <p class="formula">
+          \[
+            W=\int_0^{0{,}10}20000x\,dx
+            =
+            \boxed{100\ \text{J}}
+          \]
+        </p>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Combustible acumulado</h3>
+
+        <p>
+          Si la tasa de consumo es:
+        </p>
+
+        <p class="formula">
+          \[
+            c(t)=0{,}8+0{,}2t,
+            \qquad
+            0\leq t\leq3
+          \]
+        </p>
+
+        <p>
+          con \(c\) en L/h:
+        </p>
+
+        <p class="formula">
+          \[
+            C=\int_0^3(0{,}8+0{,}2t)\,dt
+            =
+            \boxed{3{,}3\ \text{L}}
+          \]
+        </p>
+      </article>
+    </section>
+
+    <section id="15">
+      <h2>15. Uso de herramientas digitales</h2>
+
+      <article class="tarjeta">
+        <h3>GeoGebra y planillas de cálculo</h3>
+
+        <p>Las herramientas digitales pueden utilizarse para:</p>
+
+        <ul>
+          <li>graficar el integrando;</li>
+          <li>reconocer regiones positivas y negativas;</li>
+          <li>aproximar áreas con rectángulos;</li>
+          <li>calcular una integral definida;</li>
+          <li>representar dos curvas y hallar intersecciones;</li>
+          <li>comparar un resultado exacto con una aproximación numérica.</li>
+        </ul>
+
+        <div class="tabla-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Comando de GeoGebra</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>f(x)=...</code></td>
+                <td>Define la función.</td>
+              </tr>
+              <tr>
+                <td><code>Integral(f)</code></td>
+                <td>Calcula una primitiva.</td>
+              </tr>
+              <tr>
+                <td><code>Integral(f,a,b)</code></td>
+                <td>Calcula la integral definida.</td>
+              </tr>
+              <tr>
+                <td><code>Interseca(f,g)</code></td>
+                <td>Busca intersecciones.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="nota">
+          <p>
+            El software sirve para explorar y verificar. En el informe deben
+            quedar escritas la función, el intervalo, el procedimiento, las
+            unidades y la interpretación.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section id="16">
+      <h2>16. Actividades de aplicación</h2>
+
+      <article class="tarjeta">
+        <h3>Actividad 1: reconocer primitivas</h3>
+
+        <p>
+          Verificá mediante derivación si \(F\) es una primitiva de \(f\):
+        </p>
+
+        <ol>
+          <li>\(F(x)=x^3-2x\), \(f(x)=3x^2-2\).</li>
+          <li>\(F(x)=e^{2x}\), \(f(x)=2e^{2x}\).</li>
+          <li>\(F(x)=\ln|x|\), \(f(x)=1/x\).</li>
+        </ol>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Actividad 2: condición inicial</h3>
+
+        <p>
+          La velocidad de un móvil es \(v(t)=4t+6\) m/s y \(s(0)=12\) m.
+        </p>
+
+        <ol>
+          <li>Hallá la función posición.</li>
+          <li>Calculá \(s(5)\).</li>
+          <li>Verificá derivando.</li>
+        </ol>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Actividad 3: integrales inmediatas</h3>
+
+        <p>Calculá:</p>
+
+        <ol>
+          <li>\(\displaystyle\int(5x^4-3x^2+2)\,dx\)</li>
+          <li>\(\displaystyle\int\left(\sqrt{x}+\frac{2}{x}\right)\,dx\)</li>
+          <li>\(\displaystyle\int(3e^x-4\cos x)\,dx\)</li>
+          <li>\(\displaystyle\int\frac{x^3+2x}{x}\,dx\)</li>
+        </ol>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Actividad 4: elegir un método</h3>
+
+        <p>
+          Indicá si conviene integración directa, sustitución o partes, y resolvé:
+        </p>
+
+        <ol>
+          <li>\(\displaystyle\int3x(x^2+2)^4\,dx\)</li>
+          <li>\(\displaystyle\int e^{5x-1}\,dx\)</li>
+          <li>\(\displaystyle\int x\cos x\,dx\)</li>
+          <li>\(\displaystyle\int(2x+1)^5\,dx\)</li>
+        </ol>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Actividad 5: regla de Barrow</h3>
+
+        <p>Calculá:</p>
+
+        <ol>
+          <li>\(\displaystyle\int_0^4(3x+2)\,dx\)</li>
+          <li>\(\displaystyle\int_1^3x^2\,dx\)</li>
+          <li>\(\displaystyle\int_0^2e^x\,dx\)</li>
+          <li>\(\displaystyle\int_0^\pi\sen x\,dx\)</li>
+        </ol>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Actividad 6: área con signo</h3>
+
+        <p>
+          Para \(f(x)=x-2\) en \([0,4]\):
+        </p>
+
+        <ol>
+          <li>Calculá la integral definida.</li>
+          <li>Representá la función.</li>
+          <li>Calculá el área geométrica total.</li>
+          <li>Explicá la diferencia entre ambos resultados.</li>
+        </ol>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Actividad 7: área entre curvas</h3>
+
+        <p>
+          Hallá el área encerrada entre:
+        </p>
+
+        <p class="formula">
+          \[
+            f(x)=6x-x^2,
+            \qquad
+            g(x)=2x
+          \]
+        </p>
+
+        <ol>
+          <li>Hallá las intersecciones.</li>
+          <li>Determiná cuál función está arriba.</li>
+          <li>Planteá y calculá la integral.</li>
+          <li>Realizá un gráfico.</li>
+        </ol>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Actividad 8: caudal de refrigerante</h3>
+
+        <p class="formula">
+          \[
+            Q(t)=4+0{,}6t
+          \]
+        </p>
+
+        <p>
+          con \(Q\) en L/min y \(0\leq t\leq5\).
+        </p>
+
+        <ol>
+          <li>Calculá el volumen transferido.</li>
+          <li>Verificá las unidades.</li>
+          <li>Calculá el caudal medio.</li>
+          <li>Indicá dos limitaciones del modelo.</li>
+        </ol>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Actividad 9: energía eléctrica</h3>
+
+        <p>
+          La potencia de un equipo auxiliar es:
+        </p>
+
+        <p class="formula">
+          \[
+            P(t)=350+80t,
+            \qquad
+            0\leq t\leq3
+          \]
+        </p>
+
+        <ol>
+          <li>Calculá la energía en Wh.</li>
+          <li>Expresá el resultado en kWh.</li>
+          <li>Interpretá el valor.</li>
+        </ol>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Actividad 10: fuerza variable</h3>
+
+        <p>
+          Un resorte ideal ejerce \(F(x)=18000x\) N.
+        </p>
+
+        <ol>
+          <li>Calculá el trabajo para comprimirlo \(0{,}08\) m.</li>
+          <li>Indicá las unidades.</li>
+          <li>Representá \(F(x)\) y sombreá el área correspondiente.</li>
+        </ol>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Actividad integradora: acumulación en un sistema técnico</h3>
+
+        <p>
+          Elegí una aplicación de la unidad y elaborá un informe con:
+        </p>
+
+        <ul>
+          <li>variables, unidades y dominio;</li>
+          <li>tasa de cambio o función que se acumula;</li>
+          <li>integral planteada y procedimiento;</li>
+          <li>gráfico y región interpretada;</li>
+          <li>resultado con unidades;</li>
+          <li>verificación y limitaciones del modelo.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section id="17">
+      <h2>17. Síntesis y materiales</h2>
+
+      <article class="tarjeta">
+        <h3>Cuadro de síntesis</h3>
+
+        <div class="tabla-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Concepto</th>
+                <th>Idea principal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Primitiva</td>
+                <td>Función \(F\) cuya derivada es \(f\).</td>
+              </tr>
+              <tr>
+                <td>Integral indefinida</td>
+                <td>Familia de primitivas: \(\int f(x)\,dx=F(x)+C\).</td>
+              </tr>
+              <tr>
+                <td>Sustitución</td>
+                <td>Invierte la regla de la cadena.</td>
+              </tr>
+              <tr>
+                <td>Integración por partes</td>
+                <td>Invierte la regla del producto.</td>
+              </tr>
+              <tr>
+                <td>Integral definida</td>
+                <td>Acumulación neta en un intervalo.</td>
+              </tr>
+              <tr>
+                <td>Área con signo</td>
+                <td>Las zonas sobre el eje suman y las zonas debajo restan.</td>
+              </tr>
+              <tr>
+                <td>Regla de Barrow</td>
+                <td>\(\int_a^b f(x)\,dx=F(b)-F(a)\).</td>
+              </tr>
+              <tr>
+                <td>Área entre curvas</td>
+                <td>Integral de la función superior menos la inferior.</td>
+              </tr>
+              <tr>
+                <td>Aplicación técnica</td>
+                <td>La integral de una tasa permite obtener una cantidad acumulada.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Lista de control</h3>
+
+        <ol>
+          <li>¿Qué magnitud se acumula?</li>
+          <li>¿Cuáles son las variables y unidades?</li>
+          <li>¿La integral es indefinida o definida?</li>
+          <li>¿Qué método corresponde?</li>
+          <li>¿La función cambia de signo?</li>
+          <li>¿El resultado es razonable?</li>
+          <li>¿Qué limitaciones tiene el modelo?</li>
+        </ol>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Materiales de la unidad</h3>
+
+        <ul>
+          <li>
+            <a
+              href="../pdf/Unidad_5_Integrales_Teoria.pdf"
+              target="_blank"
+              rel="noopener">
+              Abrir el apunte teórico de la Unidad 5
+            </a>
+          </li>
+          <li>
+            <a
+              href="../pdf/Unidad_5_Integrales_Practica.pdf"
+              target="_blank"
+              rel="noopener">
+              Abrir la guía de actividades prácticas
+            </a>
+          </li>
+        </ul>
+      </article>
+
+      <article class="tarjeta">
+        <h3>Referencias de elaboración</h3>
+
+        <p>
+          La unidad se organiza a partir del programa de Análisis Matemático,
+          la planificación del Área de Formación Científico-Técnica y los
+          materiales sobre primitivas, integrales definidas y cálculo de áreas.
+        </p>
+      </article>
+    </section>
+
+  </main>
+
+
+
+
 <footer><a href="../index.html">Volver a la página principal</a></footer>
 
 
