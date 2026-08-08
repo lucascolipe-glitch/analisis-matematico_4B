@@ -1519,7 +1519,226 @@
   <p>
     donde \(a\), \(b\) y \(k\) son números reales, con \(k\neq 0\).
   </p>
+  <!GRAFICO--> 
+  <article class="tarjeta">
+    <h3>¿Como es el gráfico?</h3>
+    <p>
+    La gráfica de la función racional que veremos  es una curva denominada
+    <strong>Hipérbola</strong>
+  </p>
 
+  <p>
+    El ejemplo más sencillo es la función:
+  </p>
+
+  <p class="formula">
+    \[
+      f(x)= \frac{1}}{x}
+    \]
+  </p>
+
+  <p>
+    Para construir su gráfica podemos elegir algunos valores de \(x\) y calcular sus imágenes, peroen este caso \(x\neq 0\).
+  </p>
+
+  
+    <div class="tabla-responsive tabla-ayudada">
+  <table>
+    <thead>
+      <tr>
+        <th>\(x\)</th>
+
+        <th>
+          \(f(x)=\frac{1}{x}\)
+          <button 
+            class="boton-ayuda-tabla ayuda-columna" 
+            type="button"
+            onclick="abrirAyudaTabla('ayuda-columna-fx2')"
+            aria-label="Ayuda para completar la columna">
+            ↓
+          </button>
+        </th>
+
+        <th>Punto</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>
+          \(-2\)
+          <button 
+            class="boton-ayuda-tabla ayuda-fila" 
+            type="button"
+            onclick="abrirAyudaTabla('ayuda-fila-fx2')"
+            aria-label="Ayuda para completar la fila">
+            →
+          </button>
+        </td>
+
+        <td>
+          \(-\frac{1}{2} = -0,5\)
+          <button 
+            class="boton-ayuda-tabla ayuda-celda" 
+            type="button"
+            onclick="abrirAyudaTabla('ayuda-celda-fx2')"
+            aria-label="Ayuda para completar esta celda">
+            ?
+          </button>
+        </td>
+
+        <td>\((-2\, ;\, -0,5)\)</td>
+      </tr>
+
+      <tr>
+        <td>\(-1\)</td>
+        <td>\(-1\)</td>
+        <td>\((-1,-1)\)</td>
+      </tr>
+
+      <tr>
+        <td>\(-0.5\)</td>
+        <td>\(-2\)</td>
+        <td>\((-0,5; -2)\)</td>
+      </tr>
+
+      <tr>
+        <td>\(0.5\)</td>
+        <td>\(2\)</td>
+        <td>\((0.5; 2)\)</td>
+      </tr>
+
+      <tr>
+        <td>\(1\)</td>
+        <td>\(1\)</td>
+        <td>\((1,1)\)</td>
+      </tr>
+
+      <tr>
+        <td>\(2\)</td>
+        <td>\(0.5\)</td>
+        <td>\((2;0.5)\)</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<template id="ayuda-columna-fx2">
+  <h3>¿Cómo se completa esta columna?</h3>
+
+  <p>
+    Esta columna se completa reemplazando cada valor de \(x\) en la fórmula:
+  </p>
+
+  <p class="formula">
+    \[
+      f(x)=\frac{1}{x}
+    \]
+  </p>
+
+  <p>
+    Por ejemplo:
+  </p>
+
+  <p class="formula">
+    \[
+      f(-2)= \frac{1}{-2}=-0.5
+    \]
+  </p>
+
+  <p>
+    Entonces, cuando \(x=-2\), en la columna \(f(x)\) escribimos \(-0.5\).
+  </p>
+</template>
+
+<template id="ayuda-fila-fx2">
+  <h3>¿Cómo se completa esta fila?</h3>
+
+  <p>
+    En una fila trabajamos siempre con el mismo valor de \(x\).
+  </p>
+
+  <p>
+    En esta fila el valor es:
+  </p>
+
+  <p class="formula">
+    \[
+      x=-2
+    \]
+  </p>
+
+  <p>
+    Luego calculamos:
+  </p>
+
+  <p class="formula">
+    \[
+      f(-2)= \frac{1}{-2} = -0.5
+    \]
+  </p>
+
+  <p>
+    Por eso el punto correspondiente es:
+  </p>
+
+  <p class="formula">
+    \[
+      (-2; -0.5)
+    \]
+  </p>
+</template>
+
+<template id="ayuda-celda-fx2">
+  <h3>¿Cómo se completa esta celda?</h3>
+
+  <p>
+    Esta celda corresponde al valor de la función cuando \(x=-2\).
+  </p>
+
+  <p>
+    Reemplazamos en la fórmula:
+  </p>
+
+  <p class="formula">
+    \[
+      f(x)= \frac{1}{x}
+    \]
+  </p>
+
+  <p class="formula">
+    \[
+      f(-2)= \frac{1}{-2}= -0.5
+    \]
+  </p>
+
+  <p>
+    Por eso en esta celda escribimos \(-0.5\).
+  </p>
+</template>  
+    
+
+  <p>
+    Al representar estos puntos en el plano cartesiano y unirlos mediante una curva suave obtenemos una parábola.
+  </p>
+
+<div class="geogebra">
+    <iframe 
+      src="https://www.geogebra.org/material/iframe/id/zmtt8jtg/width/700/height/500/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/true/rc/false/ld/false/sdz/true/ctl/false"
+      width="100%"
+      height="500"
+      style="border:0;"
+      allowfullscreen>
+    </iframe>  
+    <p class="nota">
+     En el applet geogebra aparece un deslizador, si lo moves podes ver como va apareciendo el trazo de la función.
+    </p>
+  </div>
+
+
+  </article>
+
+  
   <!-- DEFINICIÓN -->
   <article class="tarjeta">
     <h3>¿Qué es una función racional?</h3>
