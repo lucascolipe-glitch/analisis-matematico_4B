@@ -2482,85 +2482,120 @@
   </iframe>
 </div>
   -->
-<div class="video-tramos">
-  <div id="playerTramos"></div>
-
-  <button type="button" onclick="iniciarTramos()">
+ <button type="button" id="btn-tramos">
     ▶ Ver fragmentos seleccionados
   </button>
+
+  <p id="estado-tramo"></p>
 </div>
 
 <script src="https://www.youtube.com/iframe_api"></script>
 
 <script>
-  // ID del video de YouTube
-  const VIDEO_ID =4Ct3NTeAmok;
+  let player;
+  let tramoActual = 0;
+  let reproduciendoTramos = false;
 
-  // Tramos expresados en segundos
+  // ==============================
+  // CONFIGURACIÓN
+  // ==============================
+
+  const VIDEO_ID = 4Ct3NTeAmok;
+
   const tramos = [
-    { inicio: 0,  fin: 125 },  //  0 a 0:50
-    { inicio: 250, fin: 300 },  // 3:21 a 3:34
-    { inicio: 510, fin: 555 }   // 4:08 a 11:19
+    { inicio: 0,  fin: 50 },  //  0 a 0:50
+    { inicio: 201, fin: 214 },  // 3:21 a 3:34
+    { inicio: 248, fin: 679 }   // 4:08 a 11:19
   ];
 
-  let playerTramos;
-  let tramoActual = 0;
-  let controlTramo = null;
+  // ==============================
+  // CREAR REPRODUCTOR
+  // ==============================
 
   function onYouTubeIframeAPIReady() {
-    playerTramos = new YT.Player("playerTramos", {
-      width: "100%",
-      height: "400",
+
+    player = new YT.Player("youtube-tramos", {
+
       videoId: VIDEO_ID,
 
       playerVars: {
-        playsinline: 1,
-        rel: 0
+        rel: 0,
+        modestbranding: 1,
+        playsinline: 1
+      },
+
+      events: {
+        onReady: onPlayerReady
       }
     });
   }
+
+  function onPlayerReady() {
+
+    document
+      .getElementById("btn-tramos")
+      .addEventListener("click", iniciarTramos);
+
+  }
+
+  // ==============================
+  // COMENZAR
+  // ==============================
 
   function iniciarTramos() {
+
     tramoActual = 0;
-    reproducirTramo();
+    reproduciendoTramos = true;
+
+    reproducirTramo(tramoActual);
   }
 
-  function reproducirTramo() {
+  function reproducirTramo(numero) {
 
-    if (tramoActual >= tramos.length) {
-      playerTramos.pauseVideo();
-      clearInterval(controlTramo);
-      return;
-    }
+    const tramo = tramos[numero];
 
+    document.getElementById("estado-tramo").textContent =
+      `Fragmento ${numero + 1} de ${tramos.length}`;
+
+    player.seekTo(tramo.inicio, true);
+    player.playVideo();
+  }
+
+  // ==============================
+  // CONTROLAR FINAL DE CADA TRAMO
+  // ==============================
+
+  setInterval(() => {
+
+    if (!player || !reproduciendoTramos) return;
+
+    if (player.getPlayerState() !== YT.PlayerState.PLAYING) return;
+
+    const tiempoActual = player.getCurrentTime();
     const tramo = tramos[tramoActual];
 
-    playerTramos.loadVideoById({
-      videoId: VIDEO_ID,
-      startSeconds: tramo.inicio
-    });
+    if (tiempoActual >= tramo.fin) {
 
-    clearInterval(controlTramo);
+      tramoActual++;
 
-    controlTramo = setInterval(() => {
+      if (tramoActual < tramos.length) {
 
-      const tiempo = playerTramos.getCurrentTime();
+        // Saltamos automáticamente al siguiente tramo
+        reproducirTramo(tramoActual);
 
-      if (tiempo >= tramo.fin) {
+      } else {
 
-        tramoActual++;
+        // Terminamos todos los fragmentos
+        reproduciendoTramos = false;
+        player.pauseVideo();
 
-        if (tramoActual < tramos.length) {
-          reproducirTramo();
-        } else {
-          playerTramos.pauseVideo();
-          clearInterval(controlTramo);
-        }
-
+        document.getElementById("estado-tramo").textContent =
+          "✓ Fragmentos finalizados";
       }
+    }
 
-    }, 200);
-  }
+  }, 150);
+
 </script>
 
 
