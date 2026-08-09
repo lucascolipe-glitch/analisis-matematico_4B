@@ -2482,174 +2482,343 @@
   </iframe>
 </div>
   -->
- <div class="video-tramos">
-  <div id="player-tramos"></div>
+<div class="video-tramos">
+
+  <iframe
+    id="player-tramos"
+    width="100%"
+    height="450"
+    src="https://www.youtube-nocookie.com/embed/4Ct3NTeAmok?enablejsapi=1&playsinline=1&rel=0"
+    title="Video de YouTube"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen>
+  </iframe>
 
   <button id="btn-iniciar-tramos" type="button">
     ▶ Ver fragmentos seleccionados
   </button>
 
-  <p id="estado-tramos">Video listo para comenzar</p>
+  <p id="estado-tramos">
+    Video listo para comenzar
+  </p>
+
 </div>
 
+
+<style>
+
+.video-tramos {
+  max-width: 850px;
+  margin: 2rem auto;
+  text-align: center;
+}
+
+#player-tramos {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  border-radius: 10px;
+}
+
+#btn-iniciar-tramos {
+  margin-top: 1rem;
+  padding: 0.8rem 1.4rem;
+
+  border: none;
+  border-radius: 8px;
+
+  font-size: 1rem;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+#estado-tramos {
+  margin-top: 0.7rem;
+  font-weight: 600;
+}
+
+</style>
+
+
 <script>
+
+  /* =====================================================
+     CONFIGURACIÓN DEL VIDEO
+     ===================================================== */
+
   const VIDEO_ID = "4Ct3NTeAmok";
 
   const tramos = [
-    { inicio: 0,   fin: 50 },   // 0:00 a 0:50
-    { inicio: 201, fin: 214 },  // 3:21 a 3:34
-    { inicio: 248, fin: 679 }   // 4:08 a 11:19
+
+    {
+      inicio: 0,
+      fin: 50
+    },   // 0:00 a 0:50
+
+    {
+      inicio: 201,
+      fin: 214
+    },   // 3:21 a 3:34
+
+    {
+      inicio: 248,
+      fin: 679
+    }    // 4:08 a 11:19
+
   ];
 
+
+  /* =====================================================
+     VARIABLES
+     ===================================================== */
+
   let playerTramos;
+
   let tramoActual = 0;
+
   let secuenciaActiva = false;
+
   let cambiandoTramo = false;
 
 
-  /* ========================================
+  /* =====================================================
      CARGAR API DE YOUTUBE
-     ======================================== */
+     ===================================================== */
 
   if (!window.YT) {
+
     const tag = document.createElement("script");
-    tag.src = "https://www.youtube-nocookie.com/iframe_api";
+
+    tag.src =
+      "https://www.youtube.com/iframe_api";
+
     document.head.appendChild(tag);
+
   }
 
 
-  /* ========================================
-     CREAR REPRODUCTOR
-     ======================================== */
+  /* =====================================================
+     CONECTAR LA API CON EL IFRAME NOCOOKIE
+     ===================================================== */
 
   window.onYouTubeIframeAPIReady = function () {
 
-    playerTramos = new YT.Player("player-tramos", {
+    playerTramos =
+      new YT.Player("player-tramos", {
 
-      videoId: VIDEO_ID,
+        events: {
 
-      playerVars: {
-        controls: 1,
-        rel: 0,
-        playsinline: 1
-      },
+          onReady: function () {
 
-      events: {
+            document
+              .getElementById("estado-tramos")
+              .textContent =
+              "Video preparado";
 
-        onReady: function () {
-          document.getElementById("estado-tramos").textContent =
-            "Video preparado";
-        },
+          },
 
-        onError: function (event) {
-          document.getElementById("estado-tramos").textContent =
-            "Error de YouTube: " + event.data;
+
+          onError: function (event) {
+
+            document
+              .getElementById("estado-tramos")
+              .textContent =
+              "Error de YouTube: " +
+              event.data;
+
+            console.error(
+              "Error de YouTube:",
+              event.data
+            );
+
+          }
+
         }
 
-      }
-    });
+      });
+
   };
 
 
-  /* ========================================
-     BOTÓN DE INICIO
-     ======================================== */
+  /* =====================================================
+     BOTÓN PARA COMENZAR
+     ===================================================== */
 
   document
     .getElementById("btn-iniciar-tramos")
-    .addEventListener("click", function () {
+    .addEventListener(
+      "click",
+      function () {
 
-      if (!playerTramos) return;
+        if (
+          !playerTramos ||
+          typeof playerTramos.loadVideoById
+          !== "function"
+        ) {
 
-      tramoActual = 0;
-      secuenciaActiva = true;
+          document
+            .getElementById("estado-tramos")
+            .textContent =
+            "El reproductor todavía no está listo";
 
-      reproducirTramo();
+          return;
 
-    });
+        }
 
 
-  /* ========================================
-     REPRODUCIR TRAMO
-     ======================================== */
+        tramoActual = 0;
+
+        secuenciaActiva = true;
+
+        reproducirTramo();
+
+      }
+    );
+
+
+  /* =====================================================
+     REPRODUCIR EL TRAMO ACTUAL
+     ===================================================== */
 
   function reproducirTramo() {
 
-    const tramo = tramos[tramoActual];
+    const tramo =
+      tramos[tramoActual];
+
 
     cambiandoTramo = true;
 
-    document.getElementById("estado-tramos").textContent =
-      `Fragmento ${tramoActual + 1} de ${tramos.length}`;
+
+    document
+      .getElementById("estado-tramos")
+      .textContent =
+      "Fragmento " +
+      (tramoActual + 1) +
+      " de " +
+      tramos.length;
+
 
     playerTramos.loadVideoById({
+
       videoId: VIDEO_ID,
-      startSeconds: tramo.inicio
+
+      startSeconds:
+        tramo.inicio
+
     });
 
+
     /*
-      Esperamos un poco para evitar que
-      el control detecte el tiempo anterior.
+      Damos un pequeño margen para evitar
+      que el controlador lea el tiempo
+      correspondiente al tramo anterior.
     */
 
-    setTimeout(function () {
-      cambiandoTramo = false;
-    }, 800);
+    setTimeout(
+      function () {
+
+        cambiandoTramo = false;
+
+      },
+      800
+    );
 
   }
 
 
-  /* ========================================
-     CONTROL DE LOS TRAMOS
-     ======================================== */
+  /* =====================================================
+     CONTROL AUTOMÁTICO DE LOS TRAMOS
+     ===================================================== */
 
-  setInterval(function () {
+  setInterval(
 
-    if (
-      !playerTramos ||
-      !secuenciaActiva ||
-      cambiandoTramo
-    ) {
-      return;
-    }
+    function () {
 
-    if (
-      typeof playerTramos.getCurrentTime !== "function"
-    ) {
-      return;
-    }
+      if (
+        !playerTramos ||
+        !secuenciaActiva ||
+        cambiandoTramo
+      ) {
 
-    const tramo = tramos[tramoActual];
-    const tiempo = playerTramos.getCurrentTime();
-
-    /*
-      Cuando llega al final del tramo
-      pasa automáticamente al siguiente.
-    */
-
-    if (tiempo >= tramo.fin) {
-
-      cambiandoTramo = true;
-
-      tramoActual++;
-
-      if (tramoActual < tramos.length) {
-
-        reproducirTramo();
-
-      } else {
-
-        secuenciaActiva = false;
-
-        playerTramos.pauseVideo();
-
-        document.getElementById("estado-tramos").textContent =
-          "✓ Fragmentos finalizados";
+        return;
 
       }
-    }
 
-  }, 100);
+
+      if (
+        typeof playerTramos.getCurrentTime
+        !== "function"
+      ) {
+
+        return;
+
+      }
+
+
+      const tramo =
+        tramos[tramoActual];
+
+
+      const tiempoActual =
+        playerTramos.getCurrentTime();
+
+
+      /*
+        Cuando llegamos al final
+        del tramo actual...
+      */
+
+      if (
+        tiempoActual >= tramo.fin
+      ) {
+
+        cambiandoTramo = true;
+
+        tramoActual++;
+
+
+        /*
+          Si todavía quedan fragmentos,
+          reproducimos el siguiente.
+        */
+
+        if (
+          tramoActual < tramos.length
+        ) {
+
+          reproducirTramo();
+
+        }
+
+
+        /*
+          Si terminó el tercer fragmento,
+          pausamos el video.
+        */
+
+        else {
+
+          secuenciaActiva = false;
+
+          playerTramos.pauseVideo();
+
+
+          document
+            .getElementById("estado-tramos")
+            .textContent =
+            "✓ Fragmentos finalizados";
+
+        }
+
+      }
+
+    },
+
+    100
+
+  );
 
 </script>
 
