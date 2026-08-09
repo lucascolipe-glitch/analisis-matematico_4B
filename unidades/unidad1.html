@@ -2482,6 +2482,89 @@
   </iframe>
 </div>
   -->
+<div class="video-tramos">
+  <div id="playerTramos"></div>
+
+  <button type="button" onclick="iniciarTramos()">
+    ▶ Ver fragmentos seleccionados
+  </button>
+</div>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+
+<script>
+  // ID del video de YouTube
+  const VIDEO_ID =4Ct3NTeAmok;
+
+  // Tramos expresados en segundos
+  const tramos = [
+    { inicio: 0,  fin: 125 },  //  0 a 0:50
+    { inicio: 250, fin: 300 },  // 3:21 a 3:34
+    { inicio: 510, fin: 555 }   // 4:08 a 11:19
+  ];
+
+  let playerTramos;
+  let tramoActual = 0;
+  let controlTramo = null;
+
+  function onYouTubeIframeAPIReady() {
+    playerTramos = new YT.Player("playerTramos", {
+      width: "100%",
+      height: "400",
+      videoId: VIDEO_ID,
+
+      playerVars: {
+        playsinline: 1,
+        rel: 0
+      }
+    });
+  }
+
+  function iniciarTramos() {
+    tramoActual = 0;
+    reproducirTramo();
+  }
+
+  function reproducirTramo() {
+
+    if (tramoActual >= tramos.length) {
+      playerTramos.pauseVideo();
+      clearInterval(controlTramo);
+      return;
+    }
+
+    const tramo = tramos[tramoActual];
+
+    playerTramos.loadVideoById({
+      videoId: VIDEO_ID,
+      startSeconds: tramo.inicio
+    });
+
+    clearInterval(controlTramo);
+
+    controlTramo = setInterval(() => {
+
+      const tiempo = playerTramos.getCurrentTime();
+
+      if (tiempo >= tramo.fin) {
+
+        tramoActual++;
+
+        if (tramoActual < tramos.length) {
+          reproducirTramo();
+        } else {
+          playerTramos.pauseVideo();
+          clearInterval(controlTramo);
+        }
+
+      }
+
+    }, 200);
+  }
+</script>
+
+
+  
   
 </section><section id="9">
 <h2>Función exponencial</h2>
