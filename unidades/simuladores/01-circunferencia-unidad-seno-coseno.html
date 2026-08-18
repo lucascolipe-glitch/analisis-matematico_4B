@@ -1,0 +1,1620 @@
+<!doctype html>
+<html lang="es" data-visualize-standalone>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>De la circunferencia unidad al seno y coseno</title>
+<style>:root {
+  color-scheme: light dark;
+  background-color: transparent !important;
+
+  /* Agent-facing contract; keep in sync with SKILL.md. */
+  --background: var(
+    --main-surface-primary,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --foreground: light-dark(rgb(26 28 31), rgb(255 255 255));
+  --card: color-mix(in oklab, var(--foreground) 5%, transparent);
+  --card-foreground: var(--foreground);
+  --popover: light-dark(rgb(255 255 255), rgb(45 45 45));
+  --popover-foreground: var(--foreground);
+  --primary: light-dark(rgb(51 156 255), rgb(131 195 255));
+  --primary-foreground: light-dark(rgb(255 255 255), rgb(13 13 13));
+  --secondary: light-dark(rgb(255 255 255 / 96%), rgb(54 54 54 / 96%));
+  --secondary-foreground: var(--foreground);
+  --muted: color-mix(in srgb, var(--foreground) 10%, transparent);
+  --muted-foreground: light-dark(
+    rgb(26 28 31 / 49.4%),
+    rgb(255 255 255 / 49.8%)
+  );
+  --accent: light-dark(rgb(229 242 255), rgb(13 39 63));
+  --accent-foreground: var(--primary);
+  --destructive: light-dark(rgb(226 85 7), rgb(255 133 73));
+  --border: light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%));
+  --input: light-dark(
+    rgb(26 28 31 / 11.8%),
+    color-mix(in oklab, rgb(0 0 0) 10%, transparent)
+  );
+  --ring: light-dark(rgb(51 156 255), rgb(131 195 255 / 76%));
+  --font-size-base: 14px;
+  --red: light-dark(rgb(186 38 35), rgb(250 66 62));
+  --green: light-dark(rgb(0 162 64), rgb(64 201 119));
+
+  /* Internal implementation variables; not part of the agent contract. */
+  --font-sans: -apple-system, system-ui, "Segoe UI", sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
+    monospace;
+  --font-size-normal: max(11px, var(--font-size-base));
+  --font-size-tooltip: calc(var(--font-size-base) - 1px);
+  --font-size-small: max(11px, calc(var(--font-size-base) - 2px));
+  --font-size-h1: calc(var(--font-size-normal) * 1.7142857143);
+  --font-size-h2: calc(var(--font-size-normal) * 1.4285714286);
+  --font-size-h3: calc(var(--font-size-normal) * 1.2857142857);
+  --font-weight-normal: 430;
+  --font-weight-medium: 500;
+  --line-height-normal: calc(var(--font-size-normal) * 1.5);
+  --line-height-tooltip: calc(var(--font-size-tooltip) * 1.4285714286);
+  --line-height-small: calc(var(--font-size-small) + 4px);
+  --radius: 10px;
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-2xl: calc(var(--radius) * 1.6);
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 8%);
+  --checkmark-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 17 17'%3E%3Cpath d='M12.8961 3.64101C13.1297 3.41418 13.4984 3.37523 13.7779 3.56581C14.0571 3.75635 14.1554 4.11331 14.0299 4.41347L13.9615 4.53847L7.71151 13.7045C7.59411 13.8767 7.4063 13.9877 7.19881 14.0072C6.99136 14.0267 6.78564 13.9533 6.63826 13.806L2.88826 10.056L2.79842 9.9457C2.6192 9.67407 2.64927 9.30496 2.88826 9.06581C3.12738 8.82669 3.49647 8.79676 3.76815 8.97597L3.8785 9.06581L7.03084 12.2182L12.8053 3.74941L12.8961 3.64101Z'/%3E%3C/svg%3E");
+
+  /* Legacy aliases; not part of the current agent contract. */
+  --viz-bg: transparent;
+  --viz-panel: var(--card);
+  --viz-border: var(--border);
+  --viz-text: var(--foreground);
+  --viz-muted: var(--muted-foreground);
+  --viz-accent: var(--primary);
+  --viz-accent-text: var(--primary-foreground);
+  --viz-accent-bg: var(--accent);
+  --viz-font-size: var(--font-size-base);
+  --viz-warning: var(--destructive);
+  --color-background-primary: var(--background);
+  --color-text-primary: var(--foreground);
+  --color-border-secondary: var(--border);
+}
+
+:root[data-visualize-standalone] {
+  background-color: var(--background) !important;
+}
+
+/* Generic mobile code-block hosts provide light/dark mode but no series palette.
+   AppBlock hosts set all six variables themselves. */
+:root:not([data-app-block-surface]) {
+  --viz-series-1: var(--primary);
+  --viz-series-2: light-dark(#f3883b, #f59a56);
+  --viz-series-3: light-dark(#5dc977, #74d58b);
+  --viz-series-4: light-dark(#eb77b1, #f08fc0);
+  --viz-series-5: light-dark(#9b79ec, #aa91ef);
+  --viz-series-6: light-dark(#3ab9b1, #5acbc2);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html > body {
+  margin: 0;
+  padding: 5px;
+  color: var(--foreground);
+  background: transparent !important;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-normal);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+}
+
+:root:not([data-app-block-surface]) > body {
+  padding: 12px;
+}
+
+a {
+  color: color-mix(in srgb, var(--viz-accent) 80%, var(--viz-text) 20%);
+  cursor: pointer;
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  text-underline-offset: 2px;
+}
+
+a:is(:hover, :focus-visible) {
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 0.5px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-block: 0;
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.3;
+}
+
+b,
+strong,
+th {
+  font-weight: var(--font-weight-medium);
+}
+
+code:not(pre code) {
+  display: inline;
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  background: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  overflow-wrap: anywhere;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  word-break: break-word;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--foreground);
+  font: inherit;
+  text-align: start;
+}
+
+.table :is(th, td) {
+  padding-block: 10px;
+  padding-inline: 0 24px;
+  overflow-wrap: anywhere;
+  border-bottom: 1px solid var(--border);
+  text-align: start;
+  vertical-align: top;
+}
+
+.table-responsive > .table :is(th, td) {
+  overflow-wrap: break-word;
+}
+
+.table :is(th, td):last-child {
+  padding-inline-end: 0;
+}
+
+.table :is(caption, thead th) {
+  font-weight: 600;
+}
+
+.table thead th {
+  padding-block: 8px;
+  border-bottom-color: color-mix(in srgb, var(--foreground) 16%, transparent);
+}
+
+.table tbody tr:last-child :is(th, td) {
+  border-bottom: 0;
+}
+
+.table.table-sm :is(th, td) {
+  padding-block: 6px;
+}
+
+.table.table-sm :is(th, td):not(:last-child) {
+  padding-inline-end: 16px;
+}
+
+.table :is(.text-end, [align="right"]) {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.table :is(.text-center, [align="center"]) {
+  text-align: center;
+}
+
+.table .text-nowrap {
+  white-space: nowrap;
+}
+
+#widget {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  padding: 0;
+  background: transparent !important;
+}
+
+.card {
+  min-width: 0;
+  padding: 12px;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  border-radius: var(--radius-2xl);
+  color: var(--card-foreground);
+  background: var(--card);
+}
+
+#widget > :not(.card) {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: max-content;
+  max-width: min(
+    20rem,
+    var(--tooltip-available-width, calc(100vw - 10px)),
+    calc(100vw - 10px)
+  );
+  max-height: min(
+    var(--tooltip-available-height, calc(100vh - 10px)),
+    calc(100vh - 10px)
+  );
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  color: var(--popover-foreground);
+  background: var(--popover);
+  box-shadow: none;
+  font-size: var(--font-size-tooltip);
+  line-height: var(--line-height-tooltip);
+  overflow-wrap: break-word;
+  white-space: normal;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* The bundled tooltip runtime owns [data-tooltip]. AppBlock's CSS-only
+   pseudo-tooltip can widen dense grids even while hidden. */
+main [data-tooltip]::after {
+  content: none;
+}
+
+.viz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(max(180px, 24%), 1fr));
+  gap: 10px;
+}
+
+.viz-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.viz-stat-value {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+.viz-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.viz-badge {
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  color: var(--accent-foreground);
+  background: var(--accent);
+  font-weight: var(--font-weight-medium);
+}
+
+small,
+.text-small,
+.viz-badge {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.text-muted {
+  color: var(--muted-foreground);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.viz-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.viz-controls > .form-label {
+  display: grid;
+  min-width: min(100%, 260px);
+  flex: 1 1 280px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 2px 12px;
+  margin-bottom: 0;
+}
+
+.viz-controls > .form-label > :is(.form-control, .form-range, .form-select) {
+  grid-column: 1 / -1;
+}
+
+.btn,
+.form-check-input,
+.form-control,
+.form-range,
+.form-select {
+  font: inherit;
+}
+
+.btn {
+  appearance: button;
+  display: inline-flex;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  min-height: 28px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0 8px;
+  -webkit-app-region: no-drag;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: var(--cursor-interaction, pointer);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.btn:is(.btn-block, .viz-tile) {
+  inline-size: 100%;
+}
+
+.btn.viz-tile {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+a.btn {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn-primary {
+  border-color: transparent;
+  color: var(--interactive-label-primary-default, var(--primary-foreground));
+  background: var(--interactive-bg-primary-default, var(--foreground));
+  background-clip: padding-box;
+}
+
+.btn-primary .text-muted {
+  color: color-mix(
+    in srgb,
+    var(--interactive-label-primary-default, var(--primary-foreground)) 50%,
+    transparent
+  );
+}
+
+.btn-primary:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 80%, transparent);
+  background-clip: padding-box;
+}
+
+.btn-ghost {
+  border-color: transparent;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.btn-ghost:not(:disabled):hover {
+  color: var(--foreground);
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+[data-lucide] {
+  stroke-width: 1.6;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--foreground);
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  padding: 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  color: var(--foreground);
+  background: var(--secondary);
+}
+
+.form-control::placeholder {
+  color: var(--muted-foreground);
+}
+
+.form-control[type="file"] {
+  padding: 0;
+  overflow: hidden;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control[type="file"]::file-selector-button {
+  min-height: 26px;
+  margin-right: 8px;
+  padding: 0 8px;
+  border: 0;
+  border-right: 1px solid var(--input);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: inherit;
+  font: inherit;
+}
+
+.form-control[type="file"]:not(:disabled):hover::file-selector-button {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-control-color[type="color"] {
+  width: 40px;
+  height: 28px;
+  padding: 3px;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control-color[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.form-control-color[type="color"]::-webkit-color-swatch {
+  border: 0;
+  border-radius: calc(var(--radius-lg) - 4px);
+}
+
+textarea.form-control {
+  height: auto;
+  min-height: 72px;
+  padding: 8px 10px;
+  resize: vertical;
+}
+
+.form-control:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-control:disabled,
+.form-select:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.form-select {
+  appearance: none;
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  margin: 0;
+  padding: 0 32px 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  color: var(--foreground);
+  background-color: var(--secondary);
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted-foreground) 50%),
+    linear-gradient(135deg, var(--muted-foreground) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) 50%,
+    calc(100% - 10px) 50%;
+  background-repeat: no-repeat;
+  background-size: 4px 4px;
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-select:not(:disabled):hover {
+  background-color: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-select:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-check {
+  display: flex;
+  min-height: 20px;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-check-input {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  margin: 0;
+  border: 1px solid var(--input);
+  color: var(--primary-foreground);
+  background-color: transparent;
+  cursor: var(--cursor-interaction, default);
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    box-shadow 150ms;
+}
+
+.form-check:not(.form-switch) .form-check-input[type="checkbox"] {
+  border-color: var(--input);
+  border-radius: var(--radius-sm);
+  background-color: var(--secondary);
+  box-shadow: var(--shadow-sm);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input:not(:disabled):not(:checked):hover {
+  background-color: var(--card);
+}
+
+.form-check:not(.form-switch) .form-check-input[type="checkbox"]:checked {
+  border-color: var(--primary);
+  background-color: var(--primary);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input[type="checkbox"]:checked::before {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-foreground);
+  content: "";
+  mask: var(--checkmark-image) center / 12px 12px no-repeat;
+}
+
+.form-check-input[type="radio"] {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+}
+
+.form-check-input[type="radio"]:checked {
+  border: 2px solid var(--primary);
+  background:
+    radial-gradient(circle, var(--primary-foreground) 0 2.5px, transparent 3px),
+    var(--primary);
+}
+
+.form-check:not(.form-switch) .form-check-input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+}
+
+.form-switch .form-check-input:disabled,
+.form-switch .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.form-check-label {
+  color: var(--foreground);
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-switch .form-check-input {
+  position: relative;
+  width: 32px;
+  height: 20px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+  box-shadow: none;
+  transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border: 1px solid light-dark(var(--primary-foreground), var(--foreground));
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+  box-shadow: var(--shadow-sm);
+  content: "";
+  transform: translate(2px, -50%);
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input:checked {
+  background: var(--primary);
+}
+
+.form-switch .form-check-input:checked::before {
+  transform: translate(14px, -50%);
+}
+
+.form-switch .form-check-input:focus-visible {
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+.form-range {
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 28px;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: 0;
+  accent-color: var(--primary);
+  background: linear-gradient(
+      color-mix(in srgb, var(--foreground) 7%, transparent),
+      color-mix(in srgb, var(--foreground) 7%, transparent)
+    )
+    center / 100% 2px no-repeat;
+}
+
+.form-range::-webkit-slider-runnable-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-webkit-slider-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range::-moz-range-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-moz-range-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.btn:not(.btn-primary, .viz-tile):is(
+    [aria-pressed="true"],
+    [aria-selected="true"],
+    .is-selected
+  ) {
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+  background: var(--primary);
+}
+
+.btn.viz-tile:is([aria-pressed="true"], [aria-selected="true"], .is-selected) {
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+#widget > svg {
+  width: 100%;
+}
+
+.text-warning,
+.text-destructive {
+  color: var(--destructive);
+}
+</style>
+</head>
+<body>
+<style>
+  #unit-circle-lab {
+    color: var(--foreground);
+    width: 100%;
+  }
+
+  #unit-circle-lab .uc-controls {
+    align-items: end;
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: auto minmax(220px, 1fr);
+    margin-bottom: 0.75rem;
+  }
+
+  #unit-circle-lab .uc-actions,
+  #unit-circle-lab .uc-readouts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  #unit-circle-lab .uc-time-control {
+    min-width: 0;
+  }
+
+  #unit-circle-lab .uc-readouts {
+    margin-bottom: 0.75rem;
+  }
+
+  #unit-circle-lab .uc-stage {
+    align-items: center;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: minmax(270px, 0.82fr) minmax(380px, 1.18fr);
+  }
+
+  #unit-circle-lab .uc-figure {
+    margin: 0;
+    min-width: 0;
+  }
+
+  #unit-circle-lab .uc-figure svg {
+    display: block;
+    height: auto;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  #unit-circle-lab .uc-axis,
+  #unit-circle-lab .uc-gridline,
+  #unit-circle-lab .uc-tick {
+    stroke: var(--border);
+  }
+
+  #unit-circle-lab .uc-axis {
+    stroke-width: 2;
+  }
+
+  #unit-circle-lab .uc-gridline,
+  #unit-circle-lab .uc-tick {
+    stroke-width: 1;
+  }
+
+  #unit-circle-lab .uc-circle {
+    fill: none;
+    stroke: var(--foreground);
+    stroke-width: 2;
+  }
+
+  #unit-circle-lab .uc-radius {
+    stroke: var(--foreground);
+    stroke-width: 3;
+  }
+
+  #unit-circle-lab .uc-angle-arc {
+    fill: none;
+    stroke: var(--muted-foreground);
+    stroke-width: 2;
+  }
+
+  #unit-circle-lab .uc-cos-mark {
+    stroke: var(--viz-series-1);
+  }
+
+  #unit-circle-lab .uc-sin-mark {
+    stroke: var(--viz-series-2);
+  }
+
+  #unit-circle-lab .uc-coordinate {
+    stroke-linecap: round;
+    stroke-width: 7;
+  }
+
+  #unit-circle-lab .uc-helper {
+    stroke-dasharray: 5 5;
+    stroke-width: 2;
+  }
+
+  #unit-circle-lab .uc-point {
+    fill: var(--foreground);
+    stroke: var(--background);
+    stroke-width: 3;
+  }
+
+  #unit-circle-lab .uc-curve {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 3;
+  }
+
+  #unit-circle-lab .uc-cos-curve {
+    stroke: var(--viz-series-1);
+  }
+
+  #unit-circle-lab .uc-sin-curve {
+    stroke: var(--viz-series-2);
+    stroke-dasharray: 7 5;
+  }
+
+  #unit-circle-lab .uc-cursor {
+    stroke: var(--foreground);
+    stroke-width: 2;
+  }
+
+  #unit-circle-lab .uc-cos-dot {
+    fill: var(--viz-series-1);
+    stroke: var(--background);
+    stroke-width: 2;
+  }
+
+  #unit-circle-lab .uc-sin-dot {
+    fill: var(--viz-series-2);
+    stroke: var(--background);
+    stroke-width: 2;
+  }
+
+  #unit-circle-lab .uc-svg-label {
+    fill: var(--foreground);
+  }
+
+  #unit-circle-lab .uc-svg-muted {
+    fill: var(--muted-foreground);
+  }
+
+  #unit-circle-lab .uc-live-note {
+    margin-top: 0.75rem;
+  }
+
+  #unit-circle-lab .uc-explanation {
+    border-top: 1px solid var(--border);
+    display: grid;
+    gap: 0.75rem 1.25rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+  }
+
+  #unit-circle-lab .uc-step {
+    margin: 0;
+  }
+
+  #unit-circle-lab .uc-step code {
+    color: var(--foreground);
+  }
+
+  #unit-circle-lab .uc-step-label {
+    color: var(--muted-foreground);
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  @media (max-width: 700px) {
+    #unit-circle-lab .uc-controls,
+    #unit-circle-lab .uc-stage,
+    #unit-circle-lab .uc-explanation {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<div id="unit-circle-lab">
+  <div class="uc-controls">
+    <div class="uc-actions">
+      <button id="uc-play" class="btn btn-primary" type="button" aria-pressed="true">Pausar</button>
+      <button id="uc-reset" class="btn" type="button">Reiniciar</button>
+    </div>
+    <label class="form-label uc-time-control" for="uc-time">
+      Tiempo: <output id="uc-time-output" for="uc-time">0,000 s</output>
+      <input id="uc-time" class="form-range" type="range" min="0" max="8" step="0.001" value="0">
+    </label>
+  </div>
+
+  <div class="uc-readouts" aria-live="polite">
+    <span class="viz-badge">θ = <output id="uc-angle-output">0,000 rad = 0,0°</output></span>
+    <span class="viz-badge">cos θ = <output id="uc-cos-output">1,000</output></span>
+    <span class="viz-badge">sen θ = <output id="uc-sin-output">0,000</output></span>
+  </div>
+
+  <div class="uc-stage">
+    <figure class="uc-figure">
+      <svg id="uc-circle-svg" viewBox="0 0 340 340" role="img" aria-labelledby="uc-circle-title uc-circle-desc">
+        <title id="uc-circle-title">Punto en movimiento uniforme sobre la circunferencia unidad</title>
+        <desc id="uc-circle-desc">Las proyecciones horizontal y vertical del punto muestran, respectivamente, el coseno y el seno del ángulo.</desc>
+
+        <line class="uc-axis" x1="32" y1="170" x2="308" y2="170"></line>
+        <line class="uc-axis" x1="170" y1="308" x2="170" y2="32"></line>
+        <circle class="uc-circle" cx="170" cy="170" r="110"></circle>
+
+        <line class="uc-tick" x1="60" y1="164" x2="60" y2="176"></line>
+        <line class="uc-tick" x1="280" y1="164" x2="280" y2="176"></line>
+        <line class="uc-tick" x1="164" y1="60" x2="176" y2="60"></line>
+        <line class="uc-tick" x1="164" y1="280" x2="176" y2="280"></line>
+
+        <text class="uc-svg-muted" x="60" y="194" text-anchor="middle">−1</text>
+        <text class="uc-svg-muted" x="280" y="194" text-anchor="middle">1</text>
+        <text class="uc-svg-muted" x="151" y="65" text-anchor="end">1</text>
+        <text class="uc-svg-muted" x="151" y="285" text-anchor="end">−1</text>
+        <text class="uc-svg-muted" x="304" y="158" text-anchor="end">x</text>
+        <text class="uc-svg-muted" x="183" y="39">y</text>
+
+        <path id="uc-angle-arc" class="uc-angle-arc"></path>
+        <line id="uc-radius" class="uc-radius" x1="170" y1="170" x2="280" y2="170"></line>
+
+        <line id="uc-cos-helper" class="uc-helper uc-cos-mark" x1="280" y1="170" x2="280" y2="170"></line>
+        <line id="uc-sin-helper" class="uc-helper uc-sin-mark" x1="280" y1="170" x2="170" y2="170"></line>
+        <line id="uc-cos-coordinate" class="uc-coordinate uc-cos-mark" x1="170" y1="170" x2="280" y2="170"></line>
+        <line id="uc-sin-coordinate" class="uc-coordinate uc-sin-mark" x1="170" y1="170" x2="170" y2="170"></line>
+
+        <circle id="uc-point" class="uc-point" cx="280" cy="170" r="8"></circle>
+        <text id="uc-point-label" class="uc-svg-label" x="290" y="155">P(1,000; 0,000)</text>
+        <text id="uc-angle-label" class="uc-svg-muted" x="207" y="158">θ</text>
+        <text class="uc-svg-muted" x="170" y="330" text-anchor="middle">radio = 1</text>
+      </svg>
+    </figure>
+
+    <figure class="uc-figure">
+      <svg id="uc-chart-svg" viewBox="0 0 540 350" role="img" aria-labelledby="uc-chart-title uc-chart-desc">
+        <title id="uc-chart-title">Funciones coseno y seno obtenidas del movimiento circular</title>
+        <desc id="uc-chart-desc">Dos gráficas sincronizadas muestran la coordenada horizontal como coseno y la coordenada vertical como seno a lo largo del tiempo.</desc>
+        <g id="uc-chart-grid"></g>
+        <path id="uc-cos-path" class="uc-curve uc-cos-curve"></path>
+        <path id="uc-sin-path" class="uc-curve uc-sin-curve"></path>
+        <line id="uc-chart-cursor" class="uc-cursor" x1="48" y1="32" x2="48" y2="296"></line>
+        <circle id="uc-cos-dot" class="uc-cos-dot" cx="48" cy="44" r="6"></circle>
+        <circle id="uc-sin-dot" class="uc-sin-dot" cx="48" cy="242" r="6"></circle>
+        <text class="uc-svg-label" x="520" y="32" text-anchor="end">x(t) = cos(πt/2) — línea continua</text>
+        <text class="uc-svg-label" x="520" y="182" text-anchor="end">y(t) = sen(πt/2) — línea discontinua</text>
+      </svg>
+    </figure>
+  </div>
+
+  <div class="card uc-live-note" aria-live="polite">
+    <span id="uc-live-explanation">Inicio: el punto está en (1, 0). El coseno vale 1 y el seno vale 0.</span>
+  </div>
+
+  <div class="uc-explanation">
+    <p class="uc-step">
+      <span class="uc-step-label">1 · Movimiento circular uniforme</span>
+      En tiempos iguales se recorren ángulos iguales. Aquí una vuelta tarda 4 s, por eso <code>ω = 2π/4 = π/2 rad/s</code> y <code>θ(t) = (π/2)t</code>.
+    </p>
+    <p class="uc-step">
+      <span class="uc-step-label">2 · Coordenadas del punto</span>
+      Como el radio vale 1, el punto queda determinado por <code>P(t) = (cos θ(t), sen θ(t))</code>.
+    </p>
+    <p class="uc-step">
+      <span class="uc-step-label">3 · Proyecciones</span>
+      La proyección sobre el eje horizontal es <code>x = cos θ</code>. La proyección sobre el eje vertical es <code>y = sen θ</code>.
+    </p>
+    <p class="uc-step">
+      <span class="uc-step-label">4 · De la circunferencia a las funciones</span>
+      Al registrar ambas coordenadas mientras pasa el tiempo aparecen <code>x(t) = cos(πt/2)</code> e <code>y(t) = sen(πt/2)</code>. Tienen amplitud 1, período 4 s y recorrido <code>[−1, 1]</code>.
+    </p>
+  </div>
+</div>
+
+<script>
+  (function () {
+    "use strict";
+
+    var root = document.getElementById("unit-circle-lab");
+    if (!root) return;
+
+    var period = 4;
+    var duration = 8;
+    var omega = 2 * Math.PI / period;
+    var centerX = 170;
+    var centerY = 170;
+    var circleRadius = 110;
+    var arcRadius = 34;
+    var svgNamespace = "http://www.w3.org/2000/svg";
+    var plots = {
+      left: 48,
+      right: 520,
+      cosTop: 40,
+      cosBottom: 145,
+      sinTop: 190,
+      sinBottom: 295
+    };
+
+    var playButton = root.querySelector("#uc-play");
+    var resetButton = root.querySelector("#uc-reset");
+    var timeSlider = root.querySelector("#uc-time");
+    var timeOutput = root.querySelector("#uc-time-output");
+    var angleOutput = root.querySelector("#uc-angle-output");
+    var cosOutput = root.querySelector("#uc-cos-output");
+    var sinOutput = root.querySelector("#uc-sin-output");
+    var radiusLine = root.querySelector("#uc-radius");
+    var cosHelper = root.querySelector("#uc-cos-helper");
+    var sinHelper = root.querySelector("#uc-sin-helper");
+    var cosCoordinate = root.querySelector("#uc-cos-coordinate");
+    var sinCoordinate = root.querySelector("#uc-sin-coordinate");
+    var point = root.querySelector("#uc-point");
+    var pointLabel = root.querySelector("#uc-point-label");
+    var angleArc = root.querySelector("#uc-angle-arc");
+    var angleLabel = root.querySelector("#uc-angle-label");
+    var chartGrid = root.querySelector("#uc-chart-grid");
+    var cosPath = root.querySelector("#uc-cos-path");
+    var sinPath = root.querySelector("#uc-sin-path");
+    var chartCursor = root.querySelector("#uc-chart-cursor");
+    var cosDot = root.querySelector("#uc-cos-dot");
+    var sinDot = root.querySelector("#uc-sin-dot");
+    var liveExplanation = root.querySelector("#uc-live-explanation");
+    var reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var playing = !reducedMotion;
+    var currentTime = 0;
+    var lastFrame = null;
+
+    function formatNumber(value, digits) {
+      var rounded = Math.abs(value) < Math.pow(10, -digits) / 2 ? 0 : value;
+      return rounded.toFixed(digits).replace(".", ",");
+    }
+
+    function stateAt(time) {
+      var theta = omega * time;
+      return {
+        theta: theta,
+        angle: ((theta % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI),
+        cosine: Math.cos(theta),
+        sine: Math.sin(theta)
+      };
+    }
+
+    function xScale(time) {
+      return plots.left + time / duration * (plots.right - plots.left);
+    }
+
+    function yScale(value, top, bottom) {
+      return bottom - (value + 1) / 2 * (bottom - top);
+    }
+
+    function makeSvgElement(name, attributes, textValue) {
+      var element = document.createElementNS(svgNamespace, name);
+      Object.keys(attributes).forEach(function (key) {
+        element.setAttribute(key, attributes[key]);
+      });
+      if (textValue !== undefined) element.textContent = textValue;
+      return element;
+    }
+
+    function buildChartGrid() {
+      var timeTicks = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+      var angleTicks = [
+        { time: 0, label: "θ = 0" },
+        { time: 2, label: "π" },
+        { time: 4, label: "2π" },
+        { time: 6, label: "3π" },
+        { time: 8, label: "4π" }
+      ];
+      var horizontalValues = [-1, 0, 1];
+
+      timeTicks.forEach(function (tick) {
+        var x = xScale(tick);
+        chartGrid.appendChild(makeSvgElement("line", {
+          x1: x, y1: 30, x2: x, y2: plots.sinBottom, "class": "uc-gridline"
+        }));
+        chartGrid.appendChild(makeSvgElement("text", {
+          x: x, y: 318, "text-anchor": "middle", "class": "uc-svg-muted"
+        }, String(tick)));
+      });
+
+      angleTicks.forEach(function (tick) {
+        chartGrid.appendChild(makeSvgElement("text", {
+          x: xScale(tick.time), y: 19, "text-anchor": "middle", "class": "uc-svg-muted"
+        }, tick.label));
+      });
+
+      horizontalValues.forEach(function (value) {
+        var cosY = yScale(value, plots.cosTop, plots.cosBottom);
+        var sinY = yScale(value, plots.sinTop, plots.sinBottom);
+        chartGrid.appendChild(makeSvgElement("line", {
+          x1: plots.left, y1: cosY, x2: plots.right, y2: cosY, "class": "uc-gridline"
+        }));
+        chartGrid.appendChild(makeSvgElement("line", {
+          x1: plots.left, y1: sinY, x2: plots.right, y2: sinY, "class": "uc-gridline"
+        }));
+        chartGrid.appendChild(makeSvgElement("text", {
+          x: 40, y: cosY + 4, "text-anchor": "end", "class": "uc-svg-muted"
+        }, String(value)));
+        chartGrid.appendChild(makeSvgElement("text", {
+          x: 40, y: sinY + 4, "text-anchor": "end", "class": "uc-svg-muted"
+        }, String(value)));
+      });
+
+      chartGrid.appendChild(makeSvgElement("line", {
+        x1: plots.left, y1: plots.cosTop, x2: plots.left, y2: plots.cosBottom, "class": "uc-axis"
+      }));
+      chartGrid.appendChild(makeSvgElement("line", {
+        x1: plots.left, y1: plots.sinTop, x2: plots.left, y2: plots.sinBottom, "class": "uc-axis"
+      }));
+      chartGrid.appendChild(makeSvgElement("text", {
+        x: plots.right, y: 340, "text-anchor": "end", "class": "uc-svg-label"
+      }, "tiempo t (s)"));
+    }
+
+    function buildCurves() {
+      var cosCommands = [];
+      var sinCommands = [];
+      var samples = 720;
+
+      for (var index = 0; index <= samples; index += 1) {
+        var time = duration * index / samples;
+        var state = stateAt(time);
+        var command = index === 0 ? "M" : "L";
+        cosCommands.push(command + xScale(time).toFixed(2) + " " + yScale(state.cosine, plots.cosTop, plots.cosBottom).toFixed(2));
+        sinCommands.push(command + xScale(time).toFixed(2) + " " + yScale(state.sine, plots.sinTop, plots.sinBottom).toFixed(2));
+      }
+
+      cosPath.setAttribute("d", cosCommands.join(" "));
+      sinPath.setAttribute("d", sinCommands.join(" "));
+    }
+
+    function arcPath(angle) {
+      if (angle < 0.002) return "";
+      var endX = centerX + arcRadius * Math.cos(angle);
+      var endY = centerY - arcRadius * Math.sin(angle);
+      var largeArc = angle > Math.PI ? 1 : 0;
+      return "M " + (centerX + arcRadius) + " " + centerY +
+        " A " + arcRadius + " " + arcRadius + " 0 " + largeArc + " 0 " +
+        endX.toFixed(2) + " " + endY.toFixed(2);
+    }
+
+    function explanationFor(state) {
+      var tolerance = 0.018;
+      if (Math.abs(state.sine) < tolerance && state.cosine > 0) {
+        return "Sobre el eje x positivo: cos θ = 1 y sen θ = 0. Comienza un nuevo período.";
+      }
+      if (Math.abs(state.cosine) < tolerance && state.sine > 0) {
+        return "Punto más alto: cos θ = 0 y sen θ = 1. Ha transcurrido un cuarto de período.";
+      }
+      if (Math.abs(state.sine) < tolerance && state.cosine < 0) {
+        return "Sobre el eje x negativo: cos θ = −1 y sen θ = 0. Ha transcurrido medio período.";
+      }
+      if (Math.abs(state.cosine) < tolerance && state.sine < 0) {
+        return "Punto más bajo: cos θ = 0 y sen θ = −1. Han transcurrido tres cuartos de período.";
+      }
+      if (state.cosine > 0 && state.sine > 0) {
+        return "Primer cuadrante: las proyecciones horizontal y vertical son positivas; cos θ > 0 y sen θ > 0.";
+      }
+      if (state.cosine < 0 && state.sine > 0) {
+        return "Segundo cuadrante: la proyección horizontal es negativa y la vertical positiva; cos θ < 0 y sen θ > 0.";
+      }
+      if (state.cosine < 0 && state.sine < 0) {
+        return "Tercer cuadrante: ambas proyecciones son negativas; cos θ < 0 y sen θ < 0.";
+      }
+      return "Cuarto cuadrante: la proyección horizontal es positiva y la vertical negativa; cos θ > 0 y sen θ < 0.";
+    }
+
+    function setPlaying(nextPlaying) {
+      playing = nextPlaying;
+      playButton.textContent = playing ? "Pausar" : "Reproducir";
+      playButton.setAttribute("aria-pressed", playing ? "true" : "false");
+    }
+
+    function render(time) {
+      var state = stateAt(time);
+      var pointX = centerX + circleRadius * state.cosine;
+      var pointY = centerY - circleRadius * state.sine;
+      var chartX = xScale(time);
+      var labelX = pointX + (state.cosine >= 0 ? 11 : -11);
+      var labelY = pointY + (state.sine >= 0 ? -12 : 20);
+      var labelAnchor = state.cosine >= 0 ? "start" : "end";
+      var angleLabelX = centerX + 46 * Math.cos(state.angle / 2);
+      var angleLabelY = centerY - 46 * Math.sin(state.angle / 2);
+      radiusLine.setAttribute("x2", pointX);
+      radiusLine.setAttribute("y2", pointY);
+      cosHelper.setAttribute("x1", pointX);
+      cosHelper.setAttribute("y1", pointY);
+      cosHelper.setAttribute("x2", pointX);
+      cosHelper.setAttribute("y2", centerY);
+      sinHelper.setAttribute("x1", pointX);
+      sinHelper.setAttribute("y1", pointY);
+      sinHelper.setAttribute("x2", centerX);
+      sinHelper.setAttribute("y2", pointY);
+      cosCoordinate.setAttribute("x2", pointX);
+      sinCoordinate.setAttribute("y2", pointY);
+      point.setAttribute("cx", pointX);
+      point.setAttribute("cy", pointY);
+      pointLabel.setAttribute("x", labelX);
+      pointLabel.setAttribute("y", labelY);
+      pointLabel.setAttribute("text-anchor", labelAnchor);
+      pointLabel.textContent = "P(" + formatNumber(state.cosine, 3) + "; " + formatNumber(state.sine, 3) + ")";
+      angleArc.setAttribute("d", arcPath(state.angle));
+      angleLabel.setAttribute("x", angleLabelX);
+      angleLabel.setAttribute("y", angleLabelY);
+
+      chartCursor.setAttribute("x1", chartX);
+      chartCursor.setAttribute("x2", chartX);
+      cosDot.setAttribute("cx", chartX);
+      cosDot.setAttribute("cy", yScale(state.cosine, plots.cosTop, plots.cosBottom));
+      sinDot.setAttribute("cx", chartX);
+      sinDot.setAttribute("cy", yScale(state.sine, plots.sinTop, plots.sinBottom));
+
+      timeSlider.value = String(time);
+      timeOutput.value = formatNumber(time, 3) + " s";
+      angleOutput.value = formatNumber(state.theta, 3) + " rad = " + formatNumber(state.theta * 180 / Math.PI, 1) + "°";
+      cosOutput.value = formatNumber(state.cosine, 3);
+      sinOutput.value = formatNumber(state.sine, 3);
+      liveExplanation.textContent = explanationFor(state);
+    }
+
+    playButton.addEventListener("click", function () {
+      if (!playing && currentTime >= duration) currentTime = 0;
+      setPlaying(!playing);
+      lastFrame = null;
+    });
+
+    resetButton.addEventListener("click", function () {
+      currentTime = 0;
+      setPlaying(false);
+      render(currentTime);
+    });
+
+    timeSlider.addEventListener("input", function () {
+      currentTime = Number(timeSlider.value);
+      setPlaying(false);
+      render(currentTime);
+    });
+
+    function animate(timestamp) {
+      if (lastFrame === null) lastFrame = timestamp;
+      var elapsed = Math.min((timestamp - lastFrame) / 1000, 0.1);
+      lastFrame = timestamp;
+
+      if (playing) {
+        currentTime += elapsed;
+        if (currentTime > duration) currentTime %= duration;
+        render(currentTime);
+      }
+
+      window.requestAnimationFrame(animate);
+    }
+
+    buildChartGrid();
+    buildCurves();
+    setPlaying(playing);
+    render(currentTime);
+    window.requestAnimationFrame(animate);
+  }());
+</script>
+
+<script id="codex-visualization-tooltip">/* oxlint-disable typescript/no-unsafe-argument, typescript/no-unsafe-call, typescript/no-unsafe-return */
+// Runs inside the visualization sandbox, not the host webview.
+(() => {
+  if (window.FloatingUIDOM == null) {
+    return;
+  }
+  const { autoUpdate, computePosition, flip, offset, shift, size } =
+    window.FloatingUIDOM;
+  const tooltipPlacements = new Set(["top", "right", "bottom", "left"]);
+  const tooltipId = `codex-visualization-tooltip-${
+    window.crypto?.randomUUID?.() ?? Date.now().toString(36)
+  }`;
+  const tooltipGap = 5;
+  const hoverDelay = 700;
+  const skipDelay = 300;
+  let activeTrigger = null;
+  let pendingTrigger = null;
+  let tooltip = null;
+  let openTimeout = null;
+  let autoUpdateCleanup = null;
+  let positionRequest = 0;
+  let skipDelayUntil = 0;
+
+  const getTrigger = (target) =>
+    target?.nodeType === Node.ELEMENT_NODE
+      ? target.closest("[data-tooltip]")
+      : null;
+  const containsTarget = (trigger, target) =>
+    target?.nodeType != null && trigger.contains(target);
+  const getContent = (trigger) =>
+    trigger.getAttribute("data-tooltip")?.trim() ?? "";
+  const getPlacement = (trigger) => {
+    const placement = trigger.getAttribute("data-tooltip-placement");
+    return tooltipPlacements.has(placement) ? placement : "top";
+  };
+  const getTooltip = () => {
+    if (tooltip == null) {
+      tooltip = document.createElement("div");
+      tooltip.id = tooltipId;
+      tooltip.className = "tooltip";
+      tooltip.setAttribute("role", "tooltip");
+    }
+    return tooltip;
+  };
+  const setDescribedBy = (trigger, described) => {
+    const ids = new Set(
+      (trigger.getAttribute("aria-describedby") ?? "")
+        .split(/\s+/)
+        .filter(Boolean),
+    );
+    if (described) {
+      ids.add(tooltipId);
+    } else {
+      ids.delete(tooltipId);
+    }
+    if (ids.size === 0) {
+      trigger.removeAttribute("aria-describedby");
+    } else {
+      trigger.setAttribute("aria-describedby", [...ids].join(" "));
+    }
+  };
+  const clearOpenTimeout = () => {
+    if (openTimeout != null) {
+      window.clearTimeout(openTimeout);
+      openTimeout = null;
+    }
+    pendingTrigger = null;
+  };
+  const closeTooltip = (activateSkipDelay = true) => {
+    clearOpenTimeout();
+    positionRequest += 1;
+    autoUpdateCleanup?.();
+    autoUpdateCleanup = null;
+    if (activeTrigger == null) {
+      return;
+    }
+    setDescribedBy(activeTrigger, false);
+    activeTrigger = null;
+    tooltip?.remove();
+    if (activateSkipDelay) {
+      skipDelayUntil = Date.now() + skipDelay;
+    }
+  };
+  const updatePosition = (trigger, floating) => {
+    const request = ++positionRequest;
+    void computePosition(trigger, floating, {
+      middleware: [
+        offset(tooltipGap),
+        flip({ padding: tooltipGap }),
+        shift({ padding: tooltipGap }),
+        size({
+          padding: tooltipGap,
+          apply({ availableHeight, availableWidth, elements }) {
+            elements.floating.style.setProperty(
+              "--tooltip-available-width",
+              `${Math.max(0, availableWidth)}px`,
+            );
+            elements.floating.style.setProperty(
+              "--tooltip-available-height",
+              `${Math.max(0, availableHeight)}px`,
+            );
+          },
+        }),
+      ],
+      placement: getPlacement(trigger),
+      strategy: "fixed",
+    })
+      .then(({ x, y }) => {
+        if (activeTrigger !== trigger || request !== positionRequest) {
+          return;
+        }
+        const scale = window.devicePixelRatio || 1;
+        floating.style.transform = `translate(${Math.round(x * scale) / scale}px, ${Math.round(y * scale) / scale}px)`;
+        floating.style.visibility = "visible";
+      })
+      .catch(() => {
+        if (activeTrigger === trigger && request === positionRequest) {
+          closeTooltip(false);
+        }
+      });
+  };
+  const openTooltip = (trigger) => {
+    const content = getContent(trigger);
+    if (!trigger.isConnected || content.length === 0) {
+      return;
+    }
+    clearOpenTimeout();
+    if (activeTrigger === trigger) {
+      return;
+    }
+    closeTooltip();
+    const floating = getTooltip();
+    floating.textContent = content;
+    floating.style.visibility = "hidden";
+    floating.style.transform = "translate(0, 0)";
+    document.body.appendChild(floating);
+    activeTrigger = trigger;
+    setDescribedBy(trigger, true);
+    autoUpdateCleanup = autoUpdate(trigger, floating, () => {
+      updatePosition(trigger, floating);
+    });
+  };
+  const requestOpen = (trigger, immediate = false) => {
+    if (
+      getContent(trigger).length === 0 ||
+      activeTrigger === trigger ||
+      pendingTrigger === trigger
+    ) {
+      return;
+    }
+    clearOpenTimeout();
+    pendingTrigger = trigger;
+    const delay =
+      immediate || activeTrigger != null || Date.now() < skipDelayUntil
+        ? 0
+        : hoverDelay;
+    if (delay === 0) {
+      openTooltip(trigger);
+      return;
+    }
+    openTimeout = window.setTimeout(() => {
+      openTimeout = null;
+      pendingTrigger = null;
+      openTooltip(trigger);
+    }, delay);
+  };
+  const handlePointerOpen = (event) => {
+    if (event.pointerType === "touch") {
+      return;
+    }
+    const trigger = getTrigger(event.target);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    requestOpen(trigger);
+  };
+  const handleLeave = (event) => {
+    const trigger = getTrigger(event.target);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const handleFocusIn = (event) => {
+    const trigger = getTrigger(event.target);
+    if (trigger?.matches(":focus-visible")) {
+      requestOpen(trigger, true);
+    }
+  };
+  const handleKeyDown = (event) => {
+    if (event.key === "Escape") {
+      closeTooltip();
+    }
+  };
+  const handleContextMenu = (event) => {
+    const trigger = getTrigger(event.target);
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const destroy = () => {
+    closeTooltip(false);
+    document.removeEventListener("pointerover", handlePointerOpen);
+    document.removeEventListener("pointerout", handleLeave);
+    document.removeEventListener("focusin", handleFocusIn);
+    document.removeEventListener("focusout", handleLeave);
+    document.removeEventListener("keydown", handleKeyDown);
+    document.removeEventListener("contextmenu", handleContextMenu);
+    tooltip = null;
+  };
+
+  document.addEventListener("pointerover", handlePointerOpen);
+  document.addEventListener("pointerout", handleLeave);
+  document.addEventListener("focusin", handleFocusIn);
+  document.addEventListener("focusout", handleLeave);
+  document.addEventListener("keydown", handleKeyDown);
+  document.addEventListener("contextmenu", handleContextMenu);
+  window.addEventListener("pagehide", destroy, { once: true });
+})();
+</script>
+<script id="codex-visualization-lucide-initialization">(() => {
+  const initialize = () => {
+    globalThis.lucide?.createIcons({ attrs: { width: 16, height: 16 } });
+  };
+  if (globalThis.lucide != null) {
+    initialize();
+    return;
+  }
+  document
+    .getElementById("codex-visualization-lucide")
+    ?.addEventListener("load", initialize, { once: true });
+})();
+</script>
+</body>
+</html>
