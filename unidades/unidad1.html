@@ -4575,7 +4575,157 @@
   
   
 </section><section id="12">
-<h2>Funciones trigonométricas: seno y coseno</h2>
+<h2>Funciones trigonométricas: seno y coseno</h2> 
+
+
+   <h2>Funciones trigonométricas: del triángulo al movimiento</h2>
+
+  <p>
+    La trigonometría comenzó como una herramienta para estudiar relaciones entre
+    ángulos y lados de un triángulo. En un triángulo rectángulo, si conocemos un
+    ángulo, podemos comparar sus lados mediante tres razones fundamentales:
+  </p>
+
+  <div class="tarjeta">
+    <h3>Relaciones trigonométricas en un triángulo rectángulo</h3>
+
+    <p>
+      Para un ángulo agudo \(\alpha\), se definen:
+    </p>
+
+    <ul>
+      <li>
+        \(\sen(\alpha)=\dfrac{\text{cateto opuesto}}{\text{hipotenusa}}\)
+      </li>
+      <li>
+        \(\cos(\alpha)=\dfrac{\text{cateto adyacente}}{\text{hipotenusa}}\)
+      </li>
+      <li>
+        \(\tan(\alpha)=\dfrac{\text{cateto opuesto}}{\text{cateto adyacente}}\)
+      </li>
+    </ul>
+
+    <p>
+      Estas relaciones permiten resolver problemas de altura, distancia,
+      inclinación, pendientes, rampas, piezas mecánicas y transmisión de
+      movimientos.
+    </p>
+  </div>
+
+  <p>
+    En este primer uso, el ángulo aparece como un dato geométrico: por ejemplo,
+    la inclinación de una rampa, la pendiente de una calle o la posición de una
+    pieza respecto de otra. Pero en muchas situaciones técnicas el ángulo no se
+    queda quieto: cambia.
+  </p>
+
+  <p>
+    Cuando un objeto gira, como una rueda, una polea, un cigüeñal o un engranaje,
+    el ángulo va variando con el tiempo. Entonces ya no alcanza con hablar solo
+    de una relación trigonométrica dentro de un triángulo: necesitamos estudiar
+    cómo cambian esas relaciones mientras transcurre el tiempo.
+  </p>
+
+  <div class="nota">
+    <h3>Del ángulo fijo al ángulo que cambia</h3>
+
+    <p>
+      Si el ángulo depende del tiempo, podemos escribir:
+    </p>
+
+    <p>
+      \[
+        \alpha = \alpha(t)
+      \]
+    </p>
+
+    <p>
+      Entonces las razones trigonométricas se transforman en funciones:
+    </p>
+
+    <p>
+      \[
+        y=\sen(t), \qquad y=\cos(t), \qquad y=\tan(t)
+      \]
+    </p>
+
+    <p>
+      Esto nos permite describir movimientos periódicos, es decir, movimientos
+      que se repiten una y otra vez.
+    </p>
+  </div>
+
+  <h3>¿Dónde aparecen estas funciones?</h3>
+
+  <p>
+    Las funciones seno y coseno aparecen naturalmente cuando estudiamos
+    movimientos circulares y oscilatorios. Por ejemplo:
+  </p>
+
+  <ul>
+    <li>el giro de una rueda;</li>
+    <li>el movimiento de una polea;</li>
+    <li>la altura de un pistón dentro de un motor;</li>
+    <li>la señal de un sensor de cigüeñal;</li>
+    <li>la repetición de ciclos en sistemas mecánicos y eléctricos.</li>
+  </ul>
+
+  <p>
+    En estos casos, la matemática nos ayuda a mirar un movimiento real y
+    representarlo mediante una función, donde la computadora y nosotros podemos interpretar lainformación. La variable independiente puede ser el
+    tiempo \(t\), y el valor de la función puede representar una altura, una
+    posición, una señal eléctrica o una velocidad.
+  </p>
+
+ 
+  
+
+  <h3>Simuladores</h3>
+
+  <p>
+    Para estudiar estas ideas, vamos a usar algunos simuladores vinculados con
+    situaciones automotrices. La idea no es memorizar fórmulas aisladas, sino ver
+    cómo una función puede representar un fenómeno que cambia con el tiempo.
+  </p>
+
+  <p>
+    En los simuladores podremos observar movimientos periódicos, señales,
+    rotaciones, cambios de velocidad y relaciones entre el giro de una pieza y
+    una magnitud que se puede medir.
+  </p>
+  <article class="tarjeta">
+      <h3>Pistón, biela y manivela</h3>
+      <p>
+        Muestra cómo un movimiento circular puede producir un movimiento vertical
+        alternativo, relacionado con funciones trigonométricas.
+      </p>
+
+      <iframe
+        class="iframe-simulador"
+        src="simuladores/simulador-piston-biela-manivela.html"
+        title="Simulador de pistón, biela y manivela"
+        loading="lazy">
+      </iframe>
+    </article>
+		
+  <div class="contenedor-simuladores">
+    <article class="tarjeta">
+      <h3>Sensor de cigüeñal y árbol de levas</h3>
+      <p>
+        Permite observar señales periódicas asociadas al giro del motor y pensar
+        cómo una rotación puede transformarse en información medible.
+      </p>
+
+      <iframe
+        class="iframe-simulador"
+        src="simuladores/06-sensor-ciguenal-arbol-levas.html"
+        title="Simulador de sensor de cigüeñal y árbol de levas"
+        loading="lazy">
+      </iframe>
+    </article>
+
+    
+  </div>
 
   <h2>Funciones trigonométricas: función seno</h2>
 
