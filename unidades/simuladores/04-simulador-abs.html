@@ -1,0 +1,1997 @@
+<!doctype html>
+<html lang="es" data-visualize-standalone>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Simulador ABS: rueda fónica y diagnóstico</title>
+<style>:root {
+  color-scheme: light dark;
+  background-color: transparent !important;
+
+  /* Agent-facing contract; keep in sync with SKILL.md. */
+  --background: var(
+    --main-surface-primary,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --foreground: light-dark(rgb(26 28 31), rgb(255 255 255));
+  --card: color-mix(in oklab, var(--foreground) 5%, transparent);
+  --card-foreground: var(--foreground);
+  --popover: light-dark(rgb(255 255 255), rgb(45 45 45));
+  --popover-foreground: var(--foreground);
+  --primary: light-dark(rgb(51 156 255), rgb(131 195 255));
+  --primary-foreground: light-dark(rgb(255 255 255), rgb(13 13 13));
+  --secondary: light-dark(rgb(255 255 255 / 96%), rgb(54 54 54 / 96%));
+  --secondary-foreground: var(--foreground);
+  --muted: color-mix(in srgb, var(--foreground) 10%, transparent);
+  --muted-foreground: light-dark(
+    rgb(26 28 31 / 49.4%),
+    rgb(255 255 255 / 49.8%)
+  );
+  --accent: light-dark(rgb(229 242 255), rgb(13 39 63));
+  --accent-foreground: var(--primary);
+  --destructive: light-dark(rgb(226 85 7), rgb(255 133 73));
+  --border: light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%));
+  --input: light-dark(
+    rgb(26 28 31 / 11.8%),
+    color-mix(in oklab, rgb(0 0 0) 10%, transparent)
+  );
+  --ring: light-dark(rgb(51 156 255), rgb(131 195 255 / 76%));
+  --font-size-base: 14px;
+  --red: light-dark(rgb(186 38 35), rgb(250 66 62));
+  --green: light-dark(rgb(0 162 64), rgb(64 201 119));
+
+  /* Internal implementation variables; not part of the agent contract. */
+  --font-sans: -apple-system, system-ui, "Segoe UI", sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
+    monospace;
+  --font-size-normal: max(11px, var(--font-size-base));
+  --font-size-tooltip: calc(var(--font-size-base) - 1px);
+  --font-size-small: max(11px, calc(var(--font-size-base) - 2px));
+  --font-size-h1: calc(var(--font-size-normal) * 1.7142857143);
+  --font-size-h2: calc(var(--font-size-normal) * 1.4285714286);
+  --font-size-h3: calc(var(--font-size-normal) * 1.2857142857);
+  --font-weight-normal: 430;
+  --font-weight-medium: 500;
+  --line-height-normal: calc(var(--font-size-normal) * 1.5);
+  --line-height-tooltip: calc(var(--font-size-tooltip) * 1.4285714286);
+  --line-height-small: calc(var(--font-size-small) + 4px);
+  --radius: 10px;
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-2xl: calc(var(--radius) * 1.6);
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 8%);
+  --checkmark-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 17 17'%3E%3Cpath d='M12.8961 3.64101C13.1297 3.41418 13.4984 3.37523 13.7779 3.56581C14.0571 3.75635 14.1554 4.11331 14.0299 4.41347L13.9615 4.53847L7.71151 13.7045C7.59411 13.8767 7.4063 13.9877 7.19881 14.0072C6.99136 14.0267 6.78564 13.9533 6.63826 13.806L2.88826 10.056L2.79842 9.9457C2.6192 9.67407 2.64927 9.30496 2.88826 9.06581C3.12738 8.82669 3.49647 8.79676 3.76815 8.97597L3.8785 9.06581L7.03084 12.2182L12.8053 3.74941L12.8961 3.64101Z'/%3E%3C/svg%3E");
+
+  /* Legacy aliases; not part of the current agent contract. */
+  --viz-bg: transparent;
+  --viz-panel: var(--card);
+  --viz-border: var(--border);
+  --viz-text: var(--foreground);
+  --viz-muted: var(--muted-foreground);
+  --viz-accent: var(--primary);
+  --viz-accent-text: var(--primary-foreground);
+  --viz-accent-bg: var(--accent);
+  --viz-font-size: var(--font-size-base);
+  --viz-warning: var(--destructive);
+  --color-background-primary: var(--background);
+  --color-text-primary: var(--foreground);
+  --color-border-secondary: var(--border);
+}
+
+:root[data-visualize-standalone] {
+  background-color: var(--background) !important;
+}
+
+/* Generic mobile code-block hosts provide light/dark mode but no series palette.
+   AppBlock hosts set all six variables themselves. */
+:root:not([data-app-block-surface]) {
+  --viz-series-1: var(--primary);
+  --viz-series-2: light-dark(#f3883b, #f59a56);
+  --viz-series-3: light-dark(#5dc977, #74d58b);
+  --viz-series-4: light-dark(#eb77b1, #f08fc0);
+  --viz-series-5: light-dark(#9b79ec, #aa91ef);
+  --viz-series-6: light-dark(#3ab9b1, #5acbc2);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html > body {
+  margin: 0;
+  padding: 5px;
+  color: var(--foreground);
+  background: transparent !important;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-normal);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+}
+
+:root:not([data-app-block-surface]) > body {
+  padding: 12px;
+}
+
+a {
+  color: color-mix(in srgb, var(--viz-accent) 80%, var(--viz-text) 20%);
+  cursor: pointer;
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  text-underline-offset: 2px;
+}
+
+a:is(:hover, :focus-visible) {
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 0.5px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-block: 0;
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.3;
+}
+
+b,
+strong,
+th {
+  font-weight: var(--font-weight-medium);
+}
+
+code:not(pre code) {
+  display: inline;
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  background: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  overflow-wrap: anywhere;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  word-break: break-word;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--foreground);
+  font: inherit;
+  text-align: start;
+}
+
+.table :is(th, td) {
+  padding-block: 10px;
+  padding-inline: 0 24px;
+  overflow-wrap: anywhere;
+  border-bottom: 1px solid var(--border);
+  text-align: start;
+  vertical-align: top;
+}
+
+.table-responsive > .table :is(th, td) {
+  overflow-wrap: break-word;
+}
+
+.table :is(th, td):last-child {
+  padding-inline-end: 0;
+}
+
+.table :is(caption, thead th) {
+  font-weight: 600;
+}
+
+.table thead th {
+  padding-block: 8px;
+  border-bottom-color: color-mix(in srgb, var(--foreground) 16%, transparent);
+}
+
+.table tbody tr:last-child :is(th, td) {
+  border-bottom: 0;
+}
+
+.table.table-sm :is(th, td) {
+  padding-block: 6px;
+}
+
+.table.table-sm :is(th, td):not(:last-child) {
+  padding-inline-end: 16px;
+}
+
+.table :is(.text-end, [align="right"]) {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.table :is(.text-center, [align="center"]) {
+  text-align: center;
+}
+
+.table .text-nowrap {
+  white-space: nowrap;
+}
+
+#widget {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  padding: 0;
+  background: transparent !important;
+}
+
+.card {
+  min-width: 0;
+  padding: 12px;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  border-radius: var(--radius-2xl);
+  color: var(--card-foreground);
+  background: var(--card);
+}
+
+#widget > :not(.card) {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: max-content;
+  max-width: min(
+    20rem,
+    var(--tooltip-available-width, calc(100vw - 10px)),
+    calc(100vw - 10px)
+  );
+  max-height: min(
+    var(--tooltip-available-height, calc(100vh - 10px)),
+    calc(100vh - 10px)
+  );
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  color: var(--popover-foreground);
+  background: var(--popover);
+  box-shadow: none;
+  font-size: var(--font-size-tooltip);
+  line-height: var(--line-height-tooltip);
+  overflow-wrap: break-word;
+  white-space: normal;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* The bundled tooltip runtime owns [data-tooltip]. AppBlock's CSS-only
+   pseudo-tooltip can widen dense grids even while hidden. */
+main [data-tooltip]::after {
+  content: none;
+}
+
+.viz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(max(180px, 24%), 1fr));
+  gap: 10px;
+}
+
+.viz-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.viz-stat-value {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+.viz-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.viz-badge {
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  color: var(--accent-foreground);
+  background: var(--accent);
+  font-weight: var(--font-weight-medium);
+}
+
+small,
+.text-small,
+.viz-badge {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.text-muted {
+  color: var(--muted-foreground);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.viz-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.viz-controls > .form-label {
+  display: grid;
+  min-width: min(100%, 260px);
+  flex: 1 1 280px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 2px 12px;
+  margin-bottom: 0;
+}
+
+.viz-controls > .form-label > :is(.form-control, .form-range, .form-select) {
+  grid-column: 1 / -1;
+}
+
+.btn,
+.form-check-input,
+.form-control,
+.form-range,
+.form-select {
+  font: inherit;
+}
+
+.btn {
+  appearance: button;
+  display: inline-flex;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  min-height: 28px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0 8px;
+  -webkit-app-region: no-drag;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: var(--cursor-interaction, pointer);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.btn:is(.btn-block, .viz-tile) {
+  inline-size: 100%;
+}
+
+.btn.viz-tile {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+a.btn {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn-primary {
+  border-color: transparent;
+  color: var(--interactive-label-primary-default, var(--primary-foreground));
+  background: var(--interactive-bg-primary-default, var(--foreground));
+  background-clip: padding-box;
+}
+
+.btn-primary .text-muted {
+  color: color-mix(
+    in srgb,
+    var(--interactive-label-primary-default, var(--primary-foreground)) 50%,
+    transparent
+  );
+}
+
+.btn-primary:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 80%, transparent);
+  background-clip: padding-box;
+}
+
+.btn-ghost {
+  border-color: transparent;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.btn-ghost:not(:disabled):hover {
+  color: var(--foreground);
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+[data-lucide] {
+  stroke-width: 1.6;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--foreground);
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  padding: 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  color: var(--foreground);
+  background: var(--secondary);
+}
+
+.form-control::placeholder {
+  color: var(--muted-foreground);
+}
+
+.form-control[type="file"] {
+  padding: 0;
+  overflow: hidden;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control[type="file"]::file-selector-button {
+  min-height: 26px;
+  margin-right: 8px;
+  padding: 0 8px;
+  border: 0;
+  border-right: 1px solid var(--input);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: inherit;
+  font: inherit;
+}
+
+.form-control[type="file"]:not(:disabled):hover::file-selector-button {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-control-color[type="color"] {
+  width: 40px;
+  height: 28px;
+  padding: 3px;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control-color[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.form-control-color[type="color"]::-webkit-color-swatch {
+  border: 0;
+  border-radius: calc(var(--radius-lg) - 4px);
+}
+
+textarea.form-control {
+  height: auto;
+  min-height: 72px;
+  padding: 8px 10px;
+  resize: vertical;
+}
+
+.form-control:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-control:disabled,
+.form-select:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.form-select {
+  appearance: none;
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  margin: 0;
+  padding: 0 32px 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  color: var(--foreground);
+  background-color: var(--secondary);
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted-foreground) 50%),
+    linear-gradient(135deg, var(--muted-foreground) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) 50%,
+    calc(100% - 10px) 50%;
+  background-repeat: no-repeat;
+  background-size: 4px 4px;
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-select:not(:disabled):hover {
+  background-color: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-select:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-check {
+  display: flex;
+  min-height: 20px;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-check-input {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  margin: 0;
+  border: 1px solid var(--input);
+  color: var(--primary-foreground);
+  background-color: transparent;
+  cursor: var(--cursor-interaction, default);
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    box-shadow 150ms;
+}
+
+.form-check:not(.form-switch) .form-check-input[type="checkbox"] {
+  border-color: var(--input);
+  border-radius: var(--radius-sm);
+  background-color: var(--secondary);
+  box-shadow: var(--shadow-sm);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input:not(:disabled):not(:checked):hover {
+  background-color: var(--card);
+}
+
+.form-check:not(.form-switch) .form-check-input[type="checkbox"]:checked {
+  border-color: var(--primary);
+  background-color: var(--primary);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input[type="checkbox"]:checked::before {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-foreground);
+  content: "";
+  mask: var(--checkmark-image) center / 12px 12px no-repeat;
+}
+
+.form-check-input[type="radio"] {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+}
+
+.form-check-input[type="radio"]:checked {
+  border: 2px solid var(--primary);
+  background:
+    radial-gradient(circle, var(--primary-foreground) 0 2.5px, transparent 3px),
+    var(--primary);
+}
+
+.form-check:not(.form-switch) .form-check-input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+}
+
+.form-switch .form-check-input:disabled,
+.form-switch .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.form-check-label {
+  color: var(--foreground);
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-switch .form-check-input {
+  position: relative;
+  width: 32px;
+  height: 20px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+  box-shadow: none;
+  transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border: 1px solid light-dark(var(--primary-foreground), var(--foreground));
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+  box-shadow: var(--shadow-sm);
+  content: "";
+  transform: translate(2px, -50%);
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input:checked {
+  background: var(--primary);
+}
+
+.form-switch .form-check-input:checked::before {
+  transform: translate(14px, -50%);
+}
+
+.form-switch .form-check-input:focus-visible {
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+.form-range {
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 28px;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: 0;
+  accent-color: var(--primary);
+  background: linear-gradient(
+      color-mix(in srgb, var(--foreground) 7%, transparent),
+      color-mix(in srgb, var(--foreground) 7%, transparent)
+    )
+    center / 100% 2px no-repeat;
+}
+
+.form-range::-webkit-slider-runnable-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-webkit-slider-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range::-moz-range-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-moz-range-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.btn:not(.btn-primary, .viz-tile):is(
+    [aria-pressed="true"],
+    [aria-selected="true"],
+    .is-selected
+  ) {
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+  background: var(--primary);
+}
+
+.btn.viz-tile:is([aria-pressed="true"], [aria-selected="true"], .is-selected) {
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+#widget > svg {
+  width: 100%;
+}
+
+.text-warning,
+.text-destructive {
+  color: var(--destructive);
+}
+</style>
+</head>
+<body>
+<style>
+  #abs-simulator {
+    color: var(--foreground);
+    width: 100%;
+  }
+
+  #abs-simulator * {
+    box-sizing: border-box;
+  }
+
+  #abs-simulator .abs-intro {
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1rem;
+    padding-bottom: 0.85rem;
+  }
+
+  #abs-simulator .abs-intro h2 {
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    margin: 0 0 0.35rem;
+  }
+
+  #abs-simulator .abs-intro p,
+  #abs-simulator .abs-note,
+  #abs-simulator .abs-explain p {
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  #abs-simulator .abs-controls-top {
+    align-items: end;
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: auto minmax(230px, 1fr);
+    margin-bottom: 0.9rem;
+  }
+
+  #abs-simulator .abs-actions,
+  #abs-simulator .abs-legend,
+  #abs-simulator .abs-status-line {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  #abs-simulator .abs-parameters {
+    display: grid;
+    gap: 0.8rem 1rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-bottom: 0.9rem;
+  }
+
+  #abs-simulator .abs-readouts {
+    display: grid;
+    gap: 0.6rem;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    margin-bottom: 1rem;
+  }
+
+  #abs-simulator .abs-readout {
+    border-left: 3px solid var(--viz-series-1);
+    min-width: 0;
+    padding: 0.25rem 0.6rem;
+  }
+
+  #abs-simulator .abs-readout-label {
+    color: var(--muted-foreground);
+    display: block;
+    font-size: 0.78rem;
+    line-height: 1.2;
+    margin-bottom: 0.15rem;
+  }
+
+  #abs-simulator .abs-readout output {
+    display: block;
+    font-size: 1.02rem;
+    font-weight: 650;
+    overflow-wrap: anywhere;
+  }
+
+  #abs-simulator .abs-status-readout {
+    border-left-color: var(--viz-series-3);
+  }
+
+  #abs-simulator .abs-stage {
+    align-items: start;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: minmax(280px, 0.78fr) minmax(440px, 1.22fr);
+  }
+
+  #abs-simulator .abs-figure {
+    margin: 0;
+    min-width: 0;
+  }
+
+  #abs-simulator .abs-figure svg {
+    display: block;
+    height: auto;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  #abs-simulator .abs-caption {
+    color: var(--muted-foreground);
+    font-size: 0.82rem;
+    line-height: 1.35;
+    margin-top: 0.35rem;
+  }
+
+  #abs-simulator .abs-axis {
+    stroke: var(--foreground);
+    stroke-width: 1.6;
+  }
+
+  #abs-simulator .abs-gridline,
+  #abs-simulator .abs-guide {
+    stroke: var(--border);
+    stroke-width: 1;
+  }
+
+  #abs-simulator .abs-guide {
+    stroke-dasharray: 5 5;
+  }
+
+  #abs-simulator .abs-svg-label {
+    fill: var(--foreground);
+    font-size: 12px;
+  }
+
+  #abs-simulator .abs-svg-muted {
+    fill: var(--muted-foreground);
+    font-size: 11px;
+  }
+
+  #abs-simulator .abs-tire {
+    fill: none;
+    stroke: var(--foreground);
+    stroke-width: 18;
+  }
+
+  #abs-simulator .abs-rim {
+    fill: var(--background);
+    stroke: var(--muted-foreground);
+    stroke-width: 3;
+  }
+
+  #abs-simulator .abs-hub {
+    fill: var(--viz-series-1);
+    stroke: var(--background);
+    stroke-width: 3;
+  }
+
+  #abs-simulator .abs-spoke {
+    stroke: var(--muted-foreground);
+    stroke-linecap: round;
+    stroke-width: 6;
+  }
+
+  #abs-simulator .abs-tone-ring {
+    fill: none;
+    stroke: var(--viz-series-2);
+    stroke-width: 3;
+  }
+
+  #abs-simulator .abs-tooth {
+    stroke: var(--viz-series-2);
+    stroke-linecap: square;
+    stroke-width: 3;
+  }
+
+  #abs-simulator .abs-missing-marker {
+    fill: var(--background);
+    stroke: var(--viz-series-3);
+    stroke-dasharray: 3 3;
+    stroke-width: 2;
+  }
+
+  #abs-simulator .abs-sensor-body {
+    fill: var(--muted);
+    stroke: var(--foreground);
+    stroke-width: 2;
+  }
+
+  #abs-simulator .abs-sensor-tip {
+    fill: var(--viz-series-3);
+  }
+
+  #abs-simulator .abs-speed-wheel,
+  #abs-simulator .abs-speed-reference,
+  #abs-simulator .abs-signal-path {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  #abs-simulator .abs-speed-wheel {
+    stroke: var(--viz-series-1);
+    stroke-width: 3;
+  }
+
+  #abs-simulator .abs-speed-reference {
+    stroke: var(--viz-series-2);
+    stroke-dasharray: 7 5;
+    stroke-width: 2.5;
+  }
+
+  #abs-simulator .abs-signal-path {
+    stroke: var(--viz-series-3);
+    stroke-width: 2.5;
+  }
+
+  #abs-simulator .abs-cursor {
+    stroke: var(--foreground);
+    stroke-width: 1.5;
+  }
+
+  #abs-simulator .abs-dot-wheel {
+    fill: var(--viz-series-1);
+    stroke: var(--background);
+    stroke-width: 2;
+  }
+
+  #abs-simulator .abs-dot-reference {
+    fill: var(--viz-series-2);
+    stroke: var(--background);
+    stroke-width: 2;
+  }
+
+  #abs-simulator .abs-dot-signal {
+    fill: var(--viz-series-3);
+    stroke: var(--background);
+    stroke-width: 2;
+  }
+
+  #abs-simulator .abs-legend-key {
+    align-items: center;
+    display: inline-flex;
+    font-size: 0.78rem;
+    gap: 0.3rem;
+  }
+
+  #abs-simulator .abs-swatch {
+    background: var(--viz-series-1);
+    display: inline-block;
+    height: 3px;
+    width: 18px;
+  }
+
+  #abs-simulator .abs-swatch-reference {
+    background: repeating-linear-gradient(90deg, var(--viz-series-2) 0 6px, transparent 6px 10px);
+  }
+
+  #abs-simulator .abs-formulas {
+    border-top: 1px solid var(--border);
+    display: grid;
+    gap: 0.8rem 1rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 1rem;
+    padding-top: 1rem;
+  }
+
+  #abs-simulator .abs-formula {
+    min-width: 0;
+  }
+
+  #abs-simulator .abs-formula-title,
+  #abs-simulator .abs-step-title {
+    color: var(--muted-foreground);
+    display: block;
+    font-size: 0.78rem;
+    margin-bottom: 0.25rem;
+  }
+
+  #abs-simulator .abs-equation {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 650;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+  }
+
+  #abs-simulator .abs-live-equation {
+    color: var(--muted-foreground);
+    display: block;
+    font-size: 0.82rem;
+    line-height: 1.4;
+    margin-top: 0.2rem;
+    overflow-wrap: anywhere;
+  }
+
+  #abs-simulator .abs-explain {
+    display: grid;
+    gap: 0.85rem 1.2rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 1rem;
+  }
+
+  #abs-simulator .abs-step {
+    margin: 0;
+  }
+
+  #abs-simulator .abs-note {
+    border-left: 3px solid var(--viz-series-3);
+    color: var(--muted-foreground);
+    font-size: 0.84rem;
+    margin-top: 1rem;
+    padding-left: 0.7rem;
+  }
+
+  @media (max-width: 900px) {
+    #abs-simulator .abs-readouts {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 760px) {
+    #abs-simulator .abs-controls-top,
+    #abs-simulator .abs-parameters,
+    #abs-simulator .abs-stage,
+    #abs-simulator .abs-formulas,
+    #abs-simulator .abs-explain {
+      grid-template-columns: 1fr;
+    }
+
+    #abs-simulator .abs-controls-top {
+      align-items: stretch;
+    }
+  }
+
+  @media (max-width: 430px) {
+    #abs-simulator .abs-readouts {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #abs-simulator .abs-status-readout {
+      grid-column: 1 / -1;
+    }
+
+    #abs-simulator .abs-actions .btn {
+      flex: 1 1 auto;
+    }
+  }
+</style>
+
+<div id="abs-simulator">
+  <section class="abs-intro" aria-labelledby="abs-title">
+    <h2 id="abs-title">Simulador ABS: rueda fónica, sensor y deslizamiento</h2>
+    <p>El sensor cuenta el paso de los dientes de la rueda fónica. La ECU estima la velocidad de cada rueda y, si una se frena mucho más que el vehículo, ordena al módulo hidráulico reducir y volver a aplicar presión.</p>
+  </section>
+
+  <div class="abs-controls-top">
+    <div class="abs-actions">
+      <button id="abs-play" class="btn btn-primary" type="button" aria-pressed="true">Pausar</button>
+      <button id="abs-reset" class="btn" type="button">Volver a t = 0</button>
+    </div>
+    <label class="form-label" for="abs-time">
+      Tiempo: <output id="abs-time-output" for="abs-time">0,000 s</output>
+      <input id="abs-time" class="form-range" type="range" min="0" max="4" step="0.001" value="0">
+    </label>
+  </div>
+
+  <div class="abs-parameters">
+    <label class="form-label" for="abs-radius">
+      Radio del neumático R: <output id="abs-radius-output" for="abs-radius">0,30 m</output>
+      <input id="abs-radius" class="form-range" type="range" min="0.25" max="0.40" step="0.01" value="0.30">
+    </label>
+    <label class="form-label" for="abs-teeth">
+      Dientes de la rueda N: <output id="abs-teeth-output" for="abs-teeth">48</output>
+      <input id="abs-teeth" class="form-range" type="range" min="12" max="60" step="1" value="48">
+    </label>
+    <label class="form-label" for="abs-rpm">
+      Régimen inicial n: <output id="abs-rpm-output" for="abs-rpm">300 rpm</output>
+      <input id="abs-rpm" class="form-range" type="range" min="60" max="600" step="10" value="300">
+    </label>
+    <label class="form-label" for="abs-sensor-type">
+      Tipo de sensor
+      <select id="abs-sensor-type" class="form-select">
+        <option value="hall" selected>Activo Hall — pulsos cuadrados</option>
+        <option value="inductive">Pasivo inductivo — señal senoidal</option>
+      </select>
+    </label>
+    <label class="form-label" for="abs-scenario">
+      Condición de diagnóstico
+      <select id="abs-scenario" class="form-select">
+        <option value="normal" selected>Funcionamiento normal</option>
+        <option value="missing">Diente dañado o ausente</option>
+        <option value="weak">Entrehierro excesivo: señal débil</option>
+        <option value="locked">Rueda bloqueada desde t = 2 s</option>
+      </select>
+    </label>
+    <div class="form-label">
+      Ensayo sugerido
+      <div class="abs-status-line"><span class="viz-badge">Elegí “rueda bloqueada” y atravesá t = 2 s</span></div>
+    </div>
+  </div>
+
+  <div class="abs-readouts" aria-live="polite">
+    <div class="abs-readout">
+      <span class="abs-readout-label">Frecuencia esperada del sensor</span>
+      <output id="abs-frequency-output">240,0 Hz</output>
+    </div>
+    <div class="abs-readout">
+      <span class="abs-readout-label">Período entre dientes</span>
+      <output id="abs-period-output">4,17 ms</output>
+    </div>
+    <div class="abs-readout">
+      <span class="abs-readout-label">Velocidad de la rueda</span>
+      <output id="abs-speed-output">33,9 km/h</output>
+    </div>
+    <div class="abs-readout">
+      <span class="abs-readout-label">Deslizamiento de frenado</span>
+      <output id="abs-slip-output">0,0 %</output>
+    </div>
+    <div class="abs-readout abs-status-readout">
+      <span class="abs-readout-label">Decisión didáctica de la ECU</span>
+      <output id="abs-status-output">Rodadura estable</output>
+    </div>
+  </div>
+
+  <div class="abs-stage">
+    <figure class="abs-figure">
+      <svg id="abs-wheel-svg" viewBox="0 0 360 330" role="img" aria-labelledby="abs-wheel-title abs-wheel-desc">
+        <title id="abs-wheel-title">Rueda fónica y sensor ABS</title>
+        <desc id="abs-wheel-desc">Una rueda gira frente a un sensor. Los dientes producen pulsos eléctricos y una falla modifica la señal.</desc>
+        <g id="abs-wheel-rotor">
+          <circle class="abs-tire" cx="155" cy="155" r="112"></circle>
+          <circle class="abs-rim" cx="155" cy="155" r="77"></circle>
+          <g id="abs-spokes"></g>
+          <circle class="abs-tone-ring" cx="155" cy="155" r="84"></circle>
+          <g id="abs-teeth-group"></g>
+          <circle class="abs-hub" cx="155" cy="155" r="14"></circle>
+          <circle id="abs-missing-marker" class="abs-missing-marker" cx="244" cy="155" r="8" visibility="hidden"></circle>
+        </g>
+        <g aria-label="sensor ABS">
+          <path class="abs-sensor-body" d="M266 126 L330 126 L330 184 L266 184 L254 168 L254 142 Z"></path>
+          <circle id="abs-sensor-tip" class="abs-sensor-tip" cx="255" cy="155" r="7"></circle>
+          <line class="abs-guide" x1="260" y1="111" x2="260" y2="126"></line>
+          <text class="abs-svg-muted" x="260" y="103" text-anchor="middle">entrehierro</text>
+          <text class="abs-svg-label" x="296" y="205" text-anchor="middle">sensor ABS</text>
+        </g>
+        <path id="abs-rotation-arrow" d="M77 58 A118 118 0 0 1 184 39" fill="none" stroke="var(--viz-series-1)" stroke-width="3"></path>
+        <path d="M184 39 L173 34 L177 47 Z" fill="var(--viz-series-1)"></path>
+        <text id="abs-wheel-rpm-label" class="abs-svg-label" x="155" y="292" text-anchor="middle">300 rpm · sentido antihorario</text>
+        <text id="abs-wheel-condition" class="abs-svg-muted" x="155" y="315" text-anchor="middle">rueda fónica completa</text>
+      </svg>
+      <figcaption class="abs-caption">Cada diente cambia el campo magnético frente al sensor. No es necesario que el neumático dé una vuelta completa para estimar su velocidad.</figcaption>
+    </figure>
+
+    <figure class="abs-figure">
+      <div class="abs-legend" aria-hidden="true">
+        <span class="abs-legend-key"><span class="abs-swatch"></span>velocidad de la rueda</span>
+        <span class="abs-legend-key"><span class="abs-swatch abs-swatch-reference"></span>referencia del vehículo</span>
+      </div>
+      <svg id="abs-chart-svg" viewBox="0 0 660 390" role="img" aria-labelledby="abs-chart-title abs-chart-desc">
+        <title id="abs-chart-title">Velocidades y señal del sensor en función del tiempo</title>
+        <desc id="abs-chart-desc">El gráfico superior compara la velocidad de la rueda con la referencia del vehículo. El inferior muestra los pulsos del sensor.</desc>
+        <text class="abs-svg-label" x="60" y="18">Velocidad (km/h)</text>
+        <g id="abs-speed-grid"></g>
+        <path id="abs-reference-path" class="abs-speed-reference"></path>
+        <path id="abs-wheel-path" class="abs-speed-wheel"></path>
+        <line id="abs-speed-cursor" class="abs-cursor" x1="60" y1="28" x2="60" y2="184"></line>
+        <circle id="abs-reference-dot" class="abs-dot-reference" cx="60" cy="40" r="5"></circle>
+        <circle id="abs-wheel-dot" class="abs-dot-wheel" cx="60" cy="40" r="5"></circle>
+        <text class="abs-svg-muted" x="630" y="204" text-anchor="end">tiempo del ensayo (s)</text>
+
+        <text id="abs-signal-title" class="abs-svg-label" x="60" y="232">Señal Hall idealizada (V)</text>
+        <g id="abs-signal-grid"></g>
+        <path id="abs-signal-path" class="abs-signal-path"></path>
+        <line id="abs-signal-cursor" class="abs-cursor" x1="60" y1="244" x2="60" y2="354"></line>
+        <circle id="abs-signal-dot" class="abs-dot-signal" cx="60" cy="354" r="4.5"></circle>
+        <text id="abs-signal-start-label" class="abs-svg-muted" x="60" y="378">0,000 s</text>
+        <text id="abs-signal-end-label" class="abs-svg-muted" x="630" y="378" text-anchor="end">0,033 s</text>
+        <text id="abs-signal-window-label" class="abs-svg-muted" x="345" y="378" text-anchor="middle">ventana: 33 ms</text>
+      </svg>
+      <figcaption class="abs-caption">La línea discontinua representa una velocidad de referencia estimada a partir del vehículo y de las otras ruedas. El gráfico inferior amplía unos pocos períodos eléctricos.</figcaption>
+    </figure>
+  </div>
+
+  <section class="abs-formulas" aria-label="Fórmulas utilizadas">
+    <div class="abs-formula">
+      <span class="abs-formula-title">1. Frecuencia del sensor</span>
+      <span class="abs-equation">f<sub>sensor</sub> = N · n / 60</span>
+      <span id="abs-frequency-equation" class="abs-live-equation">48 · 300 / 60 = 240,0 Hz</span>
+    </div>
+    <div class="abs-formula">
+      <span class="abs-formula-title">2. Velocidad periférica</span>
+      <span class="abs-equation">v = 2πR · n / 60</span>
+      <span id="abs-speed-equation" class="abs-live-equation">2π · 0,30 · 300 / 60 · 3,6 = 33,9 km/h</span>
+    </div>
+    <div class="abs-formula">
+      <span class="abs-formula-title">3. Deslizamiento al frenar</span>
+      <span class="abs-equation">s = (v<sub>ref</sub> − v<sub>rueda</sub>) / v<sub>ref</sub> · 100 %</span>
+      <span id="abs-slip-equation" class="abs-live-equation">(33,9 − 33,9) / 33,9 · 100 = 0,0 %</span>
+    </div>
+  </section>
+
+  <section class="abs-explain" aria-label="Explicación didáctica">
+    <p class="abs-step"><span class="abs-step-title">Funcionamiento normal</span>Las dos velocidades coinciden, el intervalo entre pulsos es regular y el deslizamiento es cercano a cero.</p>
+    <p class="abs-step"><span class="abs-step-title">Rueda próxima al bloqueo</span>Al caer la velocidad de una rueda mientras el vehículo aún avanza, aumenta <code>s</code>. En este modelo, desde 20 % la ECU debería modular la presión.</p>
+    <p class="abs-step"><span class="abs-step-title">Diente dañado o ausente</span>Aparece una separación periódica más larga entre pulsos. En una rueda fónica ABS esto es una falla, no una indicación de que el vehículo se detuvo.</p>
+    <p class="abs-step"><span class="abs-step-title">Entrehierro excesivo</span>La señal pierde amplitud y puede no superar el umbral de lectura de la ECU. Con el sensor inductivo se ve claramente como una senoide más pequeña.</p>
+  </section>
+
+  <p class="abs-note"><strong>Alcance del modelo:</strong> las señales y el umbral del 20 % están idealizados para enseñanza. Un ABS real compara cuatro sensores, filtra ruido, considera aceleraciones y gobierna electroválvulas y una bomba hidráulica varias veces por segundo.</p>
+</div>
+
+<script>
+  (function () {
+    "use strict";
+
+    var root = document.getElementById("abs-simulator");
+    if (!root) return;
+
+    var svgNamespace = "http://www.w3.org/2000/svg";
+    var duration = 4;
+    var lockTime = 2;
+    var lockRamp = 0.35;
+    var wheelCenter = { x: 155, y: 155 };
+    var speedPlot = { left: 60, right: 630, top: 28, bottom: 184 };
+    var signalPlot = { left: 60, right: 630, top: 244, bottom: 354 };
+
+    var radius = 0.30;
+    var teeth = 48;
+    var initialRpm = 300;
+    var sensorType = "hall";
+    var scenario = "normal";
+    var currentTime = 0;
+    var reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var playing = !reducedMotion;
+    var lastFrame = null;
+
+    var playButton = root.querySelector("#abs-play");
+    var resetButton = root.querySelector("#abs-reset");
+    var timeSlider = root.querySelector("#abs-time");
+    var timeOutput = root.querySelector("#abs-time-output");
+    var radiusSlider = root.querySelector("#abs-radius");
+    var radiusOutput = root.querySelector("#abs-radius-output");
+    var teethSlider = root.querySelector("#abs-teeth");
+    var teethOutput = root.querySelector("#abs-teeth-output");
+    var rpmSlider = root.querySelector("#abs-rpm");
+    var rpmOutput = root.querySelector("#abs-rpm-output");
+    var sensorSelect = root.querySelector("#abs-sensor-type");
+    var scenarioSelect = root.querySelector("#abs-scenario");
+    var frequencyOutput = root.querySelector("#abs-frequency-output");
+    var periodOutput = root.querySelector("#abs-period-output");
+    var speedOutput = root.querySelector("#abs-speed-output");
+    var slipOutput = root.querySelector("#abs-slip-output");
+    var statusOutput = root.querySelector("#abs-status-output");
+    var frequencyEquation = root.querySelector("#abs-frequency-equation");
+    var speedEquation = root.querySelector("#abs-speed-equation");
+    var slipEquation = root.querySelector("#abs-slip-equation");
+    var wheelRotor = root.querySelector("#abs-wheel-rotor");
+    var spokesGroup = root.querySelector("#abs-spokes");
+    var teethGroup = root.querySelector("#abs-teeth-group");
+    var missingMarker = root.querySelector("#abs-missing-marker");
+    var sensorTip = root.querySelector("#abs-sensor-tip");
+    var wheelRpmLabel = root.querySelector("#abs-wheel-rpm-label");
+    var wheelCondition = root.querySelector("#abs-wheel-condition");
+    var speedGrid = root.querySelector("#abs-speed-grid");
+    var referencePath = root.querySelector("#abs-reference-path");
+    var wheelPath = root.querySelector("#abs-wheel-path");
+    var speedCursor = root.querySelector("#abs-speed-cursor");
+    var referenceDot = root.querySelector("#abs-reference-dot");
+    var wheelDot = root.querySelector("#abs-wheel-dot");
+    var signalTitle = root.querySelector("#abs-signal-title");
+    var signalGrid = root.querySelector("#abs-signal-grid");
+    var signalPath = root.querySelector("#abs-signal-path");
+    var signalCursor = root.querySelector("#abs-signal-cursor");
+    var signalDot = root.querySelector("#abs-signal-dot");
+    var signalStartLabel = root.querySelector("#abs-signal-start-label");
+    var signalEndLabel = root.querySelector("#abs-signal-end-label");
+    var signalWindowLabel = root.querySelector("#abs-signal-window-label");
+
+    function formatNumber(value, digits) {
+      var rounded = Math.abs(value) < Math.pow(10, -digits) / 2 ? 0 : value;
+      return rounded.toFixed(digits).replace(".", ",");
+    }
+
+    function clamp(value, minimum, maximum) {
+      return Math.max(minimum, Math.min(maximum, value));
+    }
+
+    function makeSvgElement(name, attributes, textValue) {
+      var element = document.createElementNS(svgNamespace, name);
+      Object.keys(attributes).forEach(function (key) {
+        element.setAttribute(key, attributes[key]);
+      });
+      if (textValue !== undefined) element.textContent = textValue;
+      return element;
+    }
+
+    function baseSpeedKmh() {
+      return 2 * Math.PI * radius * initialRpm / 60 * 3.6;
+    }
+
+    function rpmAt(time) {
+      if (scenario !== "locked" || time <= lockTime) return initialRpm;
+      if (time < lockTime + lockRamp) {
+        return initialRpm * (1 - (time - lockTime) / lockRamp);
+      }
+      return 0;
+    }
+
+    function revolutionsAt(time) {
+      if (scenario !== "locked" || time <= lockTime) return initialRpm * time / 60;
+      var beforeLock = initialRpm * lockTime / 60;
+      var rampElapsed = Math.min(time - lockTime, lockRamp);
+      var duringRamp = initialRpm * (rampElapsed - rampElapsed * rampElapsed / (2 * lockRamp)) / 60;
+      return beforeLock + duringRamp;
+    }
+
+    function referenceSpeedAt(time) {
+      var startSpeed = baseSpeedKmh();
+      if (scenario !== "locked" || time <= lockTime) return startSpeed;
+      var brakingProgress = (time - lockTime) / (duration - lockTime);
+      return startSpeed * (1 - 0.12 * clamp(brakingProgress, 0, 1));
+    }
+
+    function wheelSpeedAt(time) {
+      return 2 * Math.PI * radius * rpmAt(time) / 60 * 3.6;
+    }
+
+    function slipAt(time) {
+      var reference = referenceSpeedAt(time);
+      if (reference < 0.001) return 0;
+      return clamp((reference - wheelSpeedAt(time)) / reference * 100, 0, 100);
+    }
+
+    function frequencyAt(time) {
+      return teeth * rpmAt(time) / 60;
+    }
+
+    function sensorSignalAt(time) {
+      var currentRpm = rpmAt(Math.max(0, time));
+      if (currentRpm < 0.01) return 0;
+      var toothCoordinate = revolutionsAt(Math.max(0, time)) * teeth;
+      var toothIndex = ((Math.floor(toothCoordinate) % teeth) + teeth) % teeth;
+      var phase = toothCoordinate - Math.floor(toothCoordinate);
+      var missing = scenario === "missing" && toothIndex === 0;
+      var weakFactor = scenario === "weak" ? 0.24 : 1;
+
+      if (sensorType === "hall") {
+        if (missing) return 0;
+        return (phase < 0.46 ? 5 : 0) * weakFactor;
+      }
+      if (missing) return 0;
+      return 2.5 * weakFactor * Math.sin(2 * Math.PI * toothCoordinate);
+    }
+
+    function speedX(time) {
+      return speedPlot.left + time / duration * (speedPlot.right - speedPlot.left);
+    }
+
+    function speedY(speed, maximum) {
+      return speedPlot.bottom - speed / maximum * (speedPlot.bottom - speedPlot.top);
+    }
+
+    function signalY(value) {
+      var minimum = sensorType === "hall" ? 0 : -3;
+      var maximum = sensorType === "hall" ? 5 : 3;
+      return signalPlot.bottom - (value - minimum) / (maximum - minimum) * (signalPlot.bottom - signalPlot.top);
+    }
+
+    function setPlaying(nextPlaying) {
+      playing = nextPlaying;
+      playButton.textContent = playing ? "Pausar" : "Reproducir";
+      playButton.setAttribute("aria-pressed", playing ? "true" : "false");
+    }
+
+    function buildSpokes() {
+      spokesGroup.textContent = "";
+      for (var index = 0; index < 6; index += 1) {
+        var angle = index * Math.PI / 3;
+        spokesGroup.appendChild(makeSvgElement("line", {
+          x1: wheelCenter.x + 20 * Math.cos(angle),
+          y1: wheelCenter.y + 20 * Math.sin(angle),
+          x2: wheelCenter.x + 66 * Math.cos(angle),
+          y2: wheelCenter.y + 66 * Math.sin(angle),
+          "class": "abs-spoke"
+        }));
+      }
+    }
+
+    function buildTeeth() {
+      teethGroup.textContent = "";
+      for (var index = 0; index < teeth; index += 1) {
+        if (scenario === "missing" && index === 0) continue;
+        var angle = index * 2 * Math.PI / teeth;
+        teethGroup.appendChild(makeSvgElement("line", {
+          x1: wheelCenter.x + 82 * Math.cos(angle),
+          y1: wheelCenter.y + 82 * Math.sin(angle),
+          x2: wheelCenter.x + 96 * Math.cos(angle),
+          y2: wheelCenter.y + 96 * Math.sin(angle),
+          "class": "abs-tooth"
+        }));
+      }
+      missingMarker.setAttribute("visibility", scenario === "missing" ? "visible" : "hidden");
+    }
+
+    function buildSpeedGrid() {
+      speedGrid.textContent = "";
+      var maximum = Math.max(10, baseSpeedKmh() * 1.15);
+      [0, 1, 2, 3, 4].forEach(function (tick) {
+        var x = speedX(tick);
+        speedGrid.appendChild(makeSvgElement("line", {
+          x1: x, y1: speedPlot.top, x2: x, y2: speedPlot.bottom, "class": "abs-gridline"
+        }));
+        speedGrid.appendChild(makeSvgElement("text", {
+          x: x, y: 201, "text-anchor": "middle", "class": "abs-svg-muted"
+        }, String(tick)));
+      });
+      [0, 0.5, 1].forEach(function (fraction) {
+        var speed = maximum * fraction;
+        var y = speedY(speed, maximum);
+        speedGrid.appendChild(makeSvgElement("line", {
+          x1: speedPlot.left, y1: y, x2: speedPlot.right, y2: y, "class": fraction === 0 ? "abs-axis" : "abs-gridline"
+        }));
+        speedGrid.appendChild(makeSvgElement("text", {
+          x: 52, y: y + 4, "text-anchor": "end", "class": "abs-svg-muted"
+        }, formatNumber(speed, 0)));
+      });
+      speedGrid.appendChild(makeSvgElement("line", {
+        x1: speedPlot.left, y1: speedPlot.top, x2: speedPlot.left, y2: speedPlot.bottom, "class": "abs-axis"
+      }));
+      if (scenario === "locked") {
+        var lockX = speedX(lockTime);
+        speedGrid.appendChild(makeSvgElement("line", {
+          x1: lockX, y1: speedPlot.top, x2: lockX, y2: speedPlot.bottom, "class": "abs-guide"
+        }));
+        speedGrid.appendChild(makeSvgElement("text", {
+          x: lockX + 5, y: speedPlot.top + 13, "class": "abs-svg-muted"
+        }, "comienza el bloqueo"));
+      }
+    }
+
+    function buildSpeedCurves() {
+      var maximum = Math.max(10, baseSpeedKmh() * 1.15);
+      var wheelCommands = [];
+      var referenceCommands = [];
+      var samples = 360;
+      for (var index = 0; index <= samples; index += 1) {
+        var time = duration * index / samples;
+        var command = index === 0 ? "M" : "L";
+        wheelCommands.push(command + speedX(time).toFixed(2) + " " + speedY(wheelSpeedAt(time), maximum).toFixed(2));
+        referenceCommands.push(command + speedX(time).toFixed(2) + " " + speedY(referenceSpeedAt(time), maximum).toFixed(2));
+      }
+      wheelPath.setAttribute("d", wheelCommands.join(" "));
+      referencePath.setAttribute("d", referenceCommands.join(" "));
+    }
+
+    function buildSignalGrid() {
+      signalGrid.textContent = "";
+      var values = sensorType === "hall" ? [0, 2.5, 5] : [-3, 0, 3];
+      values.forEach(function (value) {
+        var y = signalY(value);
+        signalGrid.appendChild(makeSvgElement("line", {
+          x1: signalPlot.left, y1: y, x2: signalPlot.right, y2: y,
+          "class": value === 0 ? "abs-axis" : "abs-gridline"
+        }));
+        signalGrid.appendChild(makeSvgElement("text", {
+          x: 52, y: y + 4, "text-anchor": "end", "class": "abs-svg-muted"
+        }, formatNumber(value, value === 2.5 ? 1 : 0)));
+      });
+      signalGrid.appendChild(makeSvgElement("line", {
+        x1: signalPlot.left, y1: signalPlot.top, x2: signalPlot.left, y2: signalPlot.bottom, "class": "abs-axis"
+      }));
+      signalTitle.textContent = sensorType === "hall" ? "Señal Hall idealizada (V)" : "Señal inductiva idealizada (V)";
+    }
+
+    function signalWindow() {
+      var nominalFrequency = teeth * initialRpm / 60;
+      var eightPulses = clamp(8 / nominalFrequency, 0.04, 0.8);
+      if (scenario === "missing") return clamp(66 / initialRpm, 0.12, 1.2);
+      if (scenario === "locked") return Math.max(0.35, eightPulses);
+      return eightPulses;
+    }
+
+    function buildSignalCurve() {
+      var windowSize = signalWindow();
+      var start = Math.max(0, currentTime - windowSize);
+      var end = Math.max(windowSize, currentTime);
+      if (end > duration) {
+        end = duration;
+        start = Math.max(0, end - windowSize);
+      }
+      var commands = [];
+      var samples = 720;
+      for (var index = 0; index <= samples; index += 1) {
+        var sampleTime = start + (end - start) * index / samples;
+        var x = signalPlot.left + index / samples * (signalPlot.right - signalPlot.left);
+        var command = index === 0 ? "M" : "L";
+        commands.push(command + x.toFixed(2) + " " + signalY(sensorSignalAt(sampleTime)).toFixed(2));
+      }
+      signalPath.setAttribute("d", commands.join(" "));
+
+      var cursorFraction = clamp((currentTime - start) / Math.max(0.0001, end - start), 0, 1);
+      var cursorX = signalPlot.left + cursorFraction * (signalPlot.right - signalPlot.left);
+      var currentSignal = sensorSignalAt(currentTime);
+      signalCursor.setAttribute("x1", cursorX);
+      signalCursor.setAttribute("x2", cursorX);
+      signalDot.setAttribute("cx", cursorX);
+      signalDot.setAttribute("cy", signalY(currentSignal));
+      signalStartLabel.textContent = formatNumber(start, 3) + " s";
+      signalEndLabel.textContent = formatNumber(end, 3) + " s";
+      signalWindowLabel.textContent = "ventana: " + formatNumber((end - start) * 1000, 0) + " ms";
+    }
+
+    function decisionText(slip) {
+      if (scenario === "missing") return "Falla periódica de señal";
+      if (scenario === "weak") return "Señal bajo umbral";
+      if (slip >= 20) return "ABS: modular presión";
+      if (slip >= 10) return "Deslizamiento creciente";
+      return "Rodadura estable";
+    }
+
+    function conditionText() {
+      if (scenario === "missing") return "falla: un diente ausente";
+      if (scenario === "weak") return "entrehierro excesivo: baja amplitud";
+      if (scenario === "locked") return currentTime < lockTime ? "rodando antes del bloqueo" : "rueda en proceso de bloqueo";
+      return "rueda fónica completa";
+    }
+
+    function render(time) {
+      var rpm = rpmAt(time);
+      var frequency = frequencyAt(time);
+      var speed = wheelSpeedAt(time);
+      var reference = referenceSpeedAt(time);
+      var slip = slipAt(time);
+      var maximum = Math.max(10, baseSpeedKmh() * 1.15);
+      var rotationDegrees = -revolutionsAt(time) * 360;
+      var chartX = speedX(time);
+      var signal = sensorSignalAt(time);
+      var signalMaximum = sensorType === "hall" ? 5 : 2.5;
+
+      wheelRotor.setAttribute("transform", "rotate(" + rotationDegrees.toFixed(3) + " " + wheelCenter.x + " " + wheelCenter.y + ")");
+      sensorTip.setAttribute("opacity", String(0.25 + 0.75 * Math.min(1, Math.abs(signal) / signalMaximum)));
+      wheelRpmLabel.textContent = formatNumber(rpm, 0) + " rpm · sentido antihorario";
+      wheelCondition.textContent = conditionText();
+
+      speedCursor.setAttribute("x1", chartX);
+      speedCursor.setAttribute("x2", chartX);
+      wheelDot.setAttribute("cx", chartX);
+      wheelDot.setAttribute("cy", speedY(speed, maximum));
+      referenceDot.setAttribute("cx", chartX);
+      referenceDot.setAttribute("cy", speedY(reference, maximum));
+
+      timeSlider.value = String(time);
+      timeOutput.value = formatNumber(time, 3) + " s";
+      frequencyOutput.value = formatNumber(frequency, 1) + " Hz";
+      periodOutput.value = frequency > 0.001 ? formatNumber(1000 / frequency, 2) + " ms" : "sin pulsos";
+      speedOutput.value = formatNumber(speed, 1) + " km/h";
+      slipOutput.value = formatNumber(slip, 1) + " %";
+      statusOutput.value = decisionText(slip);
+
+      frequencyEquation.textContent = teeth + " · " + formatNumber(rpm, 0) + " / 60 = " + formatNumber(frequency, 1) + " Hz";
+      speedEquation.textContent = "2π · " + formatNumber(radius, 2) + " · " + formatNumber(rpm, 0) + " / 60 · 3,6 = " + formatNumber(speed, 1) + " km/h";
+      slipEquation.textContent = "(" + formatNumber(reference, 1) + " − " + formatNumber(speed, 1) + ") / " + formatNumber(reference, 1) + " · 100 = " + formatNumber(slip, 1) + " %";
+
+      buildSignalCurve();
+    }
+
+    function updateParameterText() {
+      radiusOutput.value = formatNumber(radius, 2) + " m";
+      teethOutput.value = String(teeth);
+      rpmOutput.value = formatNumber(initialRpm, 0) + " rpm";
+    }
+
+    function rebuildStructure() {
+      buildTeeth();
+      buildSpeedGrid();
+      buildSpeedCurves();
+      buildSignalGrid();
+      updateParameterText();
+      render(currentTime);
+    }
+
+    playButton.addEventListener("click", function () {
+      setPlaying(!playing);
+      lastFrame = null;
+    });
+
+    resetButton.addEventListener("click", function () {
+      currentTime = 0;
+      setPlaying(false);
+      render(currentTime);
+    });
+
+    timeSlider.addEventListener("input", function () {
+      currentTime = Number(timeSlider.value);
+      setPlaying(false);
+      render(currentTime);
+    });
+
+    radiusSlider.addEventListener("input", function () {
+      radius = Number(radiusSlider.value);
+      rebuildStructure();
+    });
+
+    teethSlider.addEventListener("input", function () {
+      teeth = Number(teethSlider.value);
+      rebuildStructure();
+    });
+
+    rpmSlider.addEventListener("input", function () {
+      initialRpm = Number(rpmSlider.value);
+      rebuildStructure();
+    });
+
+    sensorSelect.addEventListener("change", function () {
+      sensorType = sensorSelect.value;
+      rebuildStructure();
+    });
+
+    scenarioSelect.addEventListener("change", function () {
+      scenario = scenarioSelect.value;
+      rebuildStructure();
+    });
+
+    function animate(timestamp) {
+      if (lastFrame === null) lastFrame = timestamp;
+      var elapsed = Math.min((timestamp - lastFrame) / 1000, 0.1);
+      lastFrame = timestamp;
+      if (playing) {
+        currentTime += elapsed;
+        if (currentTime > duration) currentTime = 0;
+        render(currentTime);
+      }
+      window.requestAnimationFrame(animate);
+    }
+
+    buildSpokes();
+    rebuildStructure();
+    setPlaying(playing);
+    window.requestAnimationFrame(animate);
+  }());
+</script>
+
+<script id="codex-visualization-tooltip">/* oxlint-disable typescript/no-unsafe-argument, typescript/no-unsafe-call, typescript/no-unsafe-return */
+// Runs inside the visualization sandbox, not the host webview.
+(() => {
+  if (window.FloatingUIDOM == null) {
+    return;
+  }
+  const { autoUpdate, computePosition, flip, offset, shift, size } =
+    window.FloatingUIDOM;
+  const tooltipPlacements = new Set(["top", "right", "bottom", "left"]);
+  const tooltipId = `codex-visualization-tooltip-${
+    window.crypto?.randomUUID?.() ?? Date.now().toString(36)
+  }`;
+  const tooltipGap = 5;
+  const hoverDelay = 700;
+  const skipDelay = 300;
+  let activeTrigger = null;
+  let pendingTrigger = null;
+  let tooltip = null;
+  let openTimeout = null;
+  let autoUpdateCleanup = null;
+  let positionRequest = 0;
+  let skipDelayUntil = 0;
+
+  const getTrigger = (target) =>
+    target?.nodeType === Node.ELEMENT_NODE
+      ? target.closest("[data-tooltip]")
+      : null;
+  const containsTarget = (trigger, target) =>
+    target?.nodeType != null && trigger.contains(target);
+  const getContent = (trigger) =>
+    trigger.getAttribute("data-tooltip")?.trim() ?? "";
+  const getPlacement = (trigger) => {
+    const placement = trigger.getAttribute("data-tooltip-placement");
+    return tooltipPlacements.has(placement) ? placement : "top";
+  };
+  const getTooltip = () => {
+    if (tooltip == null) {
+      tooltip = document.createElement("div");
+      tooltip.id = tooltipId;
+      tooltip.className = "tooltip";
+      tooltip.setAttribute("role", "tooltip");
+    }
+    return tooltip;
+  };
+  const setDescribedBy = (trigger, described) => {
+    const ids = new Set(
+      (trigger.getAttribute("aria-describedby") ?? "")
+        .split(/\s+/)
+        .filter(Boolean),
+    );
+    if (described) {
+      ids.add(tooltipId);
+    } else {
+      ids.delete(tooltipId);
+    }
+    if (ids.size === 0) {
+      trigger.removeAttribute("aria-describedby");
+    } else {
+      trigger.setAttribute("aria-describedby", [...ids].join(" "));
+    }
+  };
+  const clearOpenTimeout = () => {
+    if (openTimeout != null) {
+      window.clearTimeout(openTimeout);
+      openTimeout = null;
+    }
+    pendingTrigger = null;
+  };
+  const closeTooltip = (activateSkipDelay = true) => {
+    clearOpenTimeout();
+    positionRequest += 1;
+    autoUpdateCleanup?.();
+    autoUpdateCleanup = null;
+    if (activeTrigger == null) {
+      return;
+    }
+    setDescribedBy(activeTrigger, false);
+    activeTrigger = null;
+    tooltip?.remove();
+    if (activateSkipDelay) {
+      skipDelayUntil = Date.now() + skipDelay;
+    }
+  };
+  const updatePosition = (trigger, floating) => {
+    const request = ++positionRequest;
+    void computePosition(trigger, floating, {
+      middleware: [
+        offset(tooltipGap),
+        flip({ padding: tooltipGap }),
+        shift({ padding: tooltipGap }),
+        size({
+          padding: tooltipGap,
+          apply({ availableHeight, availableWidth, elements }) {
+            elements.floating.style.setProperty(
+              "--tooltip-available-width",
+              `${Math.max(0, availableWidth)}px`,
+            );
+            elements.floating.style.setProperty(
+              "--tooltip-available-height",
+              `${Math.max(0, availableHeight)}px`,
+            );
+          },
+        }),
+      ],
+      placement: getPlacement(trigger),
+      strategy: "fixed",
+    })
+      .then(({ x, y }) => {
+        if (activeTrigger !== trigger || request !== positionRequest) {
+          return;
+        }
+        const scale = window.devicePixelRatio || 1;
+        floating.style.transform = `translate(${Math.round(x * scale) / scale}px, ${Math.round(y * scale) / scale}px)`;
+        floating.style.visibility = "visible";
+      })
+      .catch(() => {
+        if (activeTrigger === trigger && request === positionRequest) {
+          closeTooltip(false);
+        }
+      });
+  };
+  const openTooltip = (trigger) => {
+    const content = getContent(trigger);
+    if (!trigger.isConnected || content.length === 0) {
+      return;
+    }
+    clearOpenTimeout();
+    if (activeTrigger === trigger) {
+      return;
+    }
+    closeTooltip();
+    const floating = getTooltip();
+    floating.textContent = content;
+    floating.style.visibility = "hidden";
+    floating.style.transform = "translate(0, 0)";
+    document.body.appendChild(floating);
+    activeTrigger = trigger;
+    setDescribedBy(trigger, true);
+    autoUpdateCleanup = autoUpdate(trigger, floating, () => {
+      updatePosition(trigger, floating);
+    });
+  };
+  const requestOpen = (trigger, immediate = false) => {
+    if (
+      getContent(trigger).length === 0 ||
+      activeTrigger === trigger ||
+      pendingTrigger === trigger
+    ) {
+      return;
+    }
+    clearOpenTimeout();
+    pendingTrigger = trigger;
+    const delay =
+      immediate || activeTrigger != null || Date.now() < skipDelayUntil
+        ? 0
+        : hoverDelay;
+    if (delay === 0) {
+      openTooltip(trigger);
+      return;
+    }
+    openTimeout = window.setTimeout(() => {
+      openTimeout = null;
+      pendingTrigger = null;
+      openTooltip(trigger);
+    }, delay);
+  };
+  const handlePointerOpen = (event) => {
+    if (event.pointerType === "touch") {
+      return;
+    }
+    const trigger = getTrigger(event.target);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    requestOpen(trigger);
+  };
+  const handleLeave = (event) => {
+    const trigger = getTrigger(event.target);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const handleFocusIn = (event) => {
+    const trigger = getTrigger(event.target);
+    if (trigger?.matches(":focus-visible")) {
+      requestOpen(trigger, true);
+    }
+  };
+  const handleKeyDown = (event) => {
+    if (event.key === "Escape") {
+      closeTooltip();
+    }
+  };
+  const handleContextMenu = (event) => {
+    const trigger = getTrigger(event.target);
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const destroy = () => {
+    closeTooltip(false);
+    document.removeEventListener("pointerover", handlePointerOpen);
+    document.removeEventListener("pointerout", handleLeave);
+    document.removeEventListener("focusin", handleFocusIn);
+    document.removeEventListener("focusout", handleLeave);
+    document.removeEventListener("keydown", handleKeyDown);
+    document.removeEventListener("contextmenu", handleContextMenu);
+    tooltip = null;
+  };
+
+  document.addEventListener("pointerover", handlePointerOpen);
+  document.addEventListener("pointerout", handleLeave);
+  document.addEventListener("focusin", handleFocusIn);
+  document.addEventListener("focusout", handleLeave);
+  document.addEventListener("keydown", handleKeyDown);
+  document.addEventListener("contextmenu", handleContextMenu);
+  window.addEventListener("pagehide", destroy, { once: true });
+})();
+</script>
+<script id="codex-visualization-lucide-initialization">(() => {
+  const initialize = () => {
+    globalThis.lucide?.createIcons({ attrs: { width: 16, height: 16 } });
+  };
+  if (globalThis.lucide != null) {
+    initialize();
+    return;
+  }
+  document
+    .getElementById("codex-visualization-lucide")
+    ?.addEventListener("load", initialize, { once: true });
+})();
+</script>
+</body>
+</html>
