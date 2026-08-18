@@ -1,0 +1,1638 @@
+<!doctype html>
+<html lang="es" data-visualize-standalone>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Simulador de sensores de cigüeñal y árbol de levas</title>
+<style>:root {
+  color-scheme: light dark;
+  background-color: transparent !important;
+
+  /* Agent-facing contract; keep in sync with SKILL.md. */
+  --background: var(
+    --main-surface-primary,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --foreground: light-dark(rgb(26 28 31), rgb(255 255 255));
+  --card: color-mix(in oklab, var(--foreground) 5%, transparent);
+  --card-foreground: var(--foreground);
+  --popover: light-dark(rgb(255 255 255), rgb(45 45 45));
+  --popover-foreground: var(--foreground);
+  --primary: light-dark(rgb(51 156 255), rgb(131 195 255));
+  --primary-foreground: light-dark(rgb(255 255 255), rgb(13 13 13));
+  --secondary: light-dark(rgb(255 255 255 / 96%), rgb(54 54 54 / 96%));
+  --secondary-foreground: var(--foreground);
+  --muted: color-mix(in srgb, var(--foreground) 10%, transparent);
+  --muted-foreground: light-dark(
+    rgb(26 28 31 / 49.4%),
+    rgb(255 255 255 / 49.8%)
+  );
+  --accent: light-dark(rgb(229 242 255), rgb(13 39 63));
+  --accent-foreground: var(--primary);
+  --destructive: light-dark(rgb(226 85 7), rgb(255 133 73));
+  --border: light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%));
+  --input: light-dark(
+    rgb(26 28 31 / 11.8%),
+    color-mix(in oklab, rgb(0 0 0) 10%, transparent)
+  );
+  --ring: light-dark(rgb(51 156 255), rgb(131 195 255 / 76%));
+  --font-size-base: 14px;
+  --red: light-dark(rgb(186 38 35), rgb(250 66 62));
+  --green: light-dark(rgb(0 162 64), rgb(64 201 119));
+
+  /* Internal implementation variables; not part of the agent contract. */
+  --font-sans: -apple-system, system-ui, "Segoe UI", sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
+    monospace;
+  --font-size-normal: max(11px, var(--font-size-base));
+  --font-size-tooltip: calc(var(--font-size-base) - 1px);
+  --font-size-small: max(11px, calc(var(--font-size-base) - 2px));
+  --font-size-h1: calc(var(--font-size-normal) * 1.7142857143);
+  --font-size-h2: calc(var(--font-size-normal) * 1.4285714286);
+  --font-size-h3: calc(var(--font-size-normal) * 1.2857142857);
+  --font-weight-normal: 430;
+  --font-weight-medium: 500;
+  --line-height-normal: calc(var(--font-size-normal) * 1.5);
+  --line-height-tooltip: calc(var(--font-size-tooltip) * 1.4285714286);
+  --line-height-small: calc(var(--font-size-small) + 4px);
+  --radius: 10px;
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-2xl: calc(var(--radius) * 1.6);
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 8%);
+  --checkmark-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 17 17'%3E%3Cpath d='M12.8961 3.64101C13.1297 3.41418 13.4984 3.37523 13.7779 3.56581C14.0571 3.75635 14.1554 4.11331 14.0299 4.41347L13.9615 4.53847L7.71151 13.7045C7.59411 13.8767 7.4063 13.9877 7.19881 14.0072C6.99136 14.0267 6.78564 13.9533 6.63826 13.806L2.88826 10.056L2.79842 9.9457C2.6192 9.67407 2.64927 9.30496 2.88826 9.06581C3.12738 8.82669 3.49647 8.79676 3.76815 8.97597L3.8785 9.06581L7.03084 12.2182L12.8053 3.74941L12.8961 3.64101Z'/%3E%3C/svg%3E");
+
+  /* Legacy aliases; not part of the current agent contract. */
+  --viz-bg: transparent;
+  --viz-panel: var(--card);
+  --viz-border: var(--border);
+  --viz-text: var(--foreground);
+  --viz-muted: var(--muted-foreground);
+  --viz-accent: var(--primary);
+  --viz-accent-text: var(--primary-foreground);
+  --viz-accent-bg: var(--accent);
+  --viz-font-size: var(--font-size-base);
+  --viz-warning: var(--destructive);
+  --color-background-primary: var(--background);
+  --color-text-primary: var(--foreground);
+  --color-border-secondary: var(--border);
+}
+
+:root[data-visualize-standalone] {
+  background-color: var(--background) !important;
+}
+
+/* Generic mobile code-block hosts provide light/dark mode but no series palette.
+   AppBlock hosts set all six variables themselves. */
+:root:not([data-app-block-surface]) {
+  --viz-series-1: var(--primary);
+  --viz-series-2: light-dark(#f3883b, #f59a56);
+  --viz-series-3: light-dark(#5dc977, #74d58b);
+  --viz-series-4: light-dark(#eb77b1, #f08fc0);
+  --viz-series-5: light-dark(#9b79ec, #aa91ef);
+  --viz-series-6: light-dark(#3ab9b1, #5acbc2);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html > body {
+  margin: 0;
+  padding: 5px;
+  color: var(--foreground);
+  background: transparent !important;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-normal);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+}
+
+:root:not([data-app-block-surface]) > body {
+  padding: 12px;
+}
+
+a {
+  color: color-mix(in srgb, var(--viz-accent) 80%, var(--viz-text) 20%);
+  cursor: pointer;
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  text-underline-offset: 2px;
+}
+
+a:is(:hover, :focus-visible) {
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 0.5px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-block: 0;
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.3;
+}
+
+b,
+strong,
+th {
+  font-weight: var(--font-weight-medium);
+}
+
+code:not(pre code) {
+  display: inline;
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  background: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  overflow-wrap: anywhere;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  word-break: break-word;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--foreground);
+  font: inherit;
+  text-align: start;
+}
+
+.table :is(th, td) {
+  padding-block: 10px;
+  padding-inline: 0 24px;
+  overflow-wrap: anywhere;
+  border-bottom: 1px solid var(--border);
+  text-align: start;
+  vertical-align: top;
+}
+
+.table-responsive > .table :is(th, td) {
+  overflow-wrap: break-word;
+}
+
+.table :is(th, td):last-child {
+  padding-inline-end: 0;
+}
+
+.table :is(caption, thead th) {
+  font-weight: 600;
+}
+
+.table thead th {
+  padding-block: 8px;
+  border-bottom-color: color-mix(in srgb, var(--foreground) 16%, transparent);
+}
+
+.table tbody tr:last-child :is(th, td) {
+  border-bottom: 0;
+}
+
+.table.table-sm :is(th, td) {
+  padding-block: 6px;
+}
+
+.table.table-sm :is(th, td):not(:last-child) {
+  padding-inline-end: 16px;
+}
+
+.table :is(.text-end, [align="right"]) {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.table :is(.text-center, [align="center"]) {
+  text-align: center;
+}
+
+.table .text-nowrap {
+  white-space: nowrap;
+}
+
+#widget {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  padding: 0;
+  background: transparent !important;
+}
+
+.card {
+  min-width: 0;
+  padding: 12px;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  border-radius: var(--radius-2xl);
+  color: var(--card-foreground);
+  background: var(--card);
+}
+
+#widget > :not(.card) {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: max-content;
+  max-width: min(
+    20rem,
+    var(--tooltip-available-width, calc(100vw - 10px)),
+    calc(100vw - 10px)
+  );
+  max-height: min(
+    var(--tooltip-available-height, calc(100vh - 10px)),
+    calc(100vh - 10px)
+  );
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  color: var(--popover-foreground);
+  background: var(--popover);
+  box-shadow: none;
+  font-size: var(--font-size-tooltip);
+  line-height: var(--line-height-tooltip);
+  overflow-wrap: break-word;
+  white-space: normal;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* The bundled tooltip runtime owns [data-tooltip]. AppBlock's CSS-only
+   pseudo-tooltip can widen dense grids even while hidden. */
+main [data-tooltip]::after {
+  content: none;
+}
+
+.viz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(max(180px, 24%), 1fr));
+  gap: 10px;
+}
+
+.viz-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.viz-stat-value {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+.viz-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.viz-badge {
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  color: var(--accent-foreground);
+  background: var(--accent);
+  font-weight: var(--font-weight-medium);
+}
+
+small,
+.text-small,
+.viz-badge {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.text-muted {
+  color: var(--muted-foreground);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.viz-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.viz-controls > .form-label {
+  display: grid;
+  min-width: min(100%, 260px);
+  flex: 1 1 280px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 2px 12px;
+  margin-bottom: 0;
+}
+
+.viz-controls > .form-label > :is(.form-control, .form-range, .form-select) {
+  grid-column: 1 / -1;
+}
+
+.btn,
+.form-check-input,
+.form-control,
+.form-range,
+.form-select {
+  font: inherit;
+}
+
+.btn {
+  appearance: button;
+  display: inline-flex;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  min-height: 28px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0 8px;
+  -webkit-app-region: no-drag;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: var(--cursor-interaction, pointer);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.btn:is(.btn-block, .viz-tile) {
+  inline-size: 100%;
+}
+
+.btn.viz-tile {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+a.btn {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn-primary {
+  border-color: transparent;
+  color: var(--interactive-label-primary-default, var(--primary-foreground));
+  background: var(--interactive-bg-primary-default, var(--foreground));
+  background-clip: padding-box;
+}
+
+.btn-primary .text-muted {
+  color: color-mix(
+    in srgb,
+    var(--interactive-label-primary-default, var(--primary-foreground)) 50%,
+    transparent
+  );
+}
+
+.btn-primary:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 80%, transparent);
+  background-clip: padding-box;
+}
+
+.btn-ghost {
+  border-color: transparent;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.btn-ghost:not(:disabled):hover {
+  color: var(--foreground);
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+[data-lucide] {
+  stroke-width: 1.6;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--foreground);
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  padding: 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  color: var(--foreground);
+  background: var(--secondary);
+}
+
+.form-control::placeholder {
+  color: var(--muted-foreground);
+}
+
+.form-control[type="file"] {
+  padding: 0;
+  overflow: hidden;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control[type="file"]::file-selector-button {
+  min-height: 26px;
+  margin-right: 8px;
+  padding: 0 8px;
+  border: 0;
+  border-right: 1px solid var(--input);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: inherit;
+  font: inherit;
+}
+
+.form-control[type="file"]:not(:disabled):hover::file-selector-button {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-control-color[type="color"] {
+  width: 40px;
+  height: 28px;
+  padding: 3px;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control-color[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.form-control-color[type="color"]::-webkit-color-swatch {
+  border: 0;
+  border-radius: calc(var(--radius-lg) - 4px);
+}
+
+textarea.form-control {
+  height: auto;
+  min-height: 72px;
+  padding: 8px 10px;
+  resize: vertical;
+}
+
+.form-control:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-control:disabled,
+.form-select:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.form-select {
+  appearance: none;
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  margin: 0;
+  padding: 0 32px 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  color: var(--foreground);
+  background-color: var(--secondary);
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted-foreground) 50%),
+    linear-gradient(135deg, var(--muted-foreground) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) 50%,
+    calc(100% - 10px) 50%;
+  background-repeat: no-repeat;
+  background-size: 4px 4px;
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-select:not(:disabled):hover {
+  background-color: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-select:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-check {
+  display: flex;
+  min-height: 20px;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-check-input {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  margin: 0;
+  border: 1px solid var(--input);
+  color: var(--primary-foreground);
+  background-color: transparent;
+  cursor: var(--cursor-interaction, default);
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    box-shadow 150ms;
+}
+
+.form-check:not(.form-switch) .form-check-input[type="checkbox"] {
+  border-color: var(--input);
+  border-radius: var(--radius-sm);
+  background-color: var(--secondary);
+  box-shadow: var(--shadow-sm);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input:not(:disabled):not(:checked):hover {
+  background-color: var(--card);
+}
+
+.form-check:not(.form-switch) .form-check-input[type="checkbox"]:checked {
+  border-color: var(--primary);
+  background-color: var(--primary);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input[type="checkbox"]:checked::before {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-foreground);
+  content: "";
+  mask: var(--checkmark-image) center / 12px 12px no-repeat;
+}
+
+.form-check-input[type="radio"] {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+}
+
+.form-check-input[type="radio"]:checked {
+  border: 2px solid var(--primary);
+  background:
+    radial-gradient(circle, var(--primary-foreground) 0 2.5px, transparent 3px),
+    var(--primary);
+}
+
+.form-check:not(.form-switch) .form-check-input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+}
+
+.form-switch .form-check-input:disabled,
+.form-switch .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.form-check-label {
+  color: var(--foreground);
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-switch .form-check-input {
+  position: relative;
+  width: 32px;
+  height: 20px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+  box-shadow: none;
+  transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border: 1px solid light-dark(var(--primary-foreground), var(--foreground));
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+  box-shadow: var(--shadow-sm);
+  content: "";
+  transform: translate(2px, -50%);
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input:checked {
+  background: var(--primary);
+}
+
+.form-switch .form-check-input:checked::before {
+  transform: translate(14px, -50%);
+}
+
+.form-switch .form-check-input:focus-visible {
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+.form-range {
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 28px;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: 0;
+  accent-color: var(--primary);
+  background: linear-gradient(
+      color-mix(in srgb, var(--foreground) 7%, transparent),
+      color-mix(in srgb, var(--foreground) 7%, transparent)
+    )
+    center / 100% 2px no-repeat;
+}
+
+.form-range::-webkit-slider-runnable-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-webkit-slider-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range::-moz-range-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-moz-range-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.btn:not(.btn-primary, .viz-tile):is(
+    [aria-pressed="true"],
+    [aria-selected="true"],
+    .is-selected
+  ) {
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+  background: var(--primary);
+}
+
+.btn.viz-tile:is([aria-pressed="true"], [aria-selected="true"], .is-selected) {
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+#widget > svg {
+  width: 100%;
+}
+
+.text-warning,
+.text-destructive {
+  color: var(--destructive);
+}
+</style>
+</head>
+<body>
+<style>
+  #ckp-cmp-lab {
+    color: var(--foreground);
+    width: 100%;
+  }
+
+  #ckp-cmp-lab .ck-statline {
+    margin-top: 0.75rem;
+  }
+
+  #ckp-cmp-lab .ck-stage {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 1rem;
+  }
+
+  #ckp-cmp-lab .ck-view {
+    margin: 0;
+    min-width: 0;
+  }
+
+  #ckp-cmp-lab .ck-view svg {
+    display: block;
+    height: auto;
+    width: 100%;
+  }
+
+  #ckp-cmp-lab .ck-view figcaption {
+    margin-top: 0.35rem;
+    text-align: center;
+  }
+
+  #ckp-cmp-lab .ck-structure {
+    fill: none;
+    stroke: var(--foreground);
+    stroke-width: 2;
+  }
+
+  #ckp-cmp-lab .ck-guide {
+    fill: none;
+    stroke: var(--border);
+    stroke-width: 1.5;
+  }
+
+  #ckp-cmp-lab .ck-guide-dashed {
+    stroke-dasharray: 5 4;
+  }
+
+  #ckp-cmp-lab .ck-muted {
+    fill: var(--muted-foreground);
+  }
+
+  #ckp-cmp-lab .ck-label {
+    fill: var(--foreground);
+  }
+
+  #ckp-cmp-lab .ck-crank-ring,
+  #ckp-cmp-lab .ck-cam-ring {
+    fill: var(--background);
+    stroke-width: 3;
+  }
+
+  #ckp-cmp-lab .ck-crank-ring {
+    stroke: var(--viz-series-1);
+  }
+
+  #ckp-cmp-lab .ck-cam-ring {
+    stroke: var(--viz-series-2);
+  }
+
+  #ckp-cmp-lab .ck-crank-tooth {
+    stroke: var(--viz-series-1);
+    stroke-width: 2.5;
+  }
+
+  #ckp-cmp-lab .ck-cam-target {
+    fill: var(--viz-series-2);
+  }
+
+  #ckp-cmp-lab .ck-hub {
+    fill: var(--foreground);
+  }
+
+  #ckp-cmp-lab .ck-sensor {
+    fill: var(--muted);
+    stroke: var(--foreground);
+    stroke-width: 2;
+  }
+
+  #ckp-cmp-lab .ck-sensor-ckp {
+    fill: var(--viz-series-1);
+  }
+
+  #ckp-cmp-lab .ck-sensor-cmp {
+    fill: var(--viz-series-2);
+  }
+
+  #ckp-cmp-lab .ck-belt-relation {
+    fill: none;
+    stroke: var(--muted-foreground);
+    stroke-dasharray: 6 5;
+    stroke-width: 2;
+  }
+
+  #ckp-cmp-lab .ck-signal-ckp,
+  #ckp-cmp-lab .ck-signal-cmp {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  #ckp-cmp-lab .ck-signal-ckp {
+    stroke: var(--viz-series-1);
+    stroke-width: 2;
+  }
+
+  #ckp-cmp-lab .ck-signal-cmp {
+    stroke: var(--viz-series-2);
+    stroke-width: 3;
+  }
+
+  #ckp-cmp-lab .ck-cursor {
+    stroke: var(--foreground);
+    stroke-width: 2;
+  }
+
+  #ckp-cmp-lab .ck-cursor-dot-ckp {
+    fill: var(--viz-series-1);
+    stroke: var(--background);
+    stroke-width: 2;
+  }
+
+  #ckp-cmp-lab .ck-cursor-dot-cmp {
+    fill: var(--viz-series-2);
+    stroke: var(--background);
+    stroke-width: 2;
+  }
+
+  #ckp-cmp-lab .ck-gap-zone {
+    fill: var(--muted);
+  }
+
+  @media (max-width: 720px) {
+    #ckp-cmp-lab .ck-stage {
+      grid-template-columns: 1fr;
+    }
+
+    #ckp-cmp-lab .ck-view svg {
+      margin-inline: auto;
+      max-width: 420px;
+    }
+  }
+</style>
+
+<div id="ckp-cmp-lab" aria-label="Simulador de sensores de cigüeñal y árbol de levas">
+  <div class="viz-controls">
+    <button id="ck-play" class="btn btn-primary" type="button" aria-pressed="true">Pausar</button>
+    <label class="form-label" for="ck-angle">
+      Ciclo: <output id="ck-angle-output" for="ck-angle">0° · 0,0 ms</output>
+      <input id="ck-angle" class="form-range" type="range" min="0" max="720" step="0.01" value="0">
+    </label>
+    <label class="form-label" for="ck-rpm">
+      Cigüeñal: <output id="ck-rpm-output" for="ck-rpm">300 rpm</output>
+      <input id="ck-rpm" class="form-range" type="range" min="60" max="1200" step="20" value="300">
+    </label>
+    <label class="form-label" for="ck-wheel-pattern">
+      Rueda fónica CKP
+      <select id="ck-wheel-pattern" class="form-select">
+        <option value="60-2" selected>60−2 dientes</option>
+        <option value="36-1">36−1 dientes</option>
+      </select>
+    </label>
+    <label class="form-label" for="ck-sensor-type">
+      Sensor CKP
+      <select id="ck-sensor-type" class="form-select">
+        <option value="inductive" selected>Inductivo — señal alterna</option>
+        <option value="hall">Hall — señal cuadrada</option>
+      </select>
+    </label>
+    <label class="form-label" for="ck-phase">
+      Desfase CMP referido al cigüeñal: <output id="ck-phase-output" for="ck-phase">0°</output>
+      <input id="ck-phase" class="form-range" type="range" min="-60" max="60" step="1" value="0">
+    </label>
+    <label class="form-label" for="ck-fault">
+      Condición de diagnóstico
+      <select id="ck-fault" class="form-select">
+        <option value="normal" selected>Señales normales</option>
+        <option value="cmp-absent">Sin señal CMP</option>
+        <option value="ckp-weak">Señal CKP débil</option>
+        <option value="ckp-extra-gap">Diente CKP adicional ausente</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="viz-row ck-statline" aria-live="polite">
+    <span class="viz-badge">CMP: <output id="ck-cam-rpm-output">150 rpm</output></span>
+    <span class="viz-badge">f CKP: <output id="ck-frequency-output">300 Hz</output></span>
+    <span class="viz-badge">Estado: <output id="ck-status-output">sincronizado</output></span>
+  </div>
+
+  <div class="ck-stage">
+    <figure class="ck-view">
+      <svg viewBox="0 0 360 350" role="img" aria-labelledby="ck-mechanism-title ck-mechanism-desc">
+        <title id="ck-mechanism-title">Ruedas de los sensores CKP y CMP</title>
+        <desc id="ck-mechanism-desc">La rueda del cigüeñal gira dos veces mientras la rueda del árbol de levas gira una vez.</desc>
+        <path class="ck-belt-relation" d="M34 91 C18 160 19 243 35 285 M196 91 C217 159 217 240 197 285"></path>
+
+        <g id="ck-cam-rotor">
+          <circle class="ck-cam-ring" cx="115" cy="86" r="54"></circle>
+          <line class="ck-structure" x1="115" y1="43" x2="115" y2="129"></line>
+          <line class="ck-structure" x1="72" y1="86" x2="158" y2="86"></line>
+          <rect class="ck-cam-target" x="166" y="79" width="14" height="14" rx="2"></rect>
+          <circle class="ck-hub" cx="115" cy="86" r="8"></circle>
+        </g>
+        <path class="ck-sensor" d="M188 64 L245 64 L252 75 L252 97 L245 108 L188 108 L178 97 L178 75 Z"></path>
+        <circle id="ck-cmp-sensor-light" class="ck-sensor-cmp" cx="181" cy="86" r="6"></circle>
+        <text class="ck-label" x="260" y="80">CMP</text>
+        <text id="ck-cam-angle-label" class="ck-muted" x="260" y="101">0° · 150 rpm</text>
+
+        <g id="ck-crank-rotor">
+          <circle class="ck-crank-ring" cx="115" cy="246" r="63"></circle>
+          <g id="ck-crank-teeth"></g>
+          <line class="ck-structure" x1="115" y1="198" x2="115" y2="294"></line>
+          <line class="ck-structure" x1="67" y1="246" x2="163" y2="246"></line>
+          <circle class="ck-hub" cx="115" cy="246" r="9"></circle>
+        </g>
+        <path class="ck-sensor" d="M203 222 L267 222 L274 233 L274 259 L267 270 L203 270 L193 259 L193 233 Z"></path>
+        <circle id="ck-ckp-sensor-light" class="ck-sensor-ckp" cx="196" cy="246" r="6"></circle>
+        <text class="ck-label" x="282" y="240">CKP</text>
+        <text id="ck-crank-angle-label" class="ck-muted" x="282" y="261">0° · 300 rpm</text>
+
+        <line class="ck-guide ck-guide-dashed" x1="20" y1="332" x2="340" y2="332"></line>
+        <text id="ck-ratio-label" class="ck-label" x="180" y="346" text-anchor="middle">2 vueltas CKP ↔ 1 vuelta CMP</text>
+      </svg>
+      <figcaption class="text-small">Relación mecánica 2:1 durante un ciclo de cuatro tiempos</figcaption>
+    </figure> 
+    <figure class="ck-view">
+      <svg viewBox="0 0 360 350" role="img" aria-labelledby="ck-signals-title ck-signals-desc">
+        <title id="ck-signals-title">Señales CKP y CMP sincronizadas</title>
+        <desc id="ck-signals-desc">Las señales se representan sobre un ciclo completo de 720 grados del cigüeñal y el cursor indica el instante actual.</desc>
+        <g id="ck-angle-grid"></g>
+        <g id="ck-gap-zones"></g>
+        <line class="ck-guide" x1="48" y1="145" x2="345" y2="145"></line>
+        <line class="ck-guide" x1="48" y1="280" x2="345" y2="280"></line>
+        <text class="ck-label" x="8" y="112">CKP</text>
+        <text class="ck-label" x="8" y="248">CMP</text>
+        <path id="ck-ckp-path" class="ck-signal-ckp"></path>
+        <path id="ck-cmp-path" class="ck-signal-cmp"></path>
+        <line id="ck-signal-cursor" class="ck-cursor" x1="48" y1="42" x2="48" y2="296"></line>
+        <circle id="ck-ckp-dot" class="ck-cursor-dot-ckp" cx="48" cy="115" r="4.5"></circle>
+        <circle id="ck-cmp-dot" class="ck-cursor-dot-cmp" cx="48" cy="280" r="4.5"></circle>
+        <text id="ck-cursor-label" class="ck-label" x="52" y="318">0°</text>
+        <text class="ck-muted" x="345" y="340" text-anchor="end">ángulo del cigüeñal</text>
+      </svg>
+      <figcaption class="text-small">Correlación eléctrica CKP–CMP en los 720° del ciclo</figcaption>
+    </figure>
+  </div>
+</div>
+
+<script>
+  (function () {
+    "use strict";
+
+    var root = document.getElementById("ckp-cmp-lab");
+    if (!root) return;
+
+    var svgNamespace = "http://www.w3.org/2000/svg";
+    var plot = { left: 48, right: 345 };
+    var crankCenter = { x: 115, y: 246 };
+    var rpm = 300;
+    var pattern = "60-2";
+    var sensorType = "inductive";
+    var phaseOffset = 0;
+    var fault = "normal";
+    var cycleAngle = 0;
+    var reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var playing = !reducedMotion;
+    var lastFrame = null;
+
+    var playButton = root.querySelector("#ck-play");
+    var angleSlider = root.querySelector("#ck-angle");
+    var angleOutput = root.querySelector("#ck-angle-output");
+    var rpmSlider = root.querySelector("#ck-rpm");
+    var rpmOutput = root.querySelector("#ck-rpm-output");
+    var patternSelect = root.querySelector("#ck-wheel-pattern");
+    var sensorSelect = root.querySelector("#ck-sensor-type");
+    var phaseSlider = root.querySelector("#ck-phase");
+    var phaseOutput = root.querySelector("#ck-phase-output");
+    var faultSelect = root.querySelector("#ck-fault");
+    var camRpmOutput = root.querySelector("#ck-cam-rpm-output");
+    var frequencyOutput = root.querySelector("#ck-frequency-output");
+    var statusOutput = root.querySelector("#ck-status-output");
+    var camRotor = root.querySelector("#ck-cam-rotor");
+    var crankRotor = root.querySelector("#ck-crank-rotor");
+    var crankTeeth = root.querySelector("#ck-crank-teeth");
+    var cmpSensorLight = root.querySelector("#ck-cmp-sensor-light");
+    var ckpSensorLight = root.querySelector("#ck-ckp-sensor-light");
+    var camAngleLabel = root.querySelector("#ck-cam-angle-label");
+    var crankAngleLabel = root.querySelector("#ck-crank-angle-label");
+    var angleGrid = root.querySelector("#ck-angle-grid");
+    var gapZones = root.querySelector("#ck-gap-zones");
+    var ckpPath = root.querySelector("#ck-ckp-path");
+    var cmpPath = root.querySelector("#ck-cmp-path");
+    var signalCursor = root.querySelector("#ck-signal-cursor");
+    var ckpDot = root.querySelector("#ck-ckp-dot");
+    var cmpDot = root.querySelector("#ck-cmp-dot");
+    var cursorLabel = root.querySelector("#ck-cursor-label");
+
+    function formatNumber(value, digits) {
+      var rounded = Math.abs(value) < Math.pow(10, -digits) / 2 ? 0 : value;
+      return rounded.toFixed(digits).replace(".", ",");
+    }
+
+    function formatSigned(value, digits, suffix) {
+      var sign = value > 0 ? "+" : value < 0 ? "−" : "";
+      return sign + formatNumber(Math.abs(value), digits) + suffix;
+    }
+
+    function clamp(value, minimum, maximum) {
+      return Math.max(minimum, Math.min(maximum, value));
+    }
+
+    function patternData() {
+      return pattern === "36-1" ? { positions: 36, missing: 1 } : { positions: 60, missing: 2 };
+    }
+
+    function makeSvgElement(name, attributes, textValue) {
+      var element = document.createElementNS(svgNamespace, name);
+      Object.keys(attributes).forEach(function (key) {
+        element.setAttribute(key, attributes[key]);
+      });
+      if (textValue !== undefined) element.textContent = textValue;
+      return element;
+    }
+
+    function xScale(angle) {
+      return plot.left + angle / 720 * (plot.right - plot.left);
+    }
+
+    function positionIndexAt(angle) {
+      var data = patternData();
+      var localAngle = ((angle % 360) + 360) % 360;
+      return Math.floor(localAngle / (360 / data.positions));
+    }
+
+    function isMissingPosition(angle) {
+      var data = patternData();
+      var step = 360 / data.positions;
+      var index = positionIndexAt(angle);
+      var referenceStart = Math.round(300 / step);
+      var referenceMissing = index >= referenceStart && index < referenceStart + data.missing;
+      var extraMissingIndex = Math.round(150 / step);
+      var extraMissing = fault === "ckp-extra-gap" && index === extraMissingIndex;
+      return referenceMissing || extraMissing;
+    }
+
+    function ckpSignalAt(angle) {
+      var data = patternData();
+      var step = 360 / data.positions;
+      var localAngle = ((angle % 360) + 360) % 360;
+      var positionPhase = (localAngle % step) / step;
+      var weakFactor = fault === "ckp-weak" ? 0.22 : 1;
+      if (isMissingPosition(angle)) return 0;
+      if (sensorType === "hall") return (positionPhase < 0.46 ? 1 : 0) * weakFactor;
+      return Math.sin(2 * Math.PI * positionPhase) * weakFactor;
+    }
+
+    function circularDistance(angle, center, period) {
+      var difference = ((angle - center + period / 2) % period + period) % period - period / 2;
+      return Math.abs(difference);
+    }
+
+    function cmpSignalAt(angle) {
+      if (fault === "cmp-absent") return 0;
+      var pulseCenter = 60 + phaseOffset;
+      return circularDistance(angle, pulseCenter, 720) <= 30 ? 1 : 0;
+    }
+
+    function ckpY(value) {
+      return sensorType === "hall" ? 145 - value * 55 : 115 - value * 30;
+    }
+
+    function cmpY(value) {
+      return 280 - value * 55;
+    }
+
+    function statusText() {
+      if (fault === "cmp-absent") return "sin señal CMP";
+      if (fault === "ckp-weak") return "CKP bajo umbral";
+      if (fault === "ckp-extra-gap") return "CKP irregular";
+      if (Math.abs(phaseOffset) > 12) return "fuera de sincronía";
+      if (Math.abs(phaseOffset) > 5) return "fase desplazada";
+      return "sincronizado";
+    }
+
+    function setPlaying(nextPlaying) {
+      playing = nextPlaying;
+      playButton.textContent = playing ? "Pausar" : "Reproducir";
+      playButton.setAttribute("aria-pressed", playing ? "true" : "false");
+    }
+
+    function buildGrid() {
+      angleGrid.textContent = "";
+      [0, 180, 360, 540, 720].forEach(function (angle) {
+        var x = xScale(angle);
+        angleGrid.appendChild(makeSvgElement("line", {
+          x1: x, y1: 35, x2: x, y2: 298,
+          "class": angle === 0 || angle === 720 ? "ck-structure" : "ck-guide ck-guide-dashed"
+        }));
+        angleGrid.appendChild(makeSvgElement("text", {
+          x: x, y: 27, "text-anchor": "middle", "class": "ck-muted"
+        }, angle + "°"));
+      });
+      angleGrid.appendChild(makeSvgElement("text", {
+        x: xScale(0), y: 48, "text-anchor": "start", "class": "ck-label"
+      }, "PMS"));
+      angleGrid.appendChild(makeSvgElement("text", {
+        x: xScale(360), y: 48, "text-anchor": "middle", "class": "ck-label"
+      }, "PMS"));
+      angleGrid.appendChild(makeSvgElement("text", {
+        x: xScale(720), y: 48, "text-anchor": "end", "class": "ck-label"
+      }, "PMS"));
+    }
+
+    function buildGapZones() {
+      var data = patternData();
+      var step = 360 / data.positions;
+      gapZones.textContent = "";
+      [0, 360].forEach(function (revolutionStart, index) {
+        var startAngle = revolutionStart + 300;
+        var endAngle = startAngle + data.missing * step;
+        gapZones.appendChild(makeSvgElement("rect", {
+          x: xScale(startAngle), y: 69,
+          width: Math.max(3, xScale(endAngle) - xScale(startAngle)), height: 84,
+          "class": "ck-gap-zone"
+        }));
+        if (index === 0) {
+          gapZones.appendChild(makeSvgElement("text", {
+            x: xScale(startAngle + data.missing * step / 2), y: 65,
+            "text-anchor": "middle", "class": "ck-muted"
+          }, "hueco"));
+        }
+      });
+    }
+
+    function buildCrankTeeth() {
+      var data = patternData();
+      var step = 360 / data.positions;
+      var referenceStart = Math.round(300 / step);
+      var extraMissingIndex = Math.round(150 / step);
+      crankTeeth.textContent = "";
+      for (var index = 0; index < data.positions; index += 1) {
+        var referenceMissing = index >= referenceStart && index < referenceStart + data.missing;
+        var extraMissing = fault === "ckp-extra-gap" && index === extraMissingIndex;
+        if (referenceMissing || extraMissing) continue;
+        var angle = index * 2 * Math.PI / data.positions;
+        crankTeeth.appendChild(makeSvgElement("line", {
+          x1: crankCenter.x + 62 * Math.cos(angle),
+          y1: crankCenter.y + 62 * Math.sin(angle),
+          x2: crankCenter.x + 74 * Math.cos(angle),
+          y2: crankCenter.y + 74 * Math.sin(angle),
+          "class": "ck-crank-tooth"
+        }));
+      }
+    }
+
+    function buildSignals() {
+      var ckpCommands = [];
+      var cmpCommands = [];
+      var samples = 2400;
+      for (var index = 0; index <= samples; index += 1) {
+        var angle = 720 * index / samples;
+        var command = index === 0 ? "M" : "L";
+        ckpCommands.push(command + xScale(angle).toFixed(2) + " " + ckpY(ckpSignalAt(angle)).toFixed(2));
+        cmpCommands.push(command + xScale(angle).toFixed(2) + " " + cmpY(cmpSignalAt(angle)).toFixed(2));
+      }
+      ckpPath.setAttribute("d", ckpCommands.join(" "));
+      cmpPath.setAttribute("d", cmpCommands.join(" "));
+    }
+
+    function render(angle) {
+      var data = patternData();
+      var camAngle = angle / 2 - phaseOffset / 2;
+      var ckpValue = ckpSignalAt(angle);
+      var cmpValue = cmpSignalAt(angle);
+      var timeMilliseconds = angle / (rpm * 6) * 1000;
+      var frequency = data.positions * rpm / 60;
+      var cursorX = xScale(angle);
+
+      crankRotor.setAttribute("transform", "rotate(" + (-angle).toFixed(3) + " " + crankCenter.x + " " + crankCenter.y + ")");
+      camRotor.setAttribute("transform", "rotate(" + (30 - camAngle).toFixed(3) + " 115 86)");
+      ckpSensorLight.setAttribute("opacity", String(0.2 + 0.8 * Math.min(1, Math.abs(ckpValue))));
+      cmpSensorLight.setAttribute("opacity", String(0.2 + 0.8 * cmpValue));
+      crankAngleLabel.textContent = formatNumber(angle % 360, 0) + "° · " + formatNumber(rpm, 0) + " rpm";
+      camAngleLabel.textContent = formatNumber(((camAngle % 360) + 360) % 360, 0) + "° · " + formatNumber(rpm / 2, 0) + " rpm";
+
+      signalCursor.setAttribute("x1", cursorX);
+      signalCursor.setAttribute("x2", cursorX);
+      ckpDot.setAttribute("cx", cursorX);
+      ckpDot.setAttribute("cy", ckpY(ckpValue));
+      cmpDot.setAttribute("cx", cursorX);
+      cmpDot.setAttribute("cy", cmpY(cmpValue));
+      cursorLabel.setAttribute("x", clamp(cursorX + 5, 50, 318));
+      cursorLabel.textContent = formatNumber(angle, 0) + "°";
+
+      angleSlider.value = String(angle);
+      angleOutput.value = formatNumber(angle, 0) + "° · " + formatNumber(timeMilliseconds, 1) + " ms";
+      rpmOutput.value = formatNumber(rpm, 0) + " rpm";
+      phaseOutput.value = formatSigned(phaseOffset, 0, "°");
+      camRpmOutput.value = formatNumber(rpm / 2, 0) + " rpm";
+      frequencyOutput.value = formatNumber(frequency, 0) + " Hz";
+      statusOutput.value = statusText();
+    }
+
+    function rebuild() {
+      buildGapZones();
+      buildCrankTeeth();
+      buildSignals();
+      render(cycleAngle);
+    }
+
+    playButton.addEventListener("click", function () {
+      setPlaying(!playing);
+      lastFrame = null;
+    });
+
+    angleSlider.addEventListener("input", function () {
+      cycleAngle = Number(angleSlider.value);
+      setPlaying(false);
+      render(cycleAngle);
+    });
+
+    rpmSlider.addEventListener("input", function () {
+      rpm = Number(rpmSlider.value);
+      render(cycleAngle);
+    });
+
+    patternSelect.addEventListener("change", function () {
+      pattern = patternSelect.value;
+      rebuild();
+    });
+
+    sensorSelect.addEventListener("change", function () {
+      sensorType = sensorSelect.value;
+      buildSignals();
+      render(cycleAngle);
+    });
+
+    phaseSlider.addEventListener("input", function () {
+      phaseOffset = Number(phaseSlider.value);
+      buildSignals();
+      render(cycleAngle);
+    });
+
+    faultSelect.addEventListener("change", function () {
+      fault = faultSelect.value;
+      rebuild();
+    });
+
+    function animate(timestamp) {
+      if (lastFrame === null) lastFrame = timestamp;
+      var elapsed = Math.min((timestamp - lastFrame) / 1000, 0.1);
+      lastFrame = timestamp;
+      if (playing) {
+        cycleAngle += elapsed * rpm * 6;
+        if (cycleAngle > 720) cycleAngle %= 720;
+        render(cycleAngle);
+      }
+      window.requestAnimationFrame(animate);
+    }
+
+    buildGrid();
+    rebuild();
+    setPlaying(playing);
+    window.requestAnimationFrame(animate);
+  }());
+</script>
+
+<script id="codex-visualization-tooltip">/* oxlint-disable typescript/no-unsafe-argument, typescript/no-unsafe-call, typescript/no-unsafe-return */
+// Runs inside the visualization sandbox, not the host webview.
+(() => {
+  if (window.FloatingUIDOM == null) {
+    return;
+  }
+  const { autoUpdate, computePosition, flip, offset, shift, size } =
+    window.FloatingUIDOM;
+  const tooltipPlacements = new Set(["top", "right", "bottom", "left"]);
+  const tooltipId = `codex-visualization-tooltip-${
+    window.crypto?.randomUUID?.() ?? Date.now().toString(36)
+  }`;
+  const tooltipGap = 5;
+  const hoverDelay = 700;
+  const skipDelay = 300;
+  let activeTrigger = null;
+  let pendingTrigger = null;
+  let tooltip = null;
+  let openTimeout = null;
+  let autoUpdateCleanup = null;
+  let positionRequest = 0;
+  let skipDelayUntil = 0;
+
+  const getTrigger = (target) =>
+    target?.nodeType === Node.ELEMENT_NODE
+      ? target.closest("[data-tooltip]")
+      : null;
+  const containsTarget = (trigger, target) =>
+    target?.nodeType != null && trigger.contains(target);
+  const getContent = (trigger) =>
+    trigger.getAttribute("data-tooltip")?.trim() ?? "";
+  const getPlacement = (trigger) => {
+    const placement = trigger.getAttribute("data-tooltip-placement");
+    return tooltipPlacements.has(placement) ? placement : "top";
+  };
+  const getTooltip = () => {
+    if (tooltip == null) {
+      tooltip = document.createElement("div");
+      tooltip.id = tooltipId;
+      tooltip.className = "tooltip";
+      tooltip.setAttribute("role", "tooltip");
+    }
+    return tooltip;
+  };
+  const setDescribedBy = (trigger, described) => {
+    const ids = new Set(
+      (trigger.getAttribute("aria-describedby") ?? "")
+        .split(/\s+/)
+        .filter(Boolean),
+    );
+    if (described) {
+      ids.add(tooltipId);
+    } else {
+      ids.delete(tooltipId);
+    }
+    if (ids.size === 0) {
+      trigger.removeAttribute("aria-describedby");
+    } else {
+      trigger.setAttribute("aria-describedby", [...ids].join(" "));
+    }
+  };
+  const clearOpenTimeout = () => {
+    if (openTimeout != null) {
+      window.clearTimeout(openTimeout);
+      openTimeout = null;
+    }
+    pendingTrigger = null;
+  };
+  const closeTooltip = (activateSkipDelay = true) => {
+    clearOpenTimeout();
+    positionRequest += 1;
+    autoUpdateCleanup?.();
+    autoUpdateCleanup = null;
+    if (activeTrigger == null) {
+      return;
+    }
+    setDescribedBy(activeTrigger, false);
+    activeTrigger = null;
+    tooltip?.remove();
+    if (activateSkipDelay) {
+      skipDelayUntil = Date.now() + skipDelay;
+    }
+  };
+  const updatePosition = (trigger, floating) => {
+    const request = ++positionRequest;
+    void computePosition(trigger, floating, {
+      middleware: [
+        offset(tooltipGap),
+        flip({ padding: tooltipGap }),
+        shift({ padding: tooltipGap }),
+        size({
+          padding: tooltipGap,
+          apply({ availableHeight, availableWidth, elements }) {
+            elements.floating.style.setProperty(
+              "--tooltip-available-width",
+              `${Math.max(0, availableWidth)}px`,
+            );
+            elements.floating.style.setProperty(
+              "--tooltip-available-height",
+              `${Math.max(0, availableHeight)}px`,
+            );
+          },
+        }),
+      ],
+      placement: getPlacement(trigger),
+      strategy: "fixed",
+    })
+      .then(({ x, y }) => {
+        if (activeTrigger !== trigger || request !== positionRequest) {
+          return;
+        }
+        const scale = window.devicePixelRatio || 1;
+        floating.style.transform = `translate(${Math.round(x * scale) / scale}px, ${Math.round(y * scale) / scale}px)`;
+        floating.style.visibility = "visible";
+      })
+      .catch(() => {
+        if (activeTrigger === trigger && request === positionRequest) {
+          closeTooltip(false);
+        }
+      });
+  };
+  const openTooltip = (trigger) => {
+    const content = getContent(trigger);
+    if (!trigger.isConnected || content.length === 0) {
+      return;
+    }
+    clearOpenTimeout();
+    if (activeTrigger === trigger) {
+      return;
+    }
+    closeTooltip();
+    const floating = getTooltip();
+    floating.textContent = content;
+    floating.style.visibility = "hidden";
+    floating.style.transform = "translate(0, 0)";
+    document.body.appendChild(floating);
+    activeTrigger = trigger;
+    setDescribedBy(trigger, true);
+    autoUpdateCleanup = autoUpdate(trigger, floating, () => {
+      updatePosition(trigger, floating);
+    });
+  };
+  const requestOpen = (trigger, immediate = false) => {
+    if (
+      getContent(trigger).length === 0 ||
+      activeTrigger === trigger ||
+      pendingTrigger === trigger
+    ) {
+      return;
+    }
+    clearOpenTimeout();
+    pendingTrigger = trigger;
+    const delay =
+      immediate || activeTrigger != null || Date.now() < skipDelayUntil
+        ? 0
+        : hoverDelay;
+    if (delay === 0) {
+      openTooltip(trigger);
+      return;
+    }
+    openTimeout = window.setTimeout(() => {
+      openTimeout = null;
+      pendingTrigger = null;
+      openTooltip(trigger);
+    }, delay);
+  };
+  const handlePointerOpen = (event) => {
+    if (event.pointerType === "touch") {
+      return;
+    }
+    const trigger = getTrigger(event.target);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    requestOpen(trigger);
+  };
+  const handleLeave = (event) => {
+    const trigger = getTrigger(event.target);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const handleFocusIn = (event) => {
+    const trigger = getTrigger(event.target);
+    if (trigger?.matches(":focus-visible")) {
+      requestOpen(trigger, true);
+    }
+  };
+  const handleKeyDown = (event) => {
+    if (event.key === "Escape") {
+      closeTooltip();
+    }
+  };
+  const handleContextMenu = (event) => {
+    const trigger = getTrigger(event.target);
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const destroy = () => {
+    closeTooltip(false);
+    document.removeEventListener("pointerover", handlePointerOpen);
+    document.removeEventListener("pointerout", handleLeave);
+    document.removeEventListener("focusin", handleFocusIn);
+    document.removeEventListener("focusout", handleLeave);
+    document.removeEventListener("keydown", handleKeyDown);
+    document.removeEventListener("contextmenu", handleContextMenu);
+    tooltip = null;
+  };
+
+  document.addEventListener("pointerover", handlePointerOpen);
+  document.addEventListener("pointerout", handleLeave);
+  document.addEventListener("focusin", handleFocusIn);
+  document.addEventListener("focusout", handleLeave);
+  document.addEventListener("keydown", handleKeyDown);
+  document.addEventListener("contextmenu", handleContextMenu);
+  window.addEventListener("pagehide", destroy, { once: true });
+})();
+</script>
+<script id="codex-visualization-lucide-initialization">(() => {
+  const initialize = () => {
+    globalThis.lucide?.createIcons({ attrs: { width: 16, height: 16 } });
+  };
+  if (globalThis.lucide != null) {
+    initialize();
+    return;
+  }
+  document
+    .getElementById("codex-visualization-lucide")
+    ?.addEventListener("load", initialize, { once: true });
+})();
+</script>
+</body>
+</html>

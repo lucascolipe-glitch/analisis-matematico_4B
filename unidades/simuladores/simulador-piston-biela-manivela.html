@@ -1,0 +1,1547 @@
+<!doctype html>
+<html lang="es" data-visualize-standalone>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Simulador de pistón: biela-manivela</title>
+<style>:root {
+  color-scheme: light dark;
+  background-color: transparent !important;
+
+  /* Agent-facing contract; keep in sync with SKILL.md. */
+  --background: var(
+    --main-surface-primary,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --foreground: light-dark(rgb(26 28 31), rgb(255 255 255));
+  --card: color-mix(in oklab, var(--foreground) 5%, transparent);
+  --card-foreground: var(--foreground);
+  --popover: light-dark(rgb(255 255 255), rgb(45 45 45));
+  --popover-foreground: var(--foreground);
+  --primary: light-dark(rgb(51 156 255), rgb(131 195 255));
+  --primary-foreground: light-dark(rgb(255 255 255), rgb(13 13 13));
+  --secondary: light-dark(rgb(255 255 255 / 96%), rgb(54 54 54 / 96%));
+  --secondary-foreground: var(--foreground);
+  --muted: color-mix(in srgb, var(--foreground) 10%, transparent);
+  --muted-foreground: light-dark(
+    rgb(26 28 31 / 49.4%),
+    rgb(255 255 255 / 49.8%)
+  );
+  --accent: light-dark(rgb(229 242 255), rgb(13 39 63));
+  --accent-foreground: var(--primary);
+  --destructive: light-dark(rgb(226 85 7), rgb(255 133 73));
+  --border: light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%));
+  --input: light-dark(
+    rgb(26 28 31 / 11.8%),
+    color-mix(in oklab, rgb(0 0 0) 10%, transparent)
+  );
+  --ring: light-dark(rgb(51 156 255), rgb(131 195 255 / 76%));
+  --font-size-base: 14px;
+  --red: light-dark(rgb(186 38 35), rgb(250 66 62));
+  --green: light-dark(rgb(0 162 64), rgb(64 201 119));
+
+  /* Internal implementation variables; not part of the agent contract. */
+  --font-sans: -apple-system, system-ui, "Segoe UI", sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
+    monospace;
+  --font-size-normal: max(11px, var(--font-size-base));
+  --font-size-tooltip: calc(var(--font-size-base) - 1px);
+  --font-size-small: max(11px, calc(var(--font-size-base) - 2px));
+  --font-size-h1: calc(var(--font-size-normal) * 1.7142857143);
+  --font-size-h2: calc(var(--font-size-normal) * 1.4285714286);
+  --font-size-h3: calc(var(--font-size-normal) * 1.2857142857);
+  --font-weight-normal: 430;
+  --font-weight-medium: 500;
+  --line-height-normal: calc(var(--font-size-normal) * 1.5);
+  --line-height-tooltip: calc(var(--font-size-tooltip) * 1.4285714286);
+  --line-height-small: calc(var(--font-size-small) + 4px);
+  --radius: 10px;
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-2xl: calc(var(--radius) * 1.6);
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 8%);
+  --checkmark-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 17 17'%3E%3Cpath d='M12.8961 3.64101C13.1297 3.41418 13.4984 3.37523 13.7779 3.56581C14.0571 3.75635 14.1554 4.11331 14.0299 4.41347L13.9615 4.53847L7.71151 13.7045C7.59411 13.8767 7.4063 13.9877 7.19881 14.0072C6.99136 14.0267 6.78564 13.9533 6.63826 13.806L2.88826 10.056L2.79842 9.9457C2.6192 9.67407 2.64927 9.30496 2.88826 9.06581C3.12738 8.82669 3.49647 8.79676 3.76815 8.97597L3.8785 9.06581L7.03084 12.2182L12.8053 3.74941L12.8961 3.64101Z'/%3E%3C/svg%3E");
+
+  /* Legacy aliases; not part of the current agent contract. */
+  --viz-bg: transparent;
+  --viz-panel: var(--card);
+  --viz-border: var(--border);
+  --viz-text: var(--foreground);
+  --viz-muted: var(--muted-foreground);
+  --viz-accent: var(--primary);
+  --viz-accent-text: var(--primary-foreground);
+  --viz-accent-bg: var(--accent);
+  --viz-font-size: var(--font-size-base);
+  --viz-warning: var(--destructive);
+  --color-background-primary: var(--background);
+  --color-text-primary: var(--foreground);
+  --color-border-secondary: var(--border);
+}
+
+:root[data-visualize-standalone] {
+  background-color: var(--background) !important;
+}
+
+/* Generic mobile code-block hosts provide light/dark mode but no series palette.
+   AppBlock hosts set all six variables themselves. */
+:root:not([data-app-block-surface]) {
+  --viz-series-1: var(--primary);
+  --viz-series-2: light-dark(#f3883b, #f59a56);
+  --viz-series-3: light-dark(#5dc977, #74d58b);
+  --viz-series-4: light-dark(#eb77b1, #f08fc0);
+  --viz-series-5: light-dark(#9b79ec, #aa91ef);
+  --viz-series-6: light-dark(#3ab9b1, #5acbc2);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html > body {
+  margin: 0;
+  padding: 5px;
+  color: var(--foreground);
+  background: transparent !important;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-normal);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+}
+
+:root:not([data-app-block-surface]) > body {
+  padding: 12px;
+}
+
+a {
+  color: color-mix(in srgb, var(--viz-accent) 80%, var(--viz-text) 20%);
+  cursor: pointer;
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  text-underline-offset: 2px;
+}
+
+a:is(:hover, :focus-visible) {
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 0.5px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-block: 0;
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.3;
+}
+
+b,
+strong,
+th {
+  font-weight: var(--font-weight-medium);
+}
+
+code:not(pre code) {
+  display: inline;
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  background: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  overflow-wrap: anywhere;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  word-break: break-word;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--foreground);
+  font: inherit;
+  text-align: start;
+}
+
+.table :is(th, td) {
+  padding-block: 10px;
+  padding-inline: 0 24px;
+  overflow-wrap: anywhere;
+  border-bottom: 1px solid var(--border);
+  text-align: start;
+  vertical-align: top;
+}
+
+.table-responsive > .table :is(th, td) {
+  overflow-wrap: break-word;
+}
+
+.table :is(th, td):last-child {
+  padding-inline-end: 0;
+}
+
+.table :is(caption, thead th) {
+  font-weight: 600;
+}
+
+.table thead th {
+  padding-block: 8px;
+  border-bottom-color: color-mix(in srgb, var(--foreground) 16%, transparent);
+}
+
+.table tbody tr:last-child :is(th, td) {
+  border-bottom: 0;
+}
+
+.table.table-sm :is(th, td) {
+  padding-block: 6px;
+}
+
+.table.table-sm :is(th, td):not(:last-child) {
+  padding-inline-end: 16px;
+}
+
+.table :is(.text-end, [align="right"]) {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.table :is(.text-center, [align="center"]) {
+  text-align: center;
+}
+
+.table .text-nowrap {
+  white-space: nowrap;
+}
+
+#widget {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  padding: 0;
+  background: transparent !important;
+}
+
+.card {
+  min-width: 0;
+  padding: 12px;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  border-radius: var(--radius-2xl);
+  color: var(--card-foreground);
+  background: var(--card);
+}
+
+#widget > :not(.card) {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: max-content;
+  max-width: min(
+    20rem,
+    var(--tooltip-available-width, calc(100vw - 10px)),
+    calc(100vw - 10px)
+  );
+  max-height: min(
+    var(--tooltip-available-height, calc(100vh - 10px)),
+    calc(100vh - 10px)
+  );
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  color: var(--popover-foreground);
+  background: var(--popover);
+  box-shadow: none;
+  font-size: var(--font-size-tooltip);
+  line-height: var(--line-height-tooltip);
+  overflow-wrap: break-word;
+  white-space: normal;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* The bundled tooltip runtime owns [data-tooltip]. AppBlock's CSS-only
+   pseudo-tooltip can widen dense grids even while hidden. */
+main [data-tooltip]::after {
+  content: none;
+}
+
+.viz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(max(180px, 24%), 1fr));
+  gap: 10px;
+}
+
+.viz-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.viz-stat-value {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+.viz-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.viz-badge {
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  color: var(--accent-foreground);
+  background: var(--accent);
+  font-weight: var(--font-weight-medium);
+}
+
+small,
+.text-small,
+.viz-badge {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.text-muted {
+  color: var(--muted-foreground);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.viz-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.viz-controls > .form-label {
+  display: grid;
+  min-width: min(100%, 260px);
+  flex: 1 1 280px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 2px 12px;
+  margin-bottom: 0;
+}
+
+.viz-controls > .form-label > :is(.form-control, .form-range, .form-select) {
+  grid-column: 1 / -1;
+}
+
+.btn,
+.form-check-input,
+.form-control,
+.form-range,
+.form-select {
+  font: inherit;
+}
+
+.btn {
+  appearance: button;
+  display: inline-flex;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  min-height: 28px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0 8px;
+  -webkit-app-region: no-drag;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: var(--cursor-interaction, pointer);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.btn:is(.btn-block, .viz-tile) {
+  inline-size: 100%;
+}
+
+.btn.viz-tile {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+a.btn {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn-primary {
+  border-color: transparent;
+  color: var(--interactive-label-primary-default, var(--primary-foreground));
+  background: var(--interactive-bg-primary-default, var(--foreground));
+  background-clip: padding-box;
+}
+
+.btn-primary .text-muted {
+  color: color-mix(
+    in srgb,
+    var(--interactive-label-primary-default, var(--primary-foreground)) 50%,
+    transparent
+  );
+}
+
+.btn-primary:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 80%, transparent);
+  background-clip: padding-box;
+}
+
+.btn-ghost {
+  border-color: transparent;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.btn-ghost:not(:disabled):hover {
+  color: var(--foreground);
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+[data-lucide] {
+  stroke-width: 1.6;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--foreground);
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  padding: 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  color: var(--foreground);
+  background: var(--secondary);
+}
+
+.form-control::placeholder {
+  color: var(--muted-foreground);
+}
+
+.form-control[type="file"] {
+  padding: 0;
+  overflow: hidden;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control[type="file"]::file-selector-button {
+  min-height: 26px;
+  margin-right: 8px;
+  padding: 0 8px;
+  border: 0;
+  border-right: 1px solid var(--input);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: inherit;
+  font: inherit;
+}
+
+.form-control[type="file"]:not(:disabled):hover::file-selector-button {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-control-color[type="color"] {
+  width: 40px;
+  height: 28px;
+  padding: 3px;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control-color[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.form-control-color[type="color"]::-webkit-color-swatch {
+  border: 0;
+  border-radius: calc(var(--radius-lg) - 4px);
+}
+
+textarea.form-control {
+  height: auto;
+  min-height: 72px;
+  padding: 8px 10px;
+  resize: vertical;
+}
+
+.form-control:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-control:disabled,
+.form-select:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.form-select {
+  appearance: none;
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  margin: 0;
+  padding: 0 32px 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  color: var(--foreground);
+  background-color: var(--secondary);
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted-foreground) 50%),
+    linear-gradient(135deg, var(--muted-foreground) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) 50%,
+    calc(100% - 10px) 50%;
+  background-repeat: no-repeat;
+  background-size: 4px 4px;
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-select:not(:disabled):hover {
+  background-color: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-select:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-check {
+  display: flex;
+  min-height: 20px;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-check-input {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  margin: 0;
+  border: 1px solid var(--input);
+  color: var(--primary-foreground);
+  background-color: transparent;
+  cursor: var(--cursor-interaction, default);
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    box-shadow 150ms;
+}
+
+.form-check:not(.form-switch) .form-check-input[type="checkbox"] {
+  border-color: var(--input);
+  border-radius: var(--radius-sm);
+  background-color: var(--secondary);
+  box-shadow: var(--shadow-sm);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input:not(:disabled):not(:checked):hover {
+  background-color: var(--card);
+}
+
+.form-check:not(.form-switch) .form-check-input[type="checkbox"]:checked {
+  border-color: var(--primary);
+  background-color: var(--primary);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input[type="checkbox"]:checked::before {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-foreground);
+  content: "";
+  mask: var(--checkmark-image) center / 12px 12px no-repeat;
+}
+
+.form-check-input[type="radio"] {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+}
+
+.form-check-input[type="radio"]:checked {
+  border: 2px solid var(--primary);
+  background:
+    radial-gradient(circle, var(--primary-foreground) 0 2.5px, transparent 3px),
+    var(--primary);
+}
+
+.form-check:not(.form-switch) .form-check-input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+}
+
+.form-switch .form-check-input:disabled,
+.form-switch .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.form-check-label {
+  color: var(--foreground);
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-switch .form-check-input {
+  position: relative;
+  width: 32px;
+  height: 20px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+  box-shadow: none;
+  transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border: 1px solid light-dark(var(--primary-foreground), var(--foreground));
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+  box-shadow: var(--shadow-sm);
+  content: "";
+  transform: translate(2px, -50%);
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input:checked {
+  background: var(--primary);
+}
+
+.form-switch .form-check-input:checked::before {
+  transform: translate(14px, -50%);
+}
+
+.form-switch .form-check-input:focus-visible {
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+.form-range {
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 28px;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: 0;
+  accent-color: var(--primary);
+  background: linear-gradient(
+      color-mix(in srgb, var(--foreground) 7%, transparent),
+      color-mix(in srgb, var(--foreground) 7%, transparent)
+    )
+    center / 100% 2px no-repeat;
+}
+
+.form-range::-webkit-slider-runnable-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-webkit-slider-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range::-moz-range-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-moz-range-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.btn:not(.btn-primary, .viz-tile):is(
+    [aria-pressed="true"],
+    [aria-selected="true"],
+    .is-selected
+  ) {
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+  background: var(--primary);
+}
+
+.btn.viz-tile:is([aria-pressed="true"], [aria-selected="true"], .is-selected) {
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+#widget > svg {
+  width: 100%;
+}
+
+.text-warning,
+.text-destructive {
+  color: var(--destructive);
+}
+</style>
+</head>
+<body>
+<style>
+  #piston-sim {
+    color: var(--foreground);
+    width: 100%;
+  }
+
+  #piston-sim .ps-controls {
+    align-items: end;
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: auto minmax(220px, 1fr);
+    margin-bottom: 0.75rem;
+  }
+
+  #piston-sim .ps-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  #piston-sim .ps-time-control {
+    min-width: 0;
+  }
+
+  #piston-sim .ps-readouts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  #piston-sim .ps-stage {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: minmax(250px, 0.78fr) minmax(360px, 1.22fr);
+  }
+
+  #piston-sim .ps-figure {
+    margin: 0;
+    min-width: 0;
+  }
+
+  #piston-sim .ps-figure svg {
+    display: block;
+    height: auto;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  #piston-sim .ps-rail,
+  #piston-sim .ps-axis,
+  #piston-sim .ps-gridline {
+    stroke: var(--border);
+  }
+
+  #piston-sim .ps-axis,
+  #piston-sim .ps-rail {
+    stroke-width: 2;
+  }
+
+  #piston-sim .ps-gridline {
+    stroke-width: 1;
+  }
+
+  #piston-sim .ps-centerline {
+    stroke: var(--muted-foreground);
+    stroke-dasharray: 5 5;
+    stroke-width: 1;
+  }
+
+  #piston-sim .ps-orbit {
+    fill: none;
+    stroke: var(--border);
+    stroke-dasharray: 5 5;
+    stroke-width: 2;
+  }
+
+  #piston-sim .ps-crank {
+    stroke: var(--viz-series-1);
+    stroke-linecap: round;
+    stroke-width: 8;
+  }
+
+  #piston-sim .ps-rod {
+    stroke: var(--viz-series-2);
+    stroke-linecap: round;
+    stroke-width: 10;
+  }
+
+  #piston-sim .ps-joint {
+    fill: var(--background);
+    stroke: var(--foreground);
+    stroke-width: 4;
+  }
+
+  #piston-sim .ps-piston {
+    fill: var(--accent);
+    stroke: var(--foreground);
+    stroke-width: 2;
+  }
+
+  #piston-sim .ps-ring {
+    stroke: var(--muted-foreground);
+    stroke-width: 2;
+  }
+
+  #piston-sim .ps-chart-line {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 3;
+  }
+
+  #piston-sim .ps-piston-line {
+    stroke: var(--viz-series-1);
+  }
+
+  #piston-sim .ps-crankpin-line {
+    stroke: var(--viz-series-2);
+    stroke-dasharray: 7 5;
+  }
+
+  #piston-sim .ps-cursor {
+    stroke: var(--foreground);
+    stroke-width: 2;
+  }
+
+  #piston-sim .ps-dot-piston {
+    fill: var(--viz-series-1);
+    stroke: var(--background);
+    stroke-width: 2;
+  }
+
+  #piston-sim .ps-dot-crankpin {
+    fill: var(--viz-series-2);
+    stroke: var(--background);
+    stroke-width: 2;
+  }
+
+  #piston-sim .ps-svg-label {
+    fill: var(--foreground);
+  }
+
+  #piston-sim .ps-svg-muted {
+    fill: var(--muted-foreground);
+  }
+
+  #piston-sim .ps-label-piston {
+    fill: var(--foreground);
+  }
+
+  #piston-sim .ps-label-crankpin {
+    fill: var(--foreground);
+  }
+
+  #piston-sim .ps-formulas {
+    border-top: 1px solid var(--border);
+    display: grid;
+    gap: 0.5rem 1rem;
+    grid-template-columns: max-content minmax(0, 1fr);
+    margin: 1rem 0 0;
+    padding-top: 0.75rem;
+  }
+
+  #piston-sim .ps-formulas dt {
+    color: var(--muted-foreground);
+  }
+
+  #piston-sim .ps-formulas dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+
+  #piston-sim .ps-formulas code {
+    color: var(--foreground);
+  }
+
+  @media (max-width: 680px) {
+    #piston-sim .ps-controls,
+    #piston-sim .ps-stage {
+      grid-template-columns: 1fr;
+    }
+
+    #piston-sim .ps-formulas {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<div id="piston-sim">
+  <div class="ps-controls">
+    <div class="ps-actions">
+      <button id="ps-play" class="btn btn-primary" type="button" aria-pressed="true">Pausar</button>
+      <button id="ps-reset" class="btn" type="button">Reiniciar</button>
+    </div>
+    <label class="form-label ps-time-control" for="ps-time">
+      Tiempo: <output id="ps-time-output" for="ps-time">0,000 s</output>
+      <input id="ps-time" class="form-range" type="range" min="0" max="4" step="0.001" value="0">
+    </label>
+  </div>
+
+  <div class="ps-readouts" aria-live="polite">
+    <span class="viz-badge">θ = <output id="ps-angle-output">0,0°</output></span>
+    <span class="viz-badge">Pistón = <output id="ps-height-output">10,000 pulg</output></span>
+    <span class="viz-badge">Muñón = <output id="ps-pin-output">3,000 pulg</output></span>
+  </div>
+
+  <div class="ps-stage">
+    <figure class="ps-figure">
+      <svg id="ps-mechanism" viewBox="0 0 330 360" role="img" aria-labelledby="ps-mech-title ps-mech-desc">
+        <title id="ps-mech-title">Mecanismo biela-manivela vertical</title>
+        <desc id="ps-mech-desc">Un cigüeñal de radio tres pulgadas mueve un pistón vertical mediante una biela de siete pulgadas.</desc>
+
+        <line class="ps-centerline" x1="165" y1="42" x2="165" y2="330"></line>
+        <line class="ps-rail" x1="118" y1="46" x2="118" y2="244"></line>
+        <line class="ps-rail" x1="212" y1="46" x2="212" y2="244"></line>
+        <line class="ps-axis" x1="88" y1="300" x2="242" y2="300"></line>
+        <circle class="ps-orbit" cx="165" cy="300" r="60"></circle>
+
+        <line id="ps-rod" class="ps-rod" x1="165" y1="240" x2="165" y2="100"></line>
+        <line id="ps-crank" class="ps-crank" x1="165" y1="300" x2="165" y2="240"></line>
+
+        <rect id="ps-piston" class="ps-piston" x="128" y="77" width="74" height="46" rx="5"></rect>
+        <line id="ps-ring-1" class="ps-ring" x1="133" y1="88" x2="197" y2="88"></line>
+        <line id="ps-ring-2" class="ps-ring" x1="133" y1="96" x2="197" y2="96"></line>
+
+        <circle id="ps-piston-pin" class="ps-joint" cx="165" cy="100" r="8"></circle>
+        <circle id="ps-crank-pin" class="ps-joint" cx="165" cy="240" r="8"></circle>
+        <circle class="ps-joint" cx="165" cy="300" r="10"></circle>
+
+        <text class="ps-svg-muted" x="222" y="70">Pistón</text>
+        <text class="ps-svg-muted" x="222" y="165">Biela L = 7 pulg</text>
+        <text class="ps-svg-muted" x="222" y="284">r = 3 pulg</text>
+        <text class="ps-svg-muted" x="165" y="340" text-anchor="middle">Eje fijo del cigüeñal</text>
+      </svg>
+    </figure>
+
+    <figure class="ps-figure">
+      <svg id="ps-chart" viewBox="0 0 580 350" role="img" aria-labelledby="ps-chart-title ps-chart-desc">
+        <title id="ps-chart-title">Alturas en función del tiempo</title>
+        <desc id="ps-chart-desc">La línea continua representa la altura del pistón y la línea discontinua la altura del muñón del cigüeñal, ambas respecto del eje fijo.</desc>
+        <g id="ps-grid"></g>
+        <path id="ps-piston-path" class="ps-chart-line ps-piston-line"></path>
+        <path id="ps-crankpin-path" class="ps-chart-line ps-crankpin-line"></path>
+        <line id="ps-cursor" class="ps-cursor" x1="54" y1="20" x2="54" y2="310"></line>
+        <circle id="ps-piston-dot" class="ps-dot-piston" cx="54" cy="20" r="6"></circle>
+        <circle id="ps-crankpin-dot" class="ps-dot-crankpin" cx="54" cy="165" r="6"></circle>
+        <text class="ps-label-piston" x="555" y="30" text-anchor="end">Pistón — h(t)</text>
+        <text class="ps-label-crankpin" x="555" y="169" text-anchor="end">Muñón — yₘ(t)</text>
+      </svg>
+    </figure>
+  </div>
+
+  <dl class="ps-formulas">
+    <dt>Datos</dt>
+    <dd><code>r = 3 pulg</code>, <code>L = 7 pulg</code>, <code>n = 30 rpm</code>, <code>ω = π rad/s</code></dd>
+    <dt>Ángulo uniforme</dt>
+    <dd><code>θ(t) = ωt = πt</code></dd>
+    <dt>Muñón del cigüeñal</dt>
+    <dd><code>yₘ(t) = 3 cos(πt)</code></dd>
+    <dt>Altura del pistón</dt>
+    <dd><code>h(t) = 3 cos(πt) + √(49 − 9 sen²(πt))</code></dd>
+  </dl>
+</div>
+
+<script>
+  (function () {
+    "use strict";
+
+    var root = document.getElementById("piston-sim");
+    if (!root) return;
+
+    var radius = 3;
+    var rodLength = 7;
+    var rpm = 30;
+    var omega = 2 * Math.PI * rpm / 60;
+    var duration = 4;
+    var pixelsPerInch = 20;
+    var crankCenterX = 165;
+    var crankCenterY = 300;
+    var chart = { left: 54, right: 555, top: 20, bottom: 310, minY: -4, maxY: 11 };
+
+    var playButton = root.querySelector("#ps-play");
+    var resetButton = root.querySelector("#ps-reset");
+    var timeSlider = root.querySelector("#ps-time");
+    var timeOutput = root.querySelector("#ps-time-output");
+    var angleOutput = root.querySelector("#ps-angle-output");
+    var heightOutput = root.querySelector("#ps-height-output");
+    var pinOutput = root.querySelector("#ps-pin-output");
+    var piston = root.querySelector("#ps-piston");
+    var ring1 = root.querySelector("#ps-ring-1");
+    var ring2 = root.querySelector("#ps-ring-2");
+    var rod = root.querySelector("#ps-rod");
+    var crank = root.querySelector("#ps-crank");
+    var pistonPin = root.querySelector("#ps-piston-pin");
+    var crankPin = root.querySelector("#ps-crank-pin");
+    var pistonPath = root.querySelector("#ps-piston-path");
+    var crankpinPath = root.querySelector("#ps-crankpin-path");
+    var cursor = root.querySelector("#ps-cursor");
+    var pistonDot = root.querySelector("#ps-piston-dot");
+    var crankpinDot = root.querySelector("#ps-crankpin-dot");
+    var grid = root.querySelector("#ps-grid");
+    var reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var playing = !reducedMotion;
+    var currentTime = 0;
+    var lastFrame = null;
+    var svgNamespace = "http://www.w3.org/2000/svg";
+
+    function formatNumber(value, digits) {
+      return value.toFixed(digits).replace(".", ",");
+    }
+
+    function mechanismState(time) {
+      var theta = omega * time;
+      var sinTheta = Math.sin(theta);
+      var cosTheta = Math.cos(theta);
+      var crankX = radius * sinTheta;
+      var crankY = radius * cosTheta;
+      var pistonHeight = crankY + Math.sqrt(rodLength * rodLength - crankX * crankX);
+      return {
+        theta: theta,
+        crankX: crankX,
+        crankY: crankY,
+        pistonHeight: pistonHeight
+      };
+    }
+
+    function xScale(time) {
+      return chart.left + time / duration * (chart.right - chart.left);
+    }
+
+    function yScale(value) {
+      return chart.bottom - (value - chart.minY) / (chart.maxY - chart.minY) * (chart.bottom - chart.top);
+    }
+
+    function makeSvgElement(name, attributes, textValue) {
+      var element = document.createElementNS(svgNamespace, name);
+      Object.keys(attributes).forEach(function (key) {
+        element.setAttribute(key, attributes[key]);
+      });
+      if (textValue !== undefined) element.textContent = textValue;
+      return element;
+    }
+
+    function buildGrid() {
+      var xTicks = [0, 1, 2, 3, 4];
+      var yTicks = [-3, 0, 3, 4, 7, 10];
+
+      xTicks.forEach(function (tick) {
+        var x = xScale(tick);
+        grid.appendChild(makeSvgElement("line", {
+          x1: x, y1: chart.top, x2: x, y2: chart.bottom, "class": "ps-gridline"
+        }));
+        grid.appendChild(makeSvgElement("text", {
+          x: x, y: 332, "text-anchor": "middle", "class": "ps-svg-muted"
+        }, String(tick)));
+      });
+
+      yTicks.forEach(function (tick) {
+        var y = yScale(tick);
+        grid.appendChild(makeSvgElement("line", {
+          x1: chart.left, y1: y, x2: chart.right, y2: y, "class": "ps-gridline"
+        }));
+        grid.appendChild(makeSvgElement("text", {
+          x: 45, y: y + 4, "text-anchor": "end", "class": "ps-svg-muted"
+        }, String(tick)));
+      });
+
+      grid.appendChild(makeSvgElement("line", {
+        x1: chart.left, y1: chart.top, x2: chart.left, y2: chart.bottom, "class": "ps-axis"
+      }));
+      grid.appendChild(makeSvgElement("line", {
+        x1: chart.left, y1: chart.bottom, x2: chart.right, y2: chart.bottom, "class": "ps-axis"
+      }));
+      grid.appendChild(makeSvgElement("text", {
+        x: chart.right, y: 345, "text-anchor": "end", "class": "ps-svg-label"
+      }, "tiempo (s)"));
+      grid.appendChild(makeSvgElement("text", {
+        x: 15, y: 165, transform: "rotate(-90 15 165)", "text-anchor": "middle", "class": "ps-svg-label"
+      }, "altura respecto del eje (pulg)"));
+    }
+
+    function buildCurves() {
+      var pistonCommands = [];
+      var crankpinCommands = [];
+      var samples = 600;
+
+      for (var index = 0; index <= samples; index += 1) {
+        var time = duration * index / samples;
+        var state = mechanismState(time);
+        var command = index === 0 ? "M" : "L";
+        pistonCommands.push(command + xScale(time).toFixed(2) + " " + yScale(state.pistonHeight).toFixed(2));
+        crankpinCommands.push(command + xScale(time).toFixed(2) + " " + yScale(state.crankY).toFixed(2));
+      }
+
+      pistonPath.setAttribute("d", pistonCommands.join(" "));
+      crankpinPath.setAttribute("d", crankpinCommands.join(" "));
+    }
+
+    function setPlaying(nextPlaying) {
+      playing = nextPlaying;
+      playButton.textContent = playing ? "Pausar" : "Reproducir";
+      playButton.setAttribute("aria-pressed", playing ? "true" : "false");
+    }
+
+    function render(time) {
+      var state = mechanismState(time);
+      var crankX = crankCenterX + state.crankX * pixelsPerInch;
+      var crankY = crankCenterY - state.crankY * pixelsPerInch;
+      var pistonPinY = crankCenterY - state.pistonHeight * pixelsPerInch;
+      var pistonTop = pistonPinY - 23;
+      var chartX = xScale(time);
+      var chartPistonY = yScale(state.pistonHeight);
+      var chartCrankpinY = yScale(state.crankY);
+      var angleDegrees = (state.theta * 180 / Math.PI) % 360;
+
+      crank.setAttribute("x2", crankX);
+      crank.setAttribute("y2", crankY);
+      rod.setAttribute("x1", crankX);
+      rod.setAttribute("y1", crankY);
+      rod.setAttribute("x2", crankCenterX);
+      rod.setAttribute("y2", pistonPinY);
+      crankPin.setAttribute("cx", crankX);
+      crankPin.setAttribute("cy", crankY);
+      pistonPin.setAttribute("cy", pistonPinY);
+      piston.setAttribute("y", pistonTop);
+      ring1.setAttribute("y1", pistonTop + 11);
+      ring1.setAttribute("y2", pistonTop + 11);
+      ring2.setAttribute("y1", pistonTop + 19);
+      ring2.setAttribute("y2", pistonTop + 19);
+
+      cursor.setAttribute("x1", chartX);
+      cursor.setAttribute("x2", chartX);
+      pistonDot.setAttribute("cx", chartX);
+      pistonDot.setAttribute("cy", chartPistonY);
+      crankpinDot.setAttribute("cx", chartX);
+      crankpinDot.setAttribute("cy", chartCrankpinY);
+
+      timeSlider.value = String(time);
+      timeOutput.value = formatNumber(time, 3) + " s";
+      angleOutput.value = formatNumber(angleDegrees, 1) + "°";
+      heightOutput.value = formatNumber(state.pistonHeight, 3) + " pulg";
+      pinOutput.value = formatNumber(state.crankY, 3) + " pulg";
+    }
+
+    playButton.addEventListener("click", function () {
+      if (!playing && currentTime >= duration) currentTime = 0;
+      setPlaying(!playing);
+      lastFrame = null;
+    });
+
+    resetButton.addEventListener("click", function () {
+      currentTime = 0;
+      setPlaying(false);
+      render(currentTime);
+    });
+
+    timeSlider.addEventListener("input", function () {
+      currentTime = Number(timeSlider.value);
+      setPlaying(false);
+      render(currentTime);
+    });
+
+    function animate(timestamp) {
+      if (lastFrame === null) lastFrame = timestamp;
+      var elapsed = Math.min((timestamp - lastFrame) / 1000, 0.1);
+      lastFrame = timestamp;
+
+      if (playing) {
+        currentTime += elapsed;
+        if (currentTime > duration) currentTime %= duration;
+        render(currentTime);
+      }
+
+      window.requestAnimationFrame(animate);
+    }
+
+    buildGrid();
+    buildCurves();
+    setPlaying(playing);
+    render(currentTime);
+    window.requestAnimationFrame(animate);
+  }());
+</script>
+
+<script id="codex-visualization-floating-ui-core" src="https://unpkg.com/@floating-ui/core@1.7.3/dist/floating-ui.core.umd.min.js"></script>
+<script id="codex-visualization-floating-ui-dom" src="https://unpkg.com/@floating-ui/dom@1.7.4/dist/floating-ui.dom.umd.min.js"></script>
+<script id="codex-visualization-lucide" async src="https://unpkg.com/lucide@1.17.0/dist/umd/lucide.js"></script>
+<script id="codex-visualization-tooltip">/* oxlint-disable typescript/no-unsafe-argument, typescript/no-unsafe-call, typescript/no-unsafe-return */
+// Runs inside the visualization sandbox, not the host webview.
+(() => {
+  if (window.FloatingUIDOM == null) {
+    return;
+  }
+  const { autoUpdate, computePosition, flip, offset, shift, size } =
+    window.FloatingUIDOM;
+  const tooltipPlacements = new Set(["top", "right", "bottom", "left"]);
+  const tooltipId = `codex-visualization-tooltip-${
+    window.crypto?.randomUUID?.() ?? Date.now().toString(36)
+  }`;
+  const tooltipGap = 5;
+  const hoverDelay = 700;
+  const skipDelay = 300;
+  let activeTrigger = null;
+  let pendingTrigger = null;
+  let tooltip = null;
+  let openTimeout = null;
+  let autoUpdateCleanup = null;
+  let positionRequest = 0;
+  let skipDelayUntil = 0;
+
+  const getTrigger = (target) =>
+    target?.nodeType === Node.ELEMENT_NODE
+      ? target.closest("[data-tooltip]")
+      : null;
+  const containsTarget = (trigger, target) =>
+    target?.nodeType != null && trigger.contains(target);
+  const getContent = (trigger) =>
+    trigger.getAttribute("data-tooltip")?.trim() ?? "";
+  const getPlacement = (trigger) => {
+    const placement = trigger.getAttribute("data-tooltip-placement");
+    return tooltipPlacements.has(placement) ? placement : "top";
+  };
+  const getTooltip = () => {
+    if (tooltip == null) {
+      tooltip = document.createElement("div");
+      tooltip.id = tooltipId;
+      tooltip.className = "tooltip";
+      tooltip.setAttribute("role", "tooltip");
+    }
+    return tooltip;
+  };
+  const setDescribedBy = (trigger, described) => {
+    const ids = new Set(
+      (trigger.getAttribute("aria-describedby") ?? "")
+        .split(/\s+/)
+        .filter(Boolean),
+    );
+    if (described) {
+      ids.add(tooltipId);
+    } else {
+      ids.delete(tooltipId);
+    }
+    if (ids.size === 0) {
+      trigger.removeAttribute("aria-describedby");
+    } else {
+      trigger.setAttribute("aria-describedby", [...ids].join(" "));
+    }
+  };
+  const clearOpenTimeout = () => {
+    if (openTimeout != null) {
+      window.clearTimeout(openTimeout);
+      openTimeout = null;
+    }
+    pendingTrigger = null;
+  };
+  const closeTooltip = (activateSkipDelay = true) => {
+    clearOpenTimeout();
+    positionRequest += 1;
+    autoUpdateCleanup?.();
+    autoUpdateCleanup = null;
+    if (activeTrigger == null) {
+      return;
+    }
+    setDescribedBy(activeTrigger, false);
+    activeTrigger = null;
+    tooltip?.remove();
+    if (activateSkipDelay) {
+      skipDelayUntil = Date.now() + skipDelay;
+    }
+  };
+  const updatePosition = (trigger, floating) => {
+    const request = ++positionRequest;
+    void computePosition(trigger, floating, {
+      middleware: [
+        offset(tooltipGap),
+        flip({ padding: tooltipGap }),
+        shift({ padding: tooltipGap }),
+        size({
+          padding: tooltipGap,
+          apply({ availableHeight, availableWidth, elements }) {
+            elements.floating.style.setProperty(
+              "--tooltip-available-width",
+              `${Math.max(0, availableWidth)}px`,
+            );
+            elements.floating.style.setProperty(
+              "--tooltip-available-height",
+              `${Math.max(0, availableHeight)}px`,
+            );
+          },
+        }),
+      ],
+      placement: getPlacement(trigger),
+      strategy: "fixed",
+    })
+      .then(({ x, y }) => {
+        if (activeTrigger !== trigger || request !== positionRequest) {
+          return;
+        }
+        const scale = window.devicePixelRatio || 1;
+        floating.style.transform = `translate(${Math.round(x * scale) / scale}px, ${Math.round(y * scale) / scale}px)`;
+        floating.style.visibility = "visible";
+      })
+      .catch(() => {
+        if (activeTrigger === trigger && request === positionRequest) {
+          closeTooltip(false);
+        }
+      });
+  };
+  const openTooltip = (trigger) => {
+    const content = getContent(trigger);
+    if (!trigger.isConnected || content.length === 0) {
+      return;
+    }
+    clearOpenTimeout();
+    if (activeTrigger === trigger) {
+      return;
+    }
+    closeTooltip();
+    const floating = getTooltip();
+    floating.textContent = content;
+    floating.style.visibility = "hidden";
+    floating.style.transform = "translate(0, 0)";
+    document.body.appendChild(floating);
+    activeTrigger = trigger;
+    setDescribedBy(trigger, true);
+    autoUpdateCleanup = autoUpdate(trigger, floating, () => {
+      updatePosition(trigger, floating);
+    });
+  };
+  const requestOpen = (trigger, immediate = false) => {
+    if (
+      getContent(trigger).length === 0 ||
+      activeTrigger === trigger ||
+      pendingTrigger === trigger
+    ) {
+      return;
+    }
+    clearOpenTimeout();
+    pendingTrigger = trigger;
+    const delay =
+      immediate || activeTrigger != null || Date.now() < skipDelayUntil
+        ? 0
+        : hoverDelay;
+    if (delay === 0) {
+      openTooltip(trigger);
+      return;
+    }
+    openTimeout = window.setTimeout(() => {
+      openTimeout = null;
+      pendingTrigger = null;
+      openTooltip(trigger);
+    }, delay);
+  };
+  const handlePointerOpen = (event) => {
+    if (event.pointerType === "touch") {
+      return;
+    }
+    const trigger = getTrigger(event.target);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    requestOpen(trigger);
+  };
+  const handleLeave = (event) => {
+    const trigger = getTrigger(event.target);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const handleFocusIn = (event) => {
+    const trigger = getTrigger(event.target);
+    if (trigger?.matches(":focus-visible")) {
+      requestOpen(trigger, true);
+    }
+  };
+  const handleKeyDown = (event) => {
+    if (event.key === "Escape") {
+      closeTooltip();
+    }
+  };
+  const handleContextMenu = (event) => {
+    const trigger = getTrigger(event.target);
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const destroy = () => {
+    closeTooltip(false);
+    document.removeEventListener("pointerover", handlePointerOpen);
+    document.removeEventListener("pointerout", handleLeave);
+    document.removeEventListener("focusin", handleFocusIn);
+    document.removeEventListener("focusout", handleLeave);
+    document.removeEventListener("keydown", handleKeyDown);
+    document.removeEventListener("contextmenu", handleContextMenu);
+    tooltip = null;
+  };
+
+  document.addEventListener("pointerover", handlePointerOpen);
+  document.addEventListener("pointerout", handleLeave);
+  document.addEventListener("focusin", handleFocusIn);
+  document.addEventListener("focusout", handleLeave);
+  document.addEventListener("keydown", handleKeyDown);
+  document.addEventListener("contextmenu", handleContextMenu);
+  window.addEventListener("pagehide", destroy, { once: true });
+})();
+</script>
+<script id="codex-visualization-lucide-initialization">(() => {
+  const initialize = () => {
+    globalThis.lucide?.createIcons({ attrs: { width: 16, height: 16 } });
+  };
+  if (globalThis.lucide != null) {
+    initialize();
+    return;
+  }
+  document
+    .getElementById("codex-visualization-lucide")
+    ?.addEventListener("load", initialize, { once: true });
+})();
+</script>
+</body>
+</html>
