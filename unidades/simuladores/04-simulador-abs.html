@@ -908,7 +908,7 @@ svg {
     align-items: start;
     display: grid;
     gap: 1rem;
-    grid-template-columns: minmax(280px, 0.78fr) minmax(440px, 1.22fr);
+    grid-template-columns: minmax(0, 15fr) minmax(0, 85fr);
   }
 
   #abs-simulator .abs-figure {
@@ -1173,7 +1173,7 @@ svg {
 
   <div class="abs-controls-top">
     <div class="abs-actions">
-      <button id="abs-play" class="btn btn-primary" type="button" aria-pressed="true">Pausar</button>
+      <button id="abs-play" class="btn btn-primary" type="button" aria-pressed="false">Reproducir</button>
       <button id="abs-reset" class="btn" type="button">Volver a t = 0</button>
     </div>
     <label class="form-label" for="abs-time">
@@ -1192,8 +1192,8 @@ svg {
       <input id="abs-teeth" class="form-range" type="range" min="12" max="60" step="1" value="48">
     </label>
     <label class="form-label" for="abs-rpm">
-      Régimen inicial n: <output id="abs-rpm-output" for="abs-rpm">300 rpm</output>
-      <input id="abs-rpm" class="form-range" type="range" min="60" max="600" step="10" value="300">
+      Régimen inicial n: <output id="abs-rpm-output" for="abs-rpm">0 rpm</output>
+      <input id="abs-rpm" class="form-range" type="range" min="0" max="600" step="10" value="0">
     </label>
     <label class="form-label" for="abs-sensor-type">
       Tipo de sensor
@@ -1220,15 +1220,15 @@ svg {
   <div class="abs-readouts" aria-live="polite">
     <div class="abs-readout">
       <span class="abs-readout-label">Frecuencia esperada del sensor</span>
-      <output id="abs-frequency-output">240,0 Hz</output>
+      <output id="abs-frequency-output">0,0 Hz</output>
     </div>
     <div class="abs-readout">
       <span class="abs-readout-label">Período entre dientes</span>
-      <output id="abs-period-output">4,17 ms</output>
+      <output id="abs-period-output">sin pulsos</output>
     </div>
     <div class="abs-readout">
       <span class="abs-readout-label">Velocidad de la rueda</span>
-      <output id="abs-speed-output">33,9 km/h</output>
+      <output id="abs-speed-output">0,0 km/h</output>
     </div>
     <div class="abs-readout">
       <span class="abs-readout-label">Deslizamiento de frenado</span>
@@ -1263,7 +1263,7 @@ svg {
         </g>
         <path id="abs-rotation-arrow" d="M77 58 A118 118 0 0 1 184 39" fill="none" stroke="var(--viz-series-1)" stroke-width="3"></path>
         <path d="M184 39 L173 34 L177 47 Z" fill="var(--viz-series-1)"></path>
-        <text id="abs-wheel-rpm-label" class="abs-svg-label" x="155" y="292" text-anchor="middle">300 rpm · sentido antihorario</text>
+        <text id="abs-wheel-rpm-label" class="abs-svg-label" x="155" y="292" text-anchor="middle">0 rpm · sentido antihorario</text>
         <text id="abs-wheel-condition" class="abs-svg-muted" x="155" y="315" text-anchor="middle">rueda fónica completa</text>
       </svg>
       <figcaption class="abs-caption">Cada diente cambia el campo magnético frente al sensor. No es necesario que el neumático dé una vuelta completa para estimar su velocidad.</figcaption>
@@ -1292,8 +1292,8 @@ svg {
         <line id="abs-signal-cursor" class="abs-cursor" x1="60" y1="244" x2="60" y2="354"></line>
         <circle id="abs-signal-dot" class="abs-dot-signal" cx="60" cy="354" r="4.5"></circle>
         <text id="abs-signal-start-label" class="abs-svg-muted" x="60" y="378">0,000 s</text>
-        <text id="abs-signal-end-label" class="abs-svg-muted" x="630" y="378" text-anchor="end">0,033 s</text>
-        <text id="abs-signal-window-label" class="abs-svg-muted" x="345" y="378" text-anchor="middle">ventana: 33 ms</text>
+        <text id="abs-signal-end-label" class="abs-svg-muted" x="630" y="378" text-anchor="end">0,800 s</text>
+        <text id="abs-signal-window-label" class="abs-svg-muted" x="345" y="378" text-anchor="middle">ventana: 800 ms</text>
       </svg>
       <figcaption class="abs-caption">La línea discontinua representa una velocidad de referencia estimada a partir del vehículo y de las otras ruedas. El gráfico inferior amplía unos pocos períodos eléctricos.</figcaption>
     </figure>
@@ -1303,17 +1303,17 @@ svg {
     <div class="abs-formula">
       <span class="abs-formula-title">1. Frecuencia del sensor</span>
       <span class="abs-equation">f<sub>sensor</sub> = N · n / 60</span>
-      <span id="abs-frequency-equation" class="abs-live-equation">48 · 300 / 60 = 240,0 Hz</span>
+      <span id="abs-frequency-equation" class="abs-live-equation">48 · 0 / 60 = 0,0 Hz</span>
     </div>
     <div class="abs-formula">
       <span class="abs-formula-title">2. Velocidad periférica</span>
       <span class="abs-equation">v = 2πR · n / 60</span>
-      <span id="abs-speed-equation" class="abs-live-equation">2π · 0,30 · 300 / 60 · 3,6 = 33,9 km/h</span>
+      <span id="abs-speed-equation" class="abs-live-equation">2π · 0,30 · 0 / 60 · 3,6 = 0,0 km/h</span>
     </div>
     <div class="abs-formula">
       <span class="abs-formula-title">3. Deslizamiento al frenar</span>
       <span class="abs-equation">s = (v<sub>ref</sub> − v<sub>rueda</sub>) / v<sub>ref</sub> · 100 %</span>
-      <span id="abs-slip-equation" class="abs-live-equation">(33,9 − 33,9) / 33,9 · 100 = 0,0 %</span>
+      <span id="abs-slip-equation" class="abs-live-equation">v<sub>ref</sub> = 0,0 km/h → s = 0,0 % (vehículo detenido)</span>
     </div>
   </section>
 
@@ -1344,12 +1344,11 @@ svg {
 
     var radius = 0.30;
     var teeth = 48;
-    var initialRpm = 300;
+    var initialRpm = 0;
     var sensorType = "hall";
     var scenario = "normal";
     var currentTime = 0;
-    var reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var playing = !reducedMotion;
+    var playing = false;
     var lastFrame = null;
 
     var playButton = root.querySelector("#abs-play");
@@ -1591,6 +1590,7 @@ svg {
     }
 
     function signalWindow() {
+      if (initialRpm <= 0) return 0.8;
       var nominalFrequency = teeth * initialRpm / 60;
       var eightPulses = clamp(8 / nominalFrequency, 0.04, 0.8);
       if (scenario === "missing") return clamp(66 / initialRpm, 0.12, 1.2);
@@ -1677,7 +1677,9 @@ svg {
 
       frequencyEquation.textContent = teeth + " · " + formatNumber(rpm, 0) + " / 60 = " + formatNumber(frequency, 1) + " Hz";
       speedEquation.textContent = "2π · " + formatNumber(radius, 2) + " · " + formatNumber(rpm, 0) + " / 60 · 3,6 = " + formatNumber(speed, 1) + " km/h";
-      slipEquation.textContent = "(" + formatNumber(reference, 1) + " − " + formatNumber(speed, 1) + ") / " + formatNumber(reference, 1) + " · 100 = " + formatNumber(slip, 1) + " %";
+      slipEquation.textContent = reference > 0.001
+        ? "(" + formatNumber(reference, 1) + " − " + formatNumber(speed, 1) + ") / " + formatNumber(reference, 1) + " · 100 = " + formatNumber(slip, 1) + " %"
+        : "vᵣᵉᶠ = 0,0 km/h → s = 0,0 % (vehículo detenido)";
 
       buildSignalCurve();
     }

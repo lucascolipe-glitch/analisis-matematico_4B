@@ -1004,7 +1004,7 @@ svg {
 <div id="unit-circle-lab">
   <div class="uc-controls">
     <div class="uc-actions">
-      <button id="uc-play" class="btn btn-primary" type="button" aria-pressed="true">Pausar</button>
+      <button id="uc-play" class="btn btn-primary" type="button" aria-pressed="false">Reproducir</button>
       <button id="uc-reset" class="btn" type="button">Reiniciar</button>
     </div>
     <label class="form-label uc-time-control" for="uc-time">
@@ -1143,8 +1143,7 @@ svg {
     var cosDot = root.querySelector("#uc-cos-dot");
     var sinDot = root.querySelector("#uc-sin-dot");
     var liveExplanation = root.querySelector("#uc-live-explanation");
-    var reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var playing = !reducedMotion;
+    var playing = false;
     var currentTime = 0;
     var lastFrame = null;
 

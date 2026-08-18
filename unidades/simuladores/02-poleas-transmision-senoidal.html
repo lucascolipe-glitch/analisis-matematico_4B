@@ -1008,7 +1008,7 @@ svg {
 <div id="pulley-trig-lab">
   <div class="pt-controls">
     <div class="pt-actions">
-      <button id="pt-play" class="btn btn-primary" type="button" aria-pressed="true">Pausar</button>
+      <button id="pt-play" class="btn btn-primary" type="button" aria-pressed="false">Reproducir</button>
       <button id="pt-reset" class="btn" type="button">Reiniciar</button>
     </div>
     <label class="form-label" for="pt-time">
@@ -1019,8 +1019,8 @@ svg {
 
   <div class="pt-parameters">
     <label class="form-label" for="pt-rpm">
-      Polea motriz: <output id="pt-rpm-output" for="pt-rpm">60 rpm</output>
-      <input id="pt-rpm" class="form-range" type="range" min="30" max="120" step="5" value="60">
+      Polea motriz: <output id="pt-rpm-output" for="pt-rpm">0 rpm</output>
+      <input id="pt-rpm" class="form-range" type="range" min="0" max="120" step="5" value="0">
     </label>
     <label class="form-label" for="pt-radius-2">
       Radio conducido R₂: <output id="pt-radius-2-output" for="pt-radius-2">4,0 pulg</output>
@@ -1029,9 +1029,9 @@ svg {
   </div>
 
   <div class="pt-readouts" aria-live="polite">
-    <span class="viz-badge">n₂ = <output id="pt-rpm-2-output">30,0 rpm</output></span>
-    <span class="viz-badge">f₁ = <output id="pt-f1-output">1,000 Hz</output> · T₁ = <output id="pt-t1-output">1,000 s</output></span>
-    <span class="viz-badge">f₂ = <output id="pt-f2-output">0,500 Hz</output> · T₂ = <output id="pt-t2-output">2,000 s</output></span>
+    <span class="viz-badge">n₂ = <output id="pt-rpm-2-output">0,0 rpm</output></span>
+    <span class="viz-badge">f₁ = <output id="pt-f1-output">0,000 Hz</output> · T₁ = <output id="pt-t1-output">sin giro</output></span>
+    <span class="viz-badge">f₂ = <output id="pt-f2-output">0,000 Hz</output> · T₂ = <output id="pt-t2-output">sin giro</output></span>
   </div>
 
   <div class="pt-stage">
@@ -1075,7 +1075,7 @@ svg {
   </div>
 
   <div class="card pt-live-formula" aria-live="polite">
-    <span id="pt-live-formula">y₁(t) = 2 sen(2πt) · y₂(t) = 4 sen(πt)</span>
+    <span id="pt-live-formula">y₁(t) = 2 sen(0t) · y₂(t) = 4 sen(0t)</span>
   </div>
 
   <div class="pt-explanation">
@@ -1107,7 +1107,7 @@ svg {
 
     var radius1 = 2;
     var radius2 = 4;
-    var rpm1 = 60;
+    var rpm1 = 0;
     var duration = 4;
     var center1 = { x: 125, y: 155 };
     var center2 = { x: 385, y: 155 };
@@ -1143,8 +1143,7 @@ svg {
     var dot1 = root.querySelector("#pt-dot-1");
     var dot2 = root.querySelector("#pt-dot-2");
     var liveFormula = root.querySelector("#pt-live-formula");
-    var reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var playing = !reducedMotion;
+    var playing = false;
     var currentTime = 0;
     var lastFrame = null;
 
@@ -1267,8 +1266,8 @@ svg {
       rpm2Output.value = formatNumber(state.rpm2, 2) + " rpm";
       f1Output.value = formatNumber(state.frequency1, 3) + " Hz";
       f2Output.value = formatNumber(state.frequency2, 3) + " Hz";
-      t1Output.value = formatNumber(1 / state.frequency1, 3) + " s";
-      t2Output.value = formatNumber(1 / state.frequency2, 3) + " s";
+      t1Output.value = state.frequency1 > 0 ? formatNumber(1 / state.frequency1, 3) + " s" : "sin giro";
+      t2Output.value = state.frequency2 > 0 ? formatNumber(1 / state.frequency2, 3) + " s" : "sin giro";
       liveFormula.textContent =
         "y₁(t) = 2 sen(" + formatNumber(2 * Math.PI * state.frequency1, 3) + "t) · " +
         "y₂(t) = " + formatNumber(radius2, 2) + " sen(" + formatNumber(2 * Math.PI * state.frequency2, 3) + "t)";

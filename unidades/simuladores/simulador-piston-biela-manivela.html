@@ -1012,7 +1012,7 @@ svg {
 <div id="piston-sim">
   <div class="ps-controls">
     <div class="ps-actions">
-      <button id="ps-play" class="btn btn-primary" type="button" aria-pressed="true">Pausar</button>
+      <button id="ps-play" class="btn btn-primary" type="button" aria-pressed="false">Reproducir</button>
       <button id="ps-reset" class="btn" type="button">Reiniciar</button>
     </div>
     <label class="form-label ps-time-control" for="ps-time">
@@ -1122,8 +1122,7 @@ svg {
     var pistonDot = root.querySelector("#ps-piston-dot");
     var crankpinDot = root.querySelector("#ps-crankpin-dot");
     var grid = root.querySelector("#ps-grid");
-    var reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var playing = !reducedMotion;
+    var playing = false;
     var currentTime = 0;
     var lastFrame = null;
     var svgNamespace = "http://www.w3.org/2000/svg";

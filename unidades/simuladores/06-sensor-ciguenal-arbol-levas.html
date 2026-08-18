@@ -833,7 +833,7 @@ svg {
   #ckp-cmp-lab .ck-stage {
     display: grid;
     gap: 1rem;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 15fr) minmax(0, 85fr);
     margin-top: 1rem;
   }
 
@@ -977,20 +977,21 @@ svg {
 
 <div id="ckp-cmp-lab" aria-label="Simulador de sensores de cigüeñal y árbol de levas">
   <div class="viz-controls">
-    <button id="ck-play" class="btn btn-primary" type="button" aria-pressed="true">Pausar</button>
+    <button id="ck-play" class="btn btn-primary" type="button" aria-pressed="false">Reproducir</button>
     <label class="form-label" for="ck-angle">
-      Ciclo: <output id="ck-angle-output" for="ck-angle">0° · 0,0 ms</output>
+      Ciclo: <output id="ck-angle-output" for="ck-angle">0° · sin giro</output>
       <input id="ck-angle" class="form-range" type="range" min="0" max="720" step="0.01" value="0">
     </label>
     <label class="form-label" for="ck-rpm">
-      Cigüeñal: <output id="ck-rpm-output" for="ck-rpm">300 rpm</output>
-      <input id="ck-rpm" class="form-range" type="range" min="60" max="1200" step="20" value="300">
+      Cigüeñal: <output id="ck-rpm-output" for="ck-rpm">0 rpm</output>
+      <input id="ck-rpm" class="form-range" type="range" min="0" max="1200" step="20" value="0">
     </label>
     <label class="form-label" for="ck-wheel-pattern">
       Rueda fónica CKP
       <select id="ck-wheel-pattern" class="form-select">
         <option value="60-2" selected>60−2 dientes</option>
         <option value="36-1">36−1 dientes</option>
+        <option value="20-1">20−1 dientes</option>
       </select>
     </label>
     <label class="form-label" for="ck-sensor-type">
@@ -1016,8 +1017,8 @@ svg {
   </div>
 
   <div class="viz-row ck-statline" aria-live="polite">
-    <span class="viz-badge">CMP: <output id="ck-cam-rpm-output">150 rpm</output></span>
-    <span class="viz-badge">f CKP: <output id="ck-frequency-output">300 Hz</output></span>
+    <span class="viz-badge">CMP: <output id="ck-cam-rpm-output">0 rpm</output></span>
+    <span class="viz-badge">f CKP: <output id="ck-frequency-output">0 Hz</output></span>
     <span class="viz-badge">Estado: <output id="ck-status-output">sincronizado</output></span>
   </div>
 
@@ -1038,7 +1039,7 @@ svg {
         <path class="ck-sensor" d="M188 64 L245 64 L252 75 L252 97 L245 108 L188 108 L178 97 L178 75 Z"></path>
         <circle id="ck-cmp-sensor-light" class="ck-sensor-cmp" cx="181" cy="86" r="6"></circle>
         <text class="ck-label" x="260" y="80">CMP</text>
-        <text id="ck-cam-angle-label" class="ck-muted" x="260" y="101">0° · 150 rpm</text>
+        <text id="ck-cam-angle-label" class="ck-muted" x="260" y="101">0° · 0 rpm</text>
 
         <g id="ck-crank-rotor">
           <circle class="ck-crank-ring" cx="115" cy="246" r="63"></circle>
@@ -1050,7 +1051,7 @@ svg {
         <path class="ck-sensor" d="M203 222 L267 222 L274 233 L274 259 L267 270 L203 270 L193 259 L193 233 Z"></path>
         <circle id="ck-ckp-sensor-light" class="ck-sensor-ckp" cx="196" cy="246" r="6"></circle>
         <text class="ck-label" x="282" y="240">CKP</text>
-        <text id="ck-crank-angle-label" class="ck-muted" x="282" y="261">0° · 300 rpm</text>
+        <text id="ck-crank-angle-label" class="ck-muted" x="282" y="261">0° · 0 rpm</text>
 
         <line class="ck-guide ck-guide-dashed" x1="20" y1="332" x2="340" y2="332"></line>
         <text id="ck-ratio-label" class="ck-label" x="180" y="346" text-anchor="middle">2 vueltas CKP ↔ 1 vuelta CMP</text>
@@ -1058,13 +1059,13 @@ svg {
       <figcaption class="text-small">Relación mecánica 2:1 durante un ciclo de cuatro tiempos</figcaption>
     </figure> 
     <figure class="ck-view">
-      <svg viewBox="0 0 360 350" role="img" aria-labelledby="ck-signals-title ck-signals-desc">
+      <svg viewBox="0 0 720 350" role="img" aria-labelledby="ck-signals-title ck-signals-desc">
         <title id="ck-signals-title">Señales CKP y CMP sincronizadas</title>
         <desc id="ck-signals-desc">Las señales se representan sobre un ciclo completo de 720 grados del cigüeñal y el cursor indica el instante actual.</desc>
         <g id="ck-angle-grid"></g>
         <g id="ck-gap-zones"></g>
-        <line class="ck-guide" x1="48" y1="145" x2="345" y2="145"></line>
-        <line class="ck-guide" x1="48" y1="280" x2="345" y2="280"></line>
+        <line class="ck-guide" x1="48" y1="145" x2="705" y2="145"></line>
+        <line class="ck-guide" x1="48" y1="280" x2="705" y2="280"></line>
         <text class="ck-label" x="8" y="112">CKP</text>
         <text class="ck-label" x="8" y="248">CMP</text>
         <path id="ck-ckp-path" class="ck-signal-ckp"></path>
@@ -1073,7 +1074,7 @@ svg {
         <circle id="ck-ckp-dot" class="ck-cursor-dot-ckp" cx="48" cy="115" r="4.5"></circle>
         <circle id="ck-cmp-dot" class="ck-cursor-dot-cmp" cx="48" cy="280" r="4.5"></circle>
         <text id="ck-cursor-label" class="ck-label" x="52" y="318">0°</text>
-        <text class="ck-muted" x="345" y="340" text-anchor="end">ángulo del cigüeñal</text>
+        <text class="ck-muted" x="705" y="340" text-anchor="end">ángulo del cigüeñal</text>
       </svg>
       <figcaption class="text-small">Correlación eléctrica CKP–CMP en los 720° del ciclo</figcaption>
     </figure>
@@ -1088,16 +1089,15 @@ svg {
     if (!root) return;
 
     var svgNamespace = "http://www.w3.org/2000/svg";
-    var plot = { left: 48, right: 345 };
+    var plot = { left: 48, right: 705 };
     var crankCenter = { x: 115, y: 246 };
-    var rpm = 300;
+    var rpm = 0;
     var pattern = "60-2";
     var sensorType = "inductive";
     var phaseOffset = 0;
     var fault = "normal";
     var cycleAngle = 0;
-    var reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var playing = !reducedMotion;
+    var playing = false;
     var lastFrame = null;
 
     var playButton = root.querySelector("#ck-play");
@@ -1144,7 +1144,9 @@ svg {
     }
 
     function patternData() {
-      return pattern === "36-1" ? { positions: 36, missing: 1 } : { positions: 60, missing: 2 };
+      if (pattern === "20-1") return { positions: 20, missing: 1 };
+      if (pattern === "36-1") return { positions: 36, missing: 1 };
+      return { positions: 60, missing: 2 };
     }
 
     function makeSvgElement(name, attributes, textValue) {
@@ -1306,7 +1308,7 @@ svg {
       var camAngle = angle / 2 - phaseOffset / 2;
       var ckpValue = ckpSignalAt(angle);
       var cmpValue = cmpSignalAt(angle);
-      var timeMilliseconds = angle / (rpm * 6) * 1000;
+      var timeMilliseconds = rpm > 0 ? angle / (rpm * 6) * 1000 : null;
       var frequency = data.positions * rpm / 60;
       var cursorX = xScale(angle);
 
@@ -1323,11 +1325,11 @@ svg {
       ckpDot.setAttribute("cy", ckpY(ckpValue));
       cmpDot.setAttribute("cx", cursorX);
       cmpDot.setAttribute("cy", cmpY(cmpValue));
-      cursorLabel.setAttribute("x", clamp(cursorX + 5, 50, 318));
+      cursorLabel.setAttribute("x", clamp(cursorX + 5, 50, plot.right - 27));
       cursorLabel.textContent = formatNumber(angle, 0) + "°";
 
       angleSlider.value = String(angle);
-      angleOutput.value = formatNumber(angle, 0) + "° · " + formatNumber(timeMilliseconds, 1) + " ms";
+      angleOutput.value = formatNumber(angle, 0) + "° · " + (timeMilliseconds === null ? "sin giro" : formatNumber(timeMilliseconds, 1) + " ms");
       rpmOutput.value = formatNumber(rpm, 0) + " rpm";
       phaseOutput.value = formatSigned(phaseOffset, 0, "°");
       camRpmOutput.value = formatNumber(rpm / 2, 0) + " rpm";
